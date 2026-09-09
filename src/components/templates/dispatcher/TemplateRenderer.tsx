@@ -9,6 +9,11 @@ import { ShipFlowWebsite } from '@/components/templates/shipflow/ShipFlowWebsite
 import { SwiftDropWebsite } from '@/components/templates/swiftdrop/SwiftDropWebsite';
 import { AeroCargoWebsite } from '@/components/templates/aerocargo/AeroCargoWebsite';
 import { PortAxisWebsite } from '@/components/templates/portaxis/PortAxisWebsite';
+import { WarehouseXWebsite } from '@/components/templates/warehousex/WarehouseXWebsite';
+import { SupplyCoreWebsite } from '@/components/templates/supplycore/SupplyCoreWebsite';
+
+import { RouteIQWebsite } from '@/components/templates/routeiq/RouteIQWebsite';
+import { MoveSphereWebsite } from '@/components/templates/movesphere/MoveSphereWebsite';
 
 interface TemplateRendererProps {
   template: Template;
@@ -81,7 +86,47 @@ export function TemplateRenderer({
     );
   }
 
-  // Fallback for remaining templates until implemented in this phase
+  if (template.slug === 'warehouse-x') {
+    return (
+      <WarehouseXWebsite
+        template={template}
+        initialTracking={initialTracking}
+        initialPage={initialPage}
+      />
+    );
+  }
+
+  if (template.slug === 'supply-core') {
+    return (
+      <SupplyCoreWebsite
+        template={template}
+        initialTracking={initialTracking}
+        initialPage={initialPage}
+      />
+    );
+  }
+
+  if (template.slug === 'route-iq') {
+    return (
+      <RouteIQWebsite
+        template={template}
+        initialTracking={initialTracking}
+        initialPage={initialPage}
+      />
+    );
+  }
+
+  if (template.slug === 'move-sphere') {
+    return (
+      <MoveSphereWebsite
+        template={template}
+        initialTracking={initialTracking}
+        initialPage={initialPage}
+      />
+    );
+  }
+
+  // Graceful fallback for any unknown template slug
   return (
     <EmbeddedTemplateView
       template={template}

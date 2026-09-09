@@ -101,10 +101,10 @@ The platform features an intentionally curated dark luxury visual identity desig
 | **04** | **SwiftDrop** | Last-Mile Courier | Modern Bento Grid (`#0D0E15`, `#FF5722`) | Instant Urban Parcel Rate Calculator & Driver Digital POD | **LIVE (Phase 06)** |
 | **05** | **AeroCargo** | Air Cargo & Express Charter | Aviation Cockpit Dark (`#070A14`, `#38BDF8`) | IATA 11-digit AWB Radar, Hold Estimator & CEIV Pharma | **LIVE (Phase 06)** |
 | **06** | **PortAxis** | Port Terminal & Intermodal | Enterprise Steel Grey (`#070C18`, `#38BDF8`) | Deepwater Berth Availability Board & On-Dock Class-1 Rail | **LIVE (Phase 06)** |
-| **07** | **WarehouseX** | 3PL Warehousing & Storage | Operations High-Density | Pallet ASN Ingestion Lookup & Automated Racking Monitor | Scheduled |
-| **08** | **SupplyCore** | Enterprise Supply Chain | Corporate / Resilient | Multi-Tier Supplier Risk Index & Scope-3 Carbon Visibility | Scheduled |
-| **09** | **RouteIQ** | Logistics Software & AI | Data-driven / Dark Tech | Dynamic Multi-Stop TSP Neural Engine & Predictive ETA | Scheduled |
-| **10** | **MoveSphere** | Intermodal Autonomous Freight | Futuristic / Glassmorphic | Holographic Global Transport Grid & Smart IoT Container | Scheduled |
+| **07** | **WarehouseX** | 3PL Warehousing & Storage | Operations High-Density (`#060B12`, `#10B981`) | Pallet ASN Ingestion Lookup, ASRS Density & Dock Turnaround | **LIVE (Phase 08)** |
+| **08** | **SupplyCore** | Enterprise Supply Chain | Corporate / Resilient (`#080B14`, `#6366F1`) | Multi-Tier Supplier Risk Index & Scope-3 Carbon Visibility | **LIVE (Phase 08)** |
+| **09** | **RouteIQ** | Logistics Software & AI | Data-driven / Dark Tech (`#05070E`, `#A855F7`) | Dynamic Multi-Stop TSP Neural Engine & CAN-Bus Telemetry | **LIVE (Phase 08)** |
+| **10** | **MoveSphere** | Intermodal Autonomous Freight | Futuristic / Glassmorphic (`#03060D`, `#14B8A6`) | Smart Quantum Sensor Telemetry & Autonomous Corridors | **LIVE (Phase 08)** |
 
 ---
 
