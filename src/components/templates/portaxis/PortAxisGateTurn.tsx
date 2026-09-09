@@ -207,6 +207,7 @@ export const PortAxisGateTurn: React.FC = () => {
                 placeholder="Enter Container ID (e.g. MSCU-928192-3) or Bill of Lading PIN"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Container ID or Bill of Lading PIN Input"
               />
             </div>
             <button

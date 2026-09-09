@@ -55,6 +55,7 @@ export function SwiftDropTracking({
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Enter Delivery Waybill (e.g. SD-4421-EU)"
               className={styles.rateInput}
+              aria-label="Delivery Waybill Number Input"
               style={{ paddingLeft: '2.75rem', width: '100%', boxSizing: 'border-box' }}
             />
           </div>

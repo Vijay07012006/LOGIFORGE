@@ -81,6 +81,7 @@ export function ShipFlowWebsite({
 
   useEffect(() => {
     function handleHostMessage(event: MessageEvent) {
+      if (typeof window !== 'undefined' && event.origin !== window.location.origin) return;
       const data = event.data;
       if (!data || typeof data !== 'object') return;
 

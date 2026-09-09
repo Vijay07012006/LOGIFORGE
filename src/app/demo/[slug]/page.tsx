@@ -64,10 +64,11 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
     }
   }, [slug]);
 
-  // Safe postMessage dispatcher to embedded iframe
+  // Safe postMessage dispatcher to embedded iframe with origin protection
   const sendToIframe = useCallback((message: HostToTemplateMessage) => {
     if (iframeRef.current && iframeRef.current.contentWindow) {
-      iframeRef.current.contentWindow.postMessage(message, '*');
+      const targetOrigin = typeof window !== 'undefined' ? window.location.origin : '*';
+      iframeRef.current.contentWindow.postMessage(message, targetOrigin);
     }
   }, []);
 
@@ -89,7 +90,7 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
     }
   };
 
-  // Synchronize template page change
+  // Synchronize template section navigation
   const handlePageChange = (pageSlug: string) => {
     setActivePageSlug(pageSlug);
     sendToIframe({
@@ -98,7 +99,7 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
     });
   };
 
-  // Toggle Presentation Mode
+  // Toggle Presentation Mode HUD
   const togglePresentationMode = useCallback(() => {
     setPresentationMode((prev) => {
       const next = !prev;
@@ -166,9 +167,10 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [presentationMode, togglePresentationMode, sendToIframe]);
 
-  // Listen for postMessage from embedded template
+  // Listen for postMessage from embedded template with origin validation
   useEffect(() => {
     function handleTemplateMessage(event: MessageEvent) {
+      if (typeof window !== 'undefined' && event.origin !== window.location.origin) return;
       const data = event.data;
       if (!data || typeof data !== 'object') return;
 

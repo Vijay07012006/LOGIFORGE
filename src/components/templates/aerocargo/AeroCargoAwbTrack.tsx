@@ -55,6 +55,7 @@ export function AeroCargoAwbTrack({
               onChange={(e) => setAwbQuery(e.target.value)}
               placeholder="Enter 11-Digit IATA AWB (e.g. AC-9901-FRA or 020-89241021)"
               className={styles.awbInput}
+              aria-label="IATA Airway Bill Number Input"
             />
           </div>
           <button type="submit" className={styles.btnAero} style={{ flex: '0 0 auto', minHeight: '44px' }}>

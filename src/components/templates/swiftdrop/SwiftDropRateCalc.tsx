@@ -80,8 +80,9 @@ export function SwiftDropRateCalc() {
         <form onSubmit={handleBooking}>
           <div className={styles.rateFormRow}>
             <div className={styles.rateField}>
-              <label className={styles.rateLabel}>Pickup ZIP Code</label>
+              <label htmlFor="sd-origin-zip" className={styles.rateLabel}>Pickup ZIP Code</label>
               <input
+                id="sd-origin-zip"
                 type="text"
                 value={originZip}
                 onChange={(e) => {
@@ -91,12 +92,14 @@ export function SwiftDropRateCalc() {
                 className={styles.rateInput}
                 placeholder="e.g. 10001"
                 maxLength={5}
+                aria-label="Pickup 5-digit ZIP Code"
               />
             </div>
 
             <div className={styles.rateField}>
-              <label className={styles.rateLabel}>Drop-off ZIP Code</label>
+              <label htmlFor="sd-dest-zip" className={styles.rateLabel}>Drop-off ZIP Code</label>
               <input
+                id="sd-dest-zip"
                 type="text"
                 value={destZip}
                 onChange={(e) => {
@@ -106,13 +109,16 @@ export function SwiftDropRateCalc() {
                 className={styles.rateInput}
                 placeholder="e.g. 10019"
                 maxLength={5}
+                aria-label="Drop-off 5-digit ZIP Code"
               />
             </div>
 
             <div className={styles.rateField}>
-              <label className={styles.rateLabel}>Delivery Service Tier</label>
+              <label htmlFor="sd-service-tier" className={styles.rateLabel}>Delivery Service Tier</label>
               <select
+                id="sd-service-tier"
                 value={speedTier}
+                aria-label="Delivery Service Speed Tier"
                 onChange={(e) => {
                   setSpeedTier(e.target.value as 'flash' | 'same-day' | 'next-day');
                   setBooked(false);

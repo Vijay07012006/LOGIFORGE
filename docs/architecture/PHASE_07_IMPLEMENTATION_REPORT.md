@@ -44,8 +44,19 @@ During user verification of the Live Demo Studio (`/demo/cargo-nova`), a critica
    - Suppressed the global footer across all `/demo` routes (both Studio container and iframe embed), eliminating secondary scrollbars in the studio viewport.
 3. `src/app/demo/[slug]/page.tsx`:
    - Implemented frame-busting security protection: if the Demo Studio shell is ever loaded inside an iframe (`window.top !== window.self`), it immediately normalizes the location to `/demo/${slug}/embed`.
-   - Guarantees zero recursive nesting or toolbar duplication under any routing edge case.
-4. `README.md`:
+   - Hardened `sendToIframe` with explicit `targetOrigin` (`window.location.origin` instead of wildcard `*`).
+   - Added `event.origin` validation in `handleTemplateMessage`.
+4. `src/components/templates/*/Website.tsx` & `EmbeddedTemplateView.tsx`:
+   - Hardened `postMessage` listeners with strict `event.origin !== window.location.origin` verification across `CargoNova`, `FleetOne`, `ShipFlow`, `SwiftDrop`, `AeroCargo`, `PortAxis`, and `EmbeddedTemplateView`.
+5. `src/components/templates/swiftdrop/SwiftDropTracking.tsx`:
+   - Added explicit `aria-label="Delivery Waybill Number Input"`.
+6. `src/components/templates/swiftdrop/SwiftDropRateCalc.tsx`:
+   - Added explicit `htmlFor` / `id` bindings and `aria-label` attributes to pickup/drop-off ZIP inputs and service tier selector.
+7. `src/components/templates/aerocargo/AeroCargoAwbTrack.tsx`:
+   - Added explicit `aria-label="IATA Airway Bill Number Input"`.
+8. `src/components/templates/portaxis/PortAxisGateTurn.tsx`:
+   - Added explicit `aria-label="Container ID or Bill of Lading PIN Input"`.
+9. `README.md`:
    - Updated with Phase 07 QA & Integration Hardening verification status.
 
 ---
