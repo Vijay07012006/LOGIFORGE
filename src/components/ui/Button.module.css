@@ -1,0 +1,91 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lf-space-2);
+  font-family: var(--lf-font-sans);
+  font-weight: 500;
+  border-radius: var(--lf-radius-md);
+  border: 1px solid transparent;
+  transition: all var(--lf-transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sm {
+  font-size: var(--lf-text-xs);
+  padding: 6px 12px;
+}
+
+.md {
+  font-size: var(--lf-text-sm);
+  padding: 8px 16px;
+}
+
+.lg {
+  font-size: var(--lf-text-base);
+  padding: 12px 24px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.primary {
+  background-color: var(--lf-accent-primary);
+  color: #FFFFFF;
+}
+
+.primary:hover {
+  background-color: var(--lf-accent-primary-hover);
+  box-shadow: var(--lf-shadow-glow);
+}
+
+.secondary {
+  background-color: var(--lf-bg-surface);
+  color: var(--lf-text-primary);
+  border-color: var(--lf-border-medium);
+}
+
+.secondary:hover {
+  background-color: var(--lf-bg-elevated);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.outline {
+  background: transparent;
+  color: var(--lf-text-primary);
+  border-color: var(--lf-border-medium);
+}
+
+.outline:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--lf-text-primary);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--lf-text-secondary);
+}
+
+.ghost:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--lf-text-primary);
+}
+
+.accent {
+  background-color: #D4AF37;
+  color: #080B10;
+  font-weight: 600;
+}
+
+.accent:hover {
+  background-color: #E6C258;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

@@ -1,0 +1,464 @@
+.embedContainer {
+  background-color: var(--tmpl-bg, #090D16);
+  color: var(--tmpl-text, #F8FAFC);
+  min-height: 100vh;
+  font-family: var(--lf-font-sans);
+  overflow-x: hidden;
+}
+
+.templateNav {
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(9, 13, 22, 0.85);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brandTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+
+.brandDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--tmpl-accent, #D4AF37);
+  box-shadow: 0 0 10px var(--tmpl-accent, #D4AF37);
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navLink {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+.navLink:hover {
+  color: #FFFFFF;
+}
+
+.navCta {
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--tmpl-accent, #D4AF37);
+  color: #080B10;
+  padding: 8px 16px;
+  border-radius: var(--tmpl-radius, 6px);
+  text-decoration: none;
+  transition: opacity 150ms;
+}
+
+.navCta:hover {
+  opacity: 0.9;
+}
+
+.hero {
+  padding: 80px 24px 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+}
+
+.heroInner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroBadge {
+  margin-bottom: 20px;
+}
+
+.headline {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .headline {
+    font-size: 52px;
+  }
+}
+
+.subheadline {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 760px;
+  margin: 0 auto 36px;
+}
+
+.heroButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.btnPrimary {
+  background-color: var(--tmpl-accent, #D4AF37);
+  color: #080B10;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: var(--tmpl-radius, 6px);
+  text-decoration: none;
+}
+
+.btnSecondary {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  font-weight: 500;
+  padding: 12px 28px;
+  border-radius: var(--tmpl-radius, 6px);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.trackingSection {
+  padding: 60px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(15, 23, 42, 0.4);
+}
+
+.sectionInner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.trackingHeader {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.simDisclaimer {
+  font-family: var(--lf-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #FBBF24;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.trackingTitle {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.trackingDesc {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.shipmentCard {
+  background-color: var(--tmpl-surface, #0F172A);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--tmpl-radius, 8px);
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.shipmentHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.shipmentMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.consignmentLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.consignmentNo {
+  font-family: var(--lf-font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--tmpl-accent, #D4AF37);
+}
+
+.routeBar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  border-radius: var(--tmpl-radius, 6px);
+  margin-bottom: 30px;
+}
+
+@media (min-width: 640px) {
+  .routeBar {
+    grid-template-columns: 1fr auto 1fr;
+  }
+}
+
+.routePoint {
+  display: flex;
+  flex-direction: column;
+}
+
+.pointLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.pointCity {
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.pointCode {
+  font-family: var(--lf-font-mono);
+  font-size: 12px;
+  color: #60A5FA;
+}
+
+.routeTransit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.carrierText {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+.transitLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tmpl-accent, #D4AF37);
+}
+
+.transitDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--tmpl-accent, #D4AF37);
+}
+
+.etaText {
+  font-size: 11px;
+  font-family: var(--lf-font-mono);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.timeline {
+  padding-top: 10px;
+}
+
+.timelineTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.milestoneList {
+  display: flex;
+  flex-direction: column;
+}
+
+.milestoneRow {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.milestoneRow:last-child {
+  padding-bottom: 0;
+}
+
+.milestoneIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.iconDone {
+  color: var(--lf-accent-emerald);
+}
+
+.iconActive {
+  color: #FBBF24;
+}
+
+.iconPending {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  margin-top: 4px;
+}
+
+.milestoneConnector {
+  width: 2px;
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-top: 6px;
+}
+
+.milestoneContent {
+  flex: 1;
+}
+
+.mHead {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.mLocation {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.mTime {
+  font-family: var(--lf-font-mono);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mDesc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.shipmentNotFound {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--tmpl-radius, 6px);
+  color: #FCA5A5;
+}
+
+.servicesSection {
+  padding: 60px 24px;
+}
+
+.servicesHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.servicesTitle {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.servicesSubtitle {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.serviceCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .serviceCards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.serviceCard {
+  background-color: var(--tmpl-surface, #0F172A);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--tmpl-radius, 8px);
+  padding: 24px;
+}
+
+.srvTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #FFFFFF;
+}
+
+.srvDesc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+.templateFooter {
+  padding: 30px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footerRow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+  .footerRow {
+    flex-direction: row;
+  }
+}
+
+.complianceList {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.complianceBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.6);
+}

@@ -1,0 +1,122 @@
+/**
+ * LOGIFORGE: Design Token Architecture
+ * Canonical Source: docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md
+ *
+ * Token Namespaces:
+ *   --lf-*   : Platform Shell (Catalog, Studio, Navigation, Frame Controls)
+ *   --tmpl-* : Template Scoped Primitives (Overridden per-template)
+ */
+
+:root {
+  /* =========================================================================
+   * PLATFORM SHELL: Surface & Background (Obsidian Studio Palette)
+   * ========================================================================= */
+  --lf-bg-base: #080B10;
+  --lf-bg-surface: #0E131F;
+  --lf-bg-elevated: #161C2E;
+  --lf-bg-overlay: rgba(8, 11, 16, 0.85);
+
+  /* =========================================================================
+   * PLATFORM SHELL: Borders & Dividers
+   * ========================================================================= */
+  --lf-border-subtle: rgba(255, 255, 255, 0.08);
+  --lf-border-medium: rgba(255, 255, 255, 0.16);
+  --lf-border-accent: rgba(59, 130, 246, 0.4);
+
+  /* =========================================================================
+   * PLATFORM SHELL: Typography & Foreground
+   * ========================================================================= */
+  --lf-text-primary: #F8FAFC;
+  --lf-text-secondary: #94A3B8;
+  --lf-text-muted: #64748B;
+  --lf-text-inverse: #080B10;
+
+  /* =========================================================================
+   * PLATFORM SHELL: Logistics Signal Accents
+   * ========================================================================= */
+  --lf-accent-primary: #2563EB;        /* Maritime Cobalt */
+  --lf-accent-primary-hover: #1D4ED8;
+  --lf-accent-amber: #F59E0B;          /* Cargo Warning Gold */
+  --lf-accent-emerald: #10B981;        /* In-Transit Success */
+  --lf-accent-cyan: #06B6D4;           /* Air Corridors */
+  --lf-accent-purple: #8B5CF6;         /* Logistics Tech / AI */
+
+  /* =========================================================================
+   * PLATFORM SHELL: Shadows & Elevation
+   * ========================================================================= */
+  --lf-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --lf-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  --lf-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.6);
+  --lf-shadow-glow: 0 0 24px -4px rgba(37, 99, 235, 0.35);
+
+  /* =========================================================================
+   * PLATFORM SHELL: Spacing Scale
+   * ========================================================================= */
+  --lf-space-1: 0.25rem;   /* 4px */
+  --lf-space-2: 0.5rem;    /* 8px */
+  --lf-space-3: 0.75rem;   /* 12px */
+  --lf-space-4: 1.0rem;    /* 16px */
+  --lf-space-6: 1.5rem;    /* 24px */
+  --lf-space-8: 2.0rem;    /* 32px */
+  --lf-space-12: 3.0rem;   /* 48px */
+  --lf-space-16: 4.0rem;   /* 64px */
+  --lf-space-24: 6.0rem;   /* 96px */
+
+  /* =========================================================================
+   * PLATFORM SHELL: Border Radii
+   * ========================================================================= */
+  --lf-radius-sm: 4px;
+  --lf-radius-md: 8px;
+  --lf-radius-lg: 12px;
+  --lf-radius-xl: 16px;
+  --lf-radius-full: 9999px;
+
+  /* =========================================================================
+   * PLATFORM SHELL: Typography Scale
+   * ========================================================================= */
+  --lf-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --lf-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --lf-text-xs: 0.75rem;     /* 12px */
+  --lf-text-sm: 0.875rem;    /* 14px */
+  --lf-text-base: 1.0rem;    /* 16px */
+  --lf-text-lg: 1.125rem;    /* 18px */
+  --lf-text-xl: 1.25rem;     /* 20px */
+  --lf-text-2xl: 1.5rem;     /* 24px */
+  --lf-text-3xl: 1.875rem;   /* 30px */
+  --lf-text-4xl: 2.25rem;    /* 36px */
+  --lf-text-5xl: 3.0rem;     /* 48px */
+
+  /* =========================================================================
+   * PLATFORM SHELL: Transitions & Timing
+   * ========================================================================= */
+  --lf-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --lf-transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --lf-transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* =========================================================================
+   * PLATFORM SHELL: Z-Index Hierarchy
+   * ========================================================================= */
+  --lf-z-base: 0;
+  --lf-z-card: 10;
+  --lf-z-sticky: 100;
+  --lf-z-toolbar: 200;
+  --lf-z-overlay: 500;
+  --lf-z-modal: 1000;
+  --lf-z-toast: 2000;
+
+  /* =========================================================================
+   * TEMPLATE SCOPED BASELINE DEFAULTS
+   * Overridden dynamically by [data-template-theme="..."] or template containers
+   * ========================================================================= */
+  --tmpl-bg: #090D16;
+  --tmpl-surface: #0F172A;
+  --tmpl-text: #F8FAFC;
+  --tmpl-text-muted: #94A3B8;
+  --tmpl-border: rgba(255, 255, 255, 0.1);
+  --tmpl-accent-primary: #D4AF37;
+  --tmpl-accent-secondary: #1B2A4A;
+  --tmpl-font-heading: 'Inter', sans-serif;
+  --tmpl-font-body: 'Inter', sans-serif;
+  --tmpl-radius: 8px;
+}

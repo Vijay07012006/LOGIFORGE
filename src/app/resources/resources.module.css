@@ -1,0 +1,121 @@
+.page {
+  padding: var(--lf-space-12) 0 var(--lf-space-24);
+}
+
+.header {
+  max-width: 760px;
+  margin-bottom: var(--lf-space-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lf-space-3);
+}
+
+.title {
+  font-size: var(--lf-text-3xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--lf-text-primary);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--lf-text-4xl);
+  }
+}
+
+.subtitle {
+  font-size: var(--lf-text-base);
+  color: var(--lf-text-secondary);
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--lf-space-6);
+  margin-bottom: var(--lf-space-12);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background-color: var(--lf-bg-surface);
+  border: 1px solid var(--lf-border-subtle);
+  border-radius: var(--lf-radius-lg);
+  padding: var(--lf-space-6);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--lf-space-4);
+}
+
+.readTime {
+  font-family: var(--lf-font-mono);
+  font-size: var(--lf-text-xs);
+  color: var(--lf-text-muted);
+}
+
+.cardTitle {
+  font-size: var(--lf-text-lg);
+  font-weight: 600;
+  margin-bottom: var(--lf-space-3);
+  color: var(--lf-text-primary);
+}
+
+.cardDesc {
+  font-size: var(--lf-text-sm);
+  color: var(--lf-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--lf-space-6);
+  flex: 1;
+}
+
+.cardFooter {
+  padding-top: var(--lf-space-4);
+  border-top: 1px solid var(--lf-border-subtle);
+}
+
+.starterBanner {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(14, 19, 31, 0.9) 100%);
+  border: 1px solid var(--lf-border-accent);
+  border-radius: var(--lf-radius-lg);
+  padding: var(--lf-space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lf-space-6);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .starterBanner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.bannerContent {
+  max-width: 640px;
+}
+
+.bannerTitle {
+  font-size: var(--lf-text-xl);
+  font-weight: 600;
+  margin-bottom: var(--lf-space-2);
+  color: var(--lf-text-primary);
+}
+
+.bannerDesc {
+  font-size: var(--lf-text-sm);
+  color: var(--lf-text-secondary);
+  line-height: 1.5;
+}
