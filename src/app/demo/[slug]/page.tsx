@@ -189,12 +189,12 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
         return { width: '100%', height: '100%', maxWidth: '1440px', isDevice: false };
       case 'tablet':
         return orientation === 'portrait'
-          ? { width: '768px', height: '1024px', maxWidth: '768px', isDevice: true }
-          : { width: '1024px', height: '768px', maxWidth: '1024px', isDevice: true };
+          ? { width: '100%', height: '1024px', maxWidth: '768px', isDevice: true }
+          : { width: '100%', height: '768px', maxWidth: '1024px', isDevice: true };
       case 'mobile':
         return orientation === 'portrait'
-          ? { width: '375px', height: '812px', maxWidth: '375px', isDevice: true }
-          : { width: '812px', height: '375px', maxWidth: '812px', isDevice: true };
+          ? { width: '100%', height: '812px', maxWidth: '375px', isDevice: true }
+          : { width: '100%', height: '375px', maxWidth: '812px', isDevice: true };
       case 'fluid':
       default:
         return { width: '100%', height: '100%', maxWidth: '100%', isDevice: false };

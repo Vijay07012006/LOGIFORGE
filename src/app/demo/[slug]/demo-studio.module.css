@@ -5,33 +5,45 @@
   background-color: #080605;
   overflow: hidden;
   position: relative;
+  width: 100%;
 }
 
-/* 1. Client Presentation Mode Floating Top HUD */
+/* 1. Client Presentation Mode: Fixed Fullscreen Overlay */
+.presentationActive {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+  background-color: #060403 !important;
+  overflow: hidden !important;
+}
+
 .presentationHud {
-  position: absolute;
-  top: 16px;
+  position: fixed;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1000;
+  z-index: 1000000;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  background: rgba(20, 16, 12, 0.94);
+  gap: 12px;
+  background: rgba(20, 16, 12, 0.96);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 179, 71, 0.35);
+  border: 1px solid rgba(255, 179, 71, 0.4);
   border-radius: 50px;
   padding: 8px 18px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(232, 89, 12, 0.15);
-  width: calc(100% - 32px);
-  max-width: 980px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(232, 89, 12, 0.2);
+  width: calc(100% - 24px);
+  max-width: 960px;
+  box-sizing: border-box;
   animation: slideDown 250ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideDown {
   from {
-    transform: translate(-50%, -20px);
+    transform: translate(-50%, -24px);
     opacity: 0;
   }
   to {
@@ -43,7 +55,8 @@
 .hudLeft {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  min-width: 0;
 }
 
 .hudBeacon {
@@ -53,6 +66,7 @@
   background-color: #e8590c;
   box-shadow: 0 0 10px #e8590c;
   animation: pulseBeacon 2s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes pulseBeacon {
@@ -69,31 +83,39 @@
 .hudTitleGroup {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .hudLabel {
-  font-size: 10px;
+  font-size: 9px;
   font-family: var(--lf-font-mono, monospace);
   color: #ffb347;
   letter-spacing: 0.08em;
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hudTemplateName {
   font-size: 13px;
   font-weight: 700;
   color: #f5efe6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hudCenter {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .hudDeviceGroup {
   display: flex;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   border: 1px solid #2e241b;
   border-radius: 50px;
   padding: 2px;
@@ -102,7 +124,7 @@
 .hudDeviceBtn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   padding: 4px 10px;
   border-radius: 50px;
   font-size: 11px;
@@ -111,6 +133,7 @@
   border: none;
   cursor: pointer;
   transition: all 150ms ease;
+  white-space: nowrap;
 }
 
 .hudDeviceBtn:hover {
@@ -127,13 +150,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .hudActionBtn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 5px;
+  padding: 5px 12px;
   border-radius: 50px;
   background-color: rgba(255, 255, 255, 0.06);
   border: 1px solid #2e241b;
@@ -141,6 +165,7 @@
   font-size: 11px;
   cursor: pointer;
   transition: all 150ms ease;
+  white-space: nowrap;
 }
 
 .hudActionBtn:hover {
@@ -160,8 +185,9 @@
   font-size: 11px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(232, 89, 12, 0.35);
+  box-shadow: 0 4px 14px rgba(232, 89, 12, 0.4);
   transition: transform 150ms ease;
+  white-space: nowrap;
 }
 
 .hudExitBtn:hover {
@@ -171,8 +197,23 @@
 .hudBadge {
   font-size: 9px;
   padding: 1px 4px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.35);
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 680px) {
+  .hudLabel {
+    display: none;
+  }
+  .hudActionBtn {
+    display: none;
+  }
+  .hudDeviceBtn span {
+    display: none;
+  }
+  .hudDeviceBtn {
+    padding: 6px 8px;
+  }
 }
 
 /* 2. Standard Studio Header Toolbar */
@@ -180,14 +221,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 52px;
+  min-height: 52px;
   background-color: var(--lf-bg-surface, #1a1410);
   border-bottom: 1px solid var(--lf-border-subtle, #2e241b);
-  padding: 0 var(--lf-space-4, 16px);
+  padding: 6px var(--lf-space-4, 16px);
   gap: var(--lf-space-3, 12px);
   z-index: var(--lf-z-toolbar, 50);
   flex-shrink: 0;
   overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.toolbar::-webkit-scrollbar {
+  display: none;
 }
 
 .toolLeft,
@@ -242,6 +288,7 @@
   font-family: var(--lf-font-sans, system-ui);
   outline: none;
   cursor: pointer;
+  max-width: 180px;
 }
 
 .select:focus {
@@ -297,7 +344,7 @@
 .deviceBtn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   padding: 4px 10px;
   border-radius: 50px;
   font-size: var(--lf-text-xs, 12px);
@@ -306,6 +353,7 @@
   border: none;
   cursor: pointer;
   transition: all 150ms ease;
+  white-space: nowrap;
 }
 
 .deviceBtn:hover {
@@ -321,7 +369,7 @@
 .controlIconBtn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   padding: 4px 10px;
   border-radius: 50px;
   font-size: var(--lf-text-xs, 12px);
@@ -330,6 +378,7 @@
   color: var(--lf-text-secondary, #b8a99a);
   cursor: pointer;
   transition: all 150ms ease;
+  white-space: nowrap;
 }
 
 .controlIconBtn:hover {
@@ -360,6 +409,7 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 150ms ease;
+  white-space: nowrap;
 }
 
 .zoomBtn:hover {
@@ -384,6 +434,7 @@
   color: var(--lf-text-secondary, #b8a99a);
   text-decoration: none;
   transition: all 150ms ease;
+  white-space: nowrap;
 }
 
 .isolatedBtn:hover {
@@ -403,6 +454,7 @@
   color: #ffb347;
   cursor: pointer;
   transition: all 150ms ease;
+  white-space: nowrap;
 }
 
 .presBtn:hover {
@@ -429,6 +481,11 @@
   padding: 6px var(--lf-space-4, 16px);
   overflow-x: auto;
   flex-shrink: 0;
+  scrollbar-width: none;
+}
+
+.pageNavBar::-webkit-scrollbar {
+  display: none;
 }
 
 .pageNavInner {
@@ -495,6 +552,11 @@
   gap: var(--lf-space-3, 12px);
   overflow-x: auto;
   flex-shrink: 0;
+  scrollbar-width: none;
+}
+
+.simulationBar::-webkit-scrollbar {
+  display: none;
 }
 
 .simLabelGroup {
@@ -568,7 +630,7 @@
   color: #ffffff;
   font-size: 11px;
   font-family: var(--lf-font-mono, monospace);
-  width: 100px;
+  width: 90px;
   outline: none;
 }
 
@@ -580,23 +642,29 @@
 .viewportContainer {
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* CRITICAL: Never center so the top is never clipped! */
   justify-content: center;
-  padding: var(--lf-space-4, 16px);
+  padding: 24px 12px 60px;
   background: radial-gradient(circle at center, #14100c 0%, #080605 100%);
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .viewportFrame {
-  transition: width 200ms ease, max-width 200ms ease, height 200ms ease;
+  transition: width 200ms ease, max-width 200ms ease, height 200ms ease, transform 200ms ease;
   background-color: #000000;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.95);
   display: flex;
   flex-direction: column;
   position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .framedBezel {
@@ -604,18 +672,25 @@
 }
 
 .mobileBezel {
-  border: 12px solid #221b15;
-  border-radius: 44px;
+  border: 10px solid #221b15;
+  border-radius: 36px;
 }
 
 .tabletBezel {
-  border: 16px solid #221b15;
-  border-radius: 32px;
+  border: 14px solid #221b15;
+  border-radius: 28px;
+}
+
+@media (max-width: 440px) {
+  .mobileBezel {
+    border: 5px solid #221b15;
+    border-radius: 20px;
+  }
 }
 
 /* Hardware Device Bezels */
 .deviceHeaderBezel {
-  height: 24px;
+  height: 22px;
   background-color: #221b15;
   display: flex;
   align-items: center;
@@ -626,7 +701,7 @@
 }
 
 .speakerSlot {
-  width: 44px;
+  width: 40px;
   height: 4px;
   background-color: #120e0b;
   border-radius: 2px;
@@ -641,7 +716,7 @@
 }
 
 .tabletCameraSlot {
-  height: 16px;
+  height: 14px;
   background-color: #221b15;
   display: flex;
   align-items: center;
@@ -650,7 +725,7 @@
 }
 
 .deviceFooterBezel {
-  height: 20px;
+  height: 18px;
   background-color: #221b15;
   display: flex;
   align-items: center;
@@ -659,7 +734,7 @@
 }
 
 .homeIndicator {
-  width: 120px;
+  width: 100px;
   height: 4px;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 2px;
@@ -677,10 +752,11 @@
 .presentationActive .toolbar,
 .presentationActive .pageNavBar,
 .presentationActive .simulationBar {
-  display: none;
+  display: none !important;
 }
 
 .presentationActive .viewportContainer {
-  padding: 0;
-  background: #000000;
+  padding-top: 84px !important; /* Proper clearance below floating HUD */
+  padding-bottom: 40px !important;
+  background: #060403 !important;
 }

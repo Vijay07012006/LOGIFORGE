@@ -90,15 +90,18 @@
 
 .heroSignal {
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding: 7px 16px;
+  gap: 10px;
+  padding: 6px 14px;
   margin-bottom: 28px;
   background: rgba(26, 20, 16, 0.85);
   border: 1px solid var(--lf-border-subtle);
   border-radius: var(--lf-radius-pill);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(14px);
+  max-width: 100%;
 }
 
 .signalBeacon {
@@ -141,6 +144,7 @@
   font-weight: 700;
   letter-spacing: 2px;
   color: #ffb347;
+  text-align: center;
 }
 
 .signalVersion {
@@ -153,16 +157,18 @@
   border: 1px solid rgba(232, 89, 12, 0.4);
 }
 
-/* Exact hero heading requirement: clamp(2.6rem, 7vw, 5.2rem), line-height 1.08, weight 900 */
+/* Fluid responsive hero heading: clamp(2.1rem, 6.2vw, 5.2rem) */
 .heroHeadline {
   font-family: var(--lf-font-heading);
-  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  font-size: clamp(2.1rem, 6.2vw, 5.2rem);
   font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.08;
   color: var(--lf-text-primary);
   max-width: 1080px;
   margin-bottom: 24px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .headlineHighlight {

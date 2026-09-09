@@ -39,29 +39,34 @@
 /* Subheadings: small letter-spaced text (4px) in #ffb347 above titles */
 .eyebrow {
   font-family: var(--lf-font-mono);
-  font-size: 11px;
+  font-size: clamp(10px, 2.5vw, 11px);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: clamp(2px, 0.8vw, 4px);
   color: #ffb347;
+  word-break: break-word;
 }
 
-/* Section Title Size: clamp(2rem, 4.5vw, 3.4rem) */
+/* Section Title Size: clamp(1.6rem, 4.2vw, 3.2rem) */
 .title {
   font-family: var(--lf-font-heading);
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-size: clamp(1.6rem, 4.2vw, 3.2rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--lf-text-primary);
   line-height: 1.15;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Section subtitles: centered, #b8a99a */
 .subtitle {
-  font-size: clamp(0.95rem, 1.4vw, 1.12rem);
+  font-size: clamp(0.9rem, 2vw, 1.12rem);
   color: #b8a99a;
   line-height: 1.68;
   max-width: 720px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .action {

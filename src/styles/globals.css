@@ -18,6 +18,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -27,6 +29,7 @@ body {
   background-color: var(--lf-bg-base);
   color: var(--lf-text-primary);
   overflow-x: hidden;
+  max-width: 100vw;
   position: relative;
 }
 

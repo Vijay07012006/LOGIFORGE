@@ -64,12 +64,13 @@ The platform features an intentionally curated dark luxury visual identity desig
 ### 3. Live Demo Studio & Client Presentation Environment (`/demo/[slug]`)
 - **Multi-Device Viewport Simulation:**
   - **Desktop (100% / 1440px):** Full-fidelity wide-screen viewport.
-  - **Tablet (768px):** Realistic hardware bezel with camera notch and orientation rotation (768×1024 Portrait / 1024×768 Landscape).
-  - **Mobile (375px):** Realistic hardware bezel with speaker grill, camera notch, and bottom home indicator bar (375×812 Portrait / 812×375 Landscape).
+  - **Tablet (Max 768px):** Fluid hardware bezel with camera notch and orientation rotation (768×1024 Portrait / 1024×768 Landscape).
+  - **Mobile (Max 375px):** Fluid hardware bezel with speaker grill, camera notch, adaptive border radius, and bottom home indicator bar (375×812 Portrait / 812×375 Landscape). Automatically scales and fits down to 320px screens with zero horizontal overflow.
   - **Fluid (100%):** Unconstrained responsive canvas.
 - **Zoom Scaling Controls:** Instant 50%, 75%, and 100% zoom scaling with smooth CSS transitions.
 - **Client Presentation Mode:**
-  - Collapses platform chrome into a sleek floating ambient HUD: `[ CLIENT PREVIEW • LOGIFORGE STUDIO ]`.
+  - Full-screen viewport isolation (`fixed`, `z-index: 999999`) completely hiding background platform navigation and chrome.
+  - Sleek floating ambient HUD: `[ CLIENT PREVIEW • LOGIFORGE STUDIO ]`.
   - Retains responsive device switcher in the floating HUD for presenting mobile vs tablet live to stakeholders.
   - One-click native browser fullscreen toggle.
   - Keyboard shortcuts: `P` to toggle presentation mode, `Escape` to cleanly exit.

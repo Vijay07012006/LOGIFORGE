@@ -1,12 +1,16 @@
 .badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--lf-space-1);
   font-family: var(--lf-font-mono);
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.25;
   border-radius: var(--lf-radius-full);
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  max-width: 100%;
+  word-break: break-word;
   transition: all var(--lf-transition-fast);
 }
 

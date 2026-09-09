@@ -35,11 +35,13 @@
 
 .title {
   font-family: var(--lf-font-heading);
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-size: clamp(1.8rem, 4.5vw, 3.6rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: var(--lf-space-2);
   color: var(--lf-text-primary);
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .tagline {
@@ -47,6 +49,7 @@
   color: #ffb347;
   font-weight: 500;
   margin-bottom: var(--lf-space-4);
+  word-break: break-word;
 }
 
 .description {
@@ -55,6 +58,8 @@
   max-width: 840px;
   line-height: 1.7;
   margin-bottom: var(--lf-space-8);
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .actions {
