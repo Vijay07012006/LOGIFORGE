@@ -98,6 +98,23 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     });
   }, [searchQuery, category, style, tier, sortBy, collection, pathname, router]);
 
+  // Synchronize state when browser navigation or external link changes searchParams
+  useEffect(() => {
+    const urlCategory = (searchParams.get('category') as LogisticsCategorySlug) || 'all';
+    const urlStyle = (searchParams.get('style') as TemplateStyle) || 'all';
+    const urlTier = (searchParams.get('tier') as TemplateTier) || 'all';
+    const urlSort = (searchParams.get('sort') as CatalogFilterState['sortBy']) || 'featured';
+    const urlSearch = searchParams.get('q') || '';
+    const urlCollection = searchParams.get('collection') || 'all';
+
+    setCategory((prev) => (prev !== urlCategory ? urlCategory : prev));
+    setStyle((prev) => (prev !== urlStyle ? urlStyle : prev));
+    setTier((prev) => (prev !== urlTier ? urlTier : prev));
+    setSortBy((prev) => (prev !== urlSort ? urlSort : prev));
+    setSearchQuery((prev) => (prev !== urlSearch ? urlSearch : prev));
+    setCollection((prev) => (prev !== urlCollection ? urlCollection : prev));
+  }, [searchParams]);
+
   // Find active collection data if present
   const activeCollection = useMemo(() => {
     if (collection === 'all') return null;

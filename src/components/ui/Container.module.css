@@ -6,6 +6,13 @@
   padding-right: var(--lf-space-4);
 }
 
+@media (max-width: 360px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
 @media (min-width: 640px) {
   .container {
     padding-left: var(--lf-space-6);

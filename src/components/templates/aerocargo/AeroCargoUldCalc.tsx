@@ -152,7 +152,7 @@ export function AeroCargoUldCalc() {
             </div>
           </div>
 
-          <div style={{ borderLeft: '1px solid var(--tmpl-border-light)', paddingLeft: '1.5rem' }}>
+          <div className={styles.capacityAssessmentCol}>
             <span style={{ fontSize: '0.6875rem', textTransform: 'uppercase', color: 'var(--tmpl-text-muted)' }}>
               Selected ULD Suitability Assessment
             </span>

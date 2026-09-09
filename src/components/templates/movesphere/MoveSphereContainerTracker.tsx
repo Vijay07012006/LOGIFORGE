@@ -163,13 +163,13 @@ export const MoveSphereContainerTracker: React.FC<MoveSphereContainerTrackerProp
               </span>
             </div>
 
-            <div className={styles.containerResultGrid}>
+            <div className={styles.containerResultGrid} style={{ wordBreak: 'break-word' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ background: 'var(--tmpl-surface-elevated)', padding: '1.25rem', borderRadius: '10px', border: '1px solid var(--tmpl-border-subtle)' }}>
                   <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
                     <Thermometer size={14} color="#2dd4bf" /> INTERNAL ATMOSPHERE & CLIMATE
                   </div>
-                  <div style={{ color: '#2dd4bf', fontWeight: 700, fontSize: '1.125rem', marginTop: '0.5rem' }}>
+                  <div style={{ color: '#2dd4bf', fontWeight: 700, fontSize: '1.125rem', marginTop: '0.5rem', wordBreak: 'break-word' }}>
                     {activeRecord.internalTemp}
                   </div>
                   <div style={{ fontSize: '0.8125rem', color: '#94a3b8', marginTop: '0.25rem' }}>
@@ -181,7 +181,7 @@ export const MoveSphereContainerTracker: React.FC<MoveSphereContainerTrackerProp
                   <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
                     <Activity size={14} color="#2dd4bf" /> INERTIAL LOAD & DAMPING
                   </div>
-                  <div style={{ color: '#f8fafc', fontWeight: 700, fontSize: '1.125rem', marginTop: '0.5rem' }}>
+                  <div style={{ color: '#f8fafc', fontWeight: 700, fontSize: '1.125rem', marginTop: '0.5rem', wordBreak: 'break-word' }}>
                     Instantaneous Shock: {activeRecord.shockG}
                   </div>
                   <div style={{ fontSize: '0.8125rem', color: '#94a3b8', marginTop: '0.25rem' }}>
@@ -195,7 +195,7 @@ export const MoveSphereContainerTracker: React.FC<MoveSphereContainerTrackerProp
                   <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
                     <ShieldCheck size={14} color="#2dd4bf" /> CRYPTOGRAPHIC ANTI-TAMPER
                   </div>
-                  <div style={{ color: '#10b981', fontWeight: 700, fontSize: '1.125rem', marginTop: '0.5rem' }}>
+                  <div style={{ color: '#10b981', fontWeight: 700, fontSize: '1.125rem', marginTop: '0.5rem', wordBreak: 'break-word' }}>
                     {activeRecord.tamperSeal}
                   </div>
                   <div style={{ fontSize: '0.8125rem', color: '#94a3b8', marginTop: '0.25rem' }}>
@@ -205,7 +205,7 @@ export const MoveSphereContainerTracker: React.FC<MoveSphereContainerTrackerProp
 
                 <div style={{ background: 'rgba(20, 184, 166, 0.08)', padding: '1.25rem', borderRadius: '10px', border: '1px solid rgba(20, 184, 166, 0.25)' }}>
                   <div style={{ fontSize: '0.75rem', color: '#2dd4bf', textTransform: 'uppercase', fontWeight: 700 }}>AUTONOMOUS MOTHER VESSEL</div>
-                  <div style={{ color: '#f8fafc', fontWeight: 600, fontSize: '0.9375rem', marginTop: '0.25rem' }}>
+                  <div style={{ color: '#f8fafc', fontWeight: 600, fontSize: '0.9375rem', marginTop: '0.25rem', wordBreak: 'break-word' }}>
                     {activeRecord.autonomousVessel}
                   </div>
                   <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>

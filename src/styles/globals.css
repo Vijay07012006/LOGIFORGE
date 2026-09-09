@@ -145,6 +145,12 @@ img, svg, video {
   padding-inline: 20px;
 }
 
+@media (max-width: 360px) {
+  .lf-container {
+    padding-inline: 12px;
+  }
+}
+
 @media (min-width: 640px) {
   .lf-container {
     padding-inline: 28px;

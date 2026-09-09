@@ -135,7 +135,7 @@ export function FleetOneDispatch() {
               </span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', fontSize: '0.75rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem', fontSize: '0.75rem' }}>
               <div>
                 <div style={{ color: 'var(--tmpl-text-muted)' }}>Lead Driver:</div>
                 <div style={{ fontWeight: 600 }}>{route.driver}</div>

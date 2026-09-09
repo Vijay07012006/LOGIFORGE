@@ -265,8 +265,9 @@
 
 .metaRow {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 16px;
+  gap: 8px 14px;
   padding: 12px 0;
   border-top: 1px solid var(--lf-border-subtle);
   border-bottom: 1px solid var(--lf-border-subtle);
@@ -325,6 +326,18 @@
   gap: 10px;
   margin-top: auto;
   padding-top: 4px;
+}
+
+@media (max-width: 360px) {
+  .content {
+    padding: 16px;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .actionBtn {
+    width: 100%;
+  }
 }
 
 .actionBtn {

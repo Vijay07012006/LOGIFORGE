@@ -133,7 +133,7 @@ export const WarehouseXRackVisualizer: React.FC = () => {
             {zone.name}
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '2rem' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem 2rem' }}>
           <div>
             <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>ZONE CLIMATE</span>
             <div style={{ color: '#10b981', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
@@ -179,11 +179,11 @@ export const WarehouseXRackVisualizer: React.FC = () => {
         <div style={{ background: 'var(--tmpl-surface)', border: '1px solid var(--tmpl-border)', borderRadius: '4px', padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>BAY TELEMETRY INSPECTION:</div>
-            <div style={{ fontFamily: 'monospace', fontSize: '1.125rem', fontWeight: 700, color: '#10b981' }}>
+            <div style={{ fontFamily: 'monospace', fontSize: '1.125rem', fontWeight: 700, color: '#10b981', wordBreak: 'break-word' }}>
               {selectedBay.name} • {selectedBay.sku}
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.875rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', fontSize: '0.875rem' }}>
             <div><span style={{ color: '#94a3b8' }}>Payload Weight:</span> <strong>{selectedBay.weightLoad}</strong></div>
             <div><span style={{ color: '#94a3b8' }}>Sensor Temp:</span> <strong style={{ color: '#10b981' }}>{selectedBay.temp}</strong></div>
             <div><span style={{ color: '#94a3b8' }}>Structural Integrity:</span> <strong style={{ color: '#10b981' }}>100% Calibrated</strong></div>

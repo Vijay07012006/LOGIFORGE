@@ -43,7 +43,7 @@ export const RouteIQTspSimulator: React.FC = () => {
         </p>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
         <button
           type="button"
           className={`${styles.pillBtn} ${solverMode === 'sequential' ? styles.btnPrimary : ''}`}

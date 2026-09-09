@@ -127,7 +127,7 @@ export function SwiftDropTracking({
 
             {/* Proof of Delivery / Signature Verification */}
             <div className={styles.podBox}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ fontSize: '0.8125rem', fontWeight: 700, textTransform: 'uppercase' }}>
                   Electronic Proof of Delivery (e-POD)
                 </span>

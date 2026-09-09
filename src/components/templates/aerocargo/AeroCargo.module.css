@@ -352,3 +352,27 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.capacityAssessmentCol {
+  border-top: 1px solid var(--tmpl-border-light);
+  padding-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .capacityAssessmentCol {
+    border-top: none;
+    padding-top: 0;
+    border-left: 1px solid var(--tmpl-border-light);
+    padding-left: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .awbCard,
+  .uldCard {
+    padding: 1.25rem 1rem;
+  }
+  .awbInputRow button {
+    width: 100%;
+  }
+}

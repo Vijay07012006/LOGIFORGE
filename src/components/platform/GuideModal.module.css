@@ -165,3 +165,22 @@
 .bookIcon {
   color: #ffb347;
 }
+
+@media (max-width: 480px) {
+  .overlay {
+    padding: 10px;
+  }
+  .header {
+    padding: 20px 16px 14px;
+  }
+  .closeBtn {
+    top: 16px;
+    right: 14px;
+  }
+  .content {
+    padding: 18px 16px;
+  }
+  .footer {
+    padding: 14px 16px;
+  }
+}

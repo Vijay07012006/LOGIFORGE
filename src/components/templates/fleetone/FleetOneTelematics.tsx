@@ -30,7 +30,7 @@ export function FleetOneTelematics() {
           type="button"
           onClick={() => setHeavyLoadMode((prev) => !prev)}
           className={heavyLoadMode ? styles.btnHazard : styles.btnTechnical}
-          style={{ minHeight: '40px', padding: '0.5rem 1.25rem' }}
+          style={{ minHeight: '40px', padding: '0.5rem 1.25rem', whiteSpace: 'normal', textAlign: 'center', wordBreak: 'break-word' }}
         >
           {heavyLoadMode ? 'Grade Climb Mode (Heavy Haul 80,000 lbs)' : 'Standard Interstate Cruise (55 MPH)'}
         </button>

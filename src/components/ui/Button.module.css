@@ -34,6 +34,21 @@
   padding: 14px 34px;
 }
 
+@media (max-width: 480px) {
+  .lg {
+    font-size: 14px;
+    padding: 12px 22px;
+    white-space: normal;
+    text-align: center;
+  }
+  .md {
+    font-size: 13px;
+    padding: 10px 18px;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
 .fullWidth {
   width: 100%;
 }

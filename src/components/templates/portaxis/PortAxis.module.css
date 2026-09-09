@@ -305,9 +305,18 @@
   margin-bottom: 1.5rem;
 }
 
+@media (max-width: 480px) {
+  .gateCard {
+    padding: 1.25rem 1rem;
+  }
+  .gateFormRow button {
+    width: 100%;
+  }
+}
+
 .gateInputWrapper {
   position: relative;
-  flex: 1 1 260px;
+  flex: 1 1 200px;
 }
 
 .gateInput {

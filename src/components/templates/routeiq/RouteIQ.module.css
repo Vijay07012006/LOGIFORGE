@@ -388,11 +388,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   background: #0d1222;
   border: 1px solid rgba(168, 85, 247, 0.15);
   padding: 0.625rem 0.875rem;
   border-radius: 6px;
   font-size: 0.8125rem;
+  word-break: break-word;
 }
 
 /* Telemetry Feed */
