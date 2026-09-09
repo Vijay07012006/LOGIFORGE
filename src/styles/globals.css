@@ -1,19 +1,10 @@
 @import './tokens.css';
 
-/* =========================================================================
- * CSS RESET & BASELINE
- * ========================================================================= */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   font-family: var(--lf-font-sans);
-  background-color: var(--lf-bg-base);
+  background: var(--lf-bg-base);
   color: var(--lf-text-primary);
   font-size: 16px;
   line-height: 1.5;
@@ -28,123 +19,52 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--lf-bg-base);
+  background:
+    linear-gradient(180deg, #f7f9fb 0%, var(--lf-bg-base) 22%, #edf1f5 100%);
   color: var(--lf-text-primary);
   overflow-x: hidden;
 }
 
-/* =========================================================================
- * TYPOGRAPHY BASELINE
- * ========================================================================= */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: .45;
+  background-image: linear-gradient(rgba(20, 38, 61, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 38, 61, .025) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: var(--lf-text-primary);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.028em;
 }
 
-p {
-  color: var(--lf-text-secondary);
-  line-height: 1.6;
-}
+p { color: var(--lf-text-secondary); line-height: 1.65; }
+a { color: inherit; text-decoration: none; transition: color var(--lf-transition-fast); }
+button, input, select, textarea { font: inherit; color: inherit; background: transparent; border: none; }
+button { cursor: pointer; }
+img, svg, video { display: block; max-width: 100%; }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--lf-transition-fast);
-}
+:focus-visible { outline: 2px solid var(--lf-accent-primary); outline-offset: 3px; box-shadow: 0 0 0 4px rgba(21,87,166,.14); }
+::selection { background: rgba(21,87,166,.18); color: var(--lf-text-primary); }
 
-button, input, select, textarea {
-  font: inherit;
-  color: inherit;
-  background: transparent;
-  border: none;
-}
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: #e9edf1; }
+::-webkit-scrollbar-thumb { background: #b6c2ce; border: 2px solid #e9edf1; border-radius: var(--lf-radius-full); }
+::-webkit-scrollbar-thumb:hover { background: #8f9dab; }
 
-button {
-  cursor: pointer;
-}
-
-img, svg, video {
-  display: block;
-  max-width: 100%;
-}
-
-/* =========================================================================
- * ACCESSIBLE FOCUS VISIBLE
- * ========================================================================= */
-:focus-visible {
-  outline: 2px solid var(--lf-accent-primary);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
-}
-
-/* =========================================================================
- * SELECTION BEHAVIOR
- * ========================================================================= */
-::selection {
-  background-color: rgba(37, 99, 235, 0.35);
-  color: #FFFFFF;
-}
-
-/* =========================================================================
- * SCROLLBAR STYLING
- * ========================================================================= */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--lf-bg-base);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--lf-bg-elevated);
-  border-radius: var(--lf-radius-full);
-  border: 2px solid var(--lf-bg-base);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--lf-text-muted);
-}
-
-/* =========================================================================
- * PREFERS REDUCED MOTION
- * ========================================================================= */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 
-/* =========================================================================
- * UTILITY LAYOUT CONTAINERS
- * ========================================================================= */
 .lf-container {
-  width: 100%;
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--lf-space-4);
-  padding-right: var(--lf-space-4);
+  width: 100%; max-width: 1440px; margin-inline: auto;
+  padding-inline: 20px;
 }
-
-@media (min-width: 640px) {
-  .lf-container {
-    padding-left: var(--lf-space-6);
-    padding-right: var(--lf-space-6);
-  }
-}
-
-@media (min-width: 1024px) {
-  .lf-container {
-    padding-left: var(--lf-space-8);
-    padding-right: var(--lf-space-8);
-  }
-}
+@media (min-width: 640px) { .lf-container { padding-inline: 28px; } }
+@media (min-width: 1024px) { .lf-container { padding-inline: 40px; } }
+@media (min-width: 1440px) { .lf-container { padding-inline: 48px; } }
