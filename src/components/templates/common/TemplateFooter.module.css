@@ -1,0 +1,192 @@
+.footer {
+  background: var(--tmpl-footer-bg, rgba(9, 13, 22, 0.98));
+  border-top: 1px solid var(--tmpl-border, rgba(255, 255, 255, 0.08));
+  padding: 4rem 1.25rem 2.5rem;
+  color: var(--tmpl-text, #ffffff);
+  width: 100%;
+}
+
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  }
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.brandTitle {
+  font-family: var(--tmpl-font-heading, inherit);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tmpl-text, #ffffff);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brandDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--tmpl-accent, #d4af37);
+  box-shadow: 0 0 8px var(--tmpl-accent, #d4af37);
+}
+
+.brandDesc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tmpl-text-muted, rgba(255, 255, 255, 0.6));
+  max-width: 320px;
+}
+
+.certBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--tmpl-radius, 4px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--tmpl-accent, #d4af37);
+}
+
+.colTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tmpl-text, #ffffff);
+  margin-bottom: 1.25rem;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.linkItem {
+  font-size: 0.875rem;
+  color: var(--tmpl-text-muted, rgba(255, 255, 255, 0.65));
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  transition: color 0.15s ease;
+}
+
+.linkItem:hover {
+  color: var(--tmpl-accent, #d4af37);
+}
+
+.dispatchCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--tmpl-radius, 6px);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dispatchHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dispatchLive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: #10b981;
+  font-weight: 600;
+}
+
+.livePulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.dispatchDesc {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--tmpl-text-muted, rgba(255, 255, 255, 0.6));
+}
+
+.bottomBar {
+  border-top: 1px solid var(--tmpl-border, rgba(255, 255, 255, 0.06));
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--tmpl-text-muted, rgba(255, 255, 255, 0.5));
+}
+
+@media (min-width: 640px) {
+  .bottomBar {
+    flex-direction: row;
+  }
+}
+
+.legalLinks {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.legalLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.legalLink:hover {
+  color: var(--tmpl-text, #ffffff);
+}

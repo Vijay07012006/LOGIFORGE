@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
-import { EmbeddedTemplateView } from '@/components/studio/EmbeddedTemplateView';
+import { TemplateRenderer } from '@/components/templates/dispatcher/TemplateRenderer';
 
 interface EmbedPageProps {
   params: Promise<{ slug: string }>;
@@ -39,7 +39,7 @@ export default async function TemplateEmbedPage({ params, searchParams }: EmbedP
   }
 
   return (
-    <EmbeddedTemplateView
+    <TemplateRenderer
       template={template}
       initialTracking={tracking}
       initialPage={page || 'home'}

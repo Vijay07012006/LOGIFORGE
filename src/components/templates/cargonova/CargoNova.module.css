@@ -1,0 +1,706 @@
+/* CargoNova: Editorial Luxury Freight Theme Styles */
+
+.cargonovaRoot {
+  --tmpl-accent: #d4af37;
+  --tmpl-accent-secondary: #1b2a4a;
+  --tmpl-bg: #090d16;
+  --tmpl-surface: #0f172a;
+  --tmpl-surface-elevated: #162036;
+  --tmpl-border: rgba(212, 175, 55, 0.16);
+  --tmpl-border-light: rgba(255, 255, 255, 0.08);
+  --tmpl-text: #f8fafc;
+  --tmpl-text-muted: #94a3b8;
+  --tmpl-nav-bg: rgba(9, 13, 22, 0.96);
+  --tmpl-footer-bg: #060910;
+  --tmpl-btn-text: #090d16;
+  --tmpl-radius: 4px;
+  --tmpl-font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --tmpl-font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  background-color: var(--tmpl-bg);
+  color: var(--tmpl-text);
+  font-family: var(--tmpl-font-body);
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Sections Common */
+.section {
+  padding: clamp(3.5rem, 8vw, 6rem) 1.25rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--tmpl-accent);
+  margin-bottom: 0.75rem;
+}
+
+.sectionTitle {
+  font-family: var(--tmpl-font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 600;
+  color: var(--tmpl-text);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.sectionSubtitle {
+  font-size: clamp(0.875rem, 2vw, 1.0625rem);
+  color: var(--tmpl-text-muted);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  padding: clamp(4rem, 10vw, 7.5rem) 1.25rem clamp(3rem, 7vw, 5rem);
+  background: radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      rgba(27, 42, 74, 0.45),
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 85% 60%,
+      rgba(212, 175, 55, 0.08),
+      transparent 70%
+    ),
+    var(--tmpl-bg);
+  border-bottom: 1px solid var(--tmpl-border-light);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.heroInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.heroTicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid var(--tmpl-border);
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  color: var(--tmpl-accent);
+  margin-bottom: 1.75rem;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tickerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tmpl-accent);
+  box-shadow: 0 0 8px var(--tmpl-accent);
+}
+
+.heroHeadline {
+  font-family: var(--tmpl-font-heading);
+  font-size: clamp(2.25rem, 6.8vw, 5rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--tmpl-text);
+  max-width: 960px;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.02em;
+  word-break: break-word;
+}
+
+.heroHeadlineEm {
+  font-style: italic;
+  color: var(--tmpl-accent);
+}
+
+.heroLead {
+  font-size: clamp(0.9375rem, 2.2vw, 1.1875rem);
+  color: var(--tmpl-text-muted);
+  max-width: 720px;
+  line-height: 1.65;
+  margin: 0 0 2.5rem;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 3rem;
+}
+
+.btnGold {
+  background: var(--tmpl-accent);
+  color: var(--tmpl-btn-text);
+  border: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--tmpl-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  flex: 1 1 200px;
+  min-height: 48px;
+}
+
+.btnGold:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btnOutline {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--tmpl-text);
+  border: 1px solid var(--tmpl-border-light);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--tmpl-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.15s ease;
+  flex: 1 1 200px;
+  min-height: 48px;
+}
+
+.btnOutline:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--tmpl-accent);
+  color: var(--tmpl-accent);
+}
+
+/* Tracking Card */
+.trackingSection {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border);
+  border-radius: var(--tmpl-radius);
+  padding: clamp(1.25rem, 3.5vw, 2.25rem);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.trackInputRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.trackInputWrapper {
+  position: relative;
+  flex: 1 1 260px;
+}
+
+.trackIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--tmpl-text-muted);
+}
+
+.trackInput {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  font-size: 0.9375rem;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+  color: var(--tmpl-text);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.trackInput:focus {
+  outline: none;
+  border-color: var(--tmpl-accent);
+}
+
+.sampleWaybills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--tmpl-text-muted);
+  margin-bottom: 1.75rem;
+}
+
+.sampleBtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--tmpl-border-light);
+  color: var(--tmpl-text-muted);
+  padding: 0.25rem 0.625rem;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.6875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sampleBtn:hover,
+.sampleBtnActive {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: var(--tmpl-accent);
+  color: var(--tmpl-accent);
+}
+
+/* Waypoint Flow */
+.shipmentDetails {
+  border-top: 1px solid var(--tmpl-border-light);
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.shipmentHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  .shipmentHeader {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.shipmentId {
+  font-family: monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tmpl-accent);
+  letter-spacing: 0.05em;
+}
+
+.corridorDisplay {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+@media (min-width: 680px) {
+  .corridorDisplay {
+    grid-template-columns: 1fr auto 1fr;
+    text-align: left;
+  }
+}
+
+.portBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.portCode {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--tmpl-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.portCity {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--tmpl-text);
+}
+
+.portVessel {
+  font-size: 0.75rem;
+  color: var(--tmpl-text-muted);
+}
+
+.corridorArrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  color: var(--tmpl-accent);
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  width: 2px;
+  background: var(--tmpl-border-light);
+}
+
+.milestone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.milestoneDot {
+  position: absolute;
+  left: -1.75rem;
+  top: 0.25rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--tmpl-surface);
+  border: 2px solid var(--tmpl-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.milestoneCompleted .milestoneDot {
+  border-color: #10b981;
+  background: #10b981;
+}
+
+.milestoneActive .milestoneDot {
+  border-color: var(--tmpl-accent);
+  background: var(--tmpl-accent);
+  box-shadow: 0 0 10px var(--tmpl-accent);
+}
+
+.milestoneTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--tmpl-text);
+}
+
+.milestoneMeta {
+  font-size: 0.75rem;
+  color: var(--tmpl-text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Services Grid */
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .servicesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.serviceCard {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--tmpl-border);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.serviceIconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--tmpl-radius);
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid var(--tmpl-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tmpl-accent);
+}
+
+.serviceTitle {
+  font-family: var(--tmpl-font-heading);
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--tmpl-text);
+  margin: 0;
+}
+
+.serviceDesc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tmpl-text-muted);
+  margin: 0;
+}
+
+.serviceFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tmpl-border-light);
+}
+
+.serviceFeatureItem {
+  font-size: 0.75rem;
+  color: var(--tmpl-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Corridors Explorer */
+.corridorsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .corridorsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.corridorCard {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.corridorCard:hover {
+  border-color: var(--tmpl-accent);
+}
+
+.corridorCardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.corridorLaneTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--tmpl-text);
+}
+
+.corridorPill {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2px;
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--tmpl-accent);
+  border: 1px solid var(--tmpl-border);
+}
+
+.corridorStatsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0.875rem;
+  border-radius: var(--tmpl-radius);
+  text-align: center;
+}
+
+.statCellLabel {
+  font-size: 0.6875rem;
+  color: var(--tmpl-text-muted);
+  text-transform: uppercase;
+}
+
+.statCellValue {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--tmpl-text);
+  margin-top: 0.25rem;
+}
+
+/* Rate Estimator Simulator */
+.calculatorCard {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border);
+  border-radius: var(--tmpl-radius);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+
+.calcFormGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .calcFormGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .calcFormGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.calcField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.calcLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--tmpl-text-muted);
+}
+
+.calcSelect,
+.calcInput {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 0.75rem;
+  color: var(--tmpl-text);
+  font-size: 0.875rem;
+  font-family: var(--tmpl-font-body);
+}
+
+.calcSelect:focus,
+.calcInput:focus {
+  outline: none;
+  border-color: var(--tmpl-accent);
+}
+
+.calcResultBox {
+  background: rgba(212, 175, 55, 0.04);
+  border: 1px solid var(--tmpl-border);
+  border-radius: var(--tmpl-radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .calcResultBox {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.calcResultDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.resultMetric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.resultMetricValue {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--tmpl-accent);
+}
+
+/* Institutional CTA */
+.ctaSection {
+  text-align: center;
+  background: linear-gradient(180deg, var(--tmpl-bg), #060910);
+  border-top: 1px solid var(--tmpl-border-light);
+  padding: clamp(4rem, 8vw, 6rem) 1.25rem;
+}
+
+.ctaBox {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}

@@ -1,0 +1,496 @@
+/* FleetOne: Industrial Command-Center & Heavy Transport Theme Styles */
+
+.fleetoneRoot {
+  --tmpl-accent: #eab308;
+  --tmpl-accent-secondary: #f59e0b;
+  --tmpl-bg: #0a0c10;
+  --tmpl-surface: #12141a;
+  --tmpl-surface-elevated: #1a1d26;
+  --tmpl-border: rgba(234, 179, 8, 0.2);
+  --tmpl-border-light: rgba(255, 255, 255, 0.08);
+  --tmpl-text: #f8fafc;
+  --tmpl-text-muted: #94a3b8;
+  --tmpl-nav-bg: rgba(10, 12, 16, 0.96);
+  --tmpl-footer-bg: #07080c;
+  --tmpl-btn-text: #0a0c10;
+  --tmpl-radius: 2px;
+  --tmpl-font-heading: 'Space Grotesk', -apple-system, sans-serif;
+  --tmpl-font-body: 'JetBrains Mono', monospace;
+
+  background-color: var(--tmpl-bg);
+  color: var(--tmpl-text);
+  font-family: var(--tmpl-font-heading);
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Common Section */
+.section {
+  padding: clamp(3.5rem, 8vw, 6rem) 1.25rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--tmpl-accent);
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid var(--tmpl-border);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--tmpl-radius);
+  margin-bottom: 0.875rem;
+  font-family: var(--tmpl-font-body);
+}
+
+.sectionTitle {
+  font-family: var(--tmpl-font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  color: var(--tmpl-text);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.sectionSubtitle {
+  font-size: clamp(0.875rem, 2vw, 1.0625rem);
+  color: var(--tmpl-text-muted);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  padding: clamp(4rem, 10vw, 7.5rem) 1.25rem clamp(3rem, 7vw, 5rem);
+  background: radial-gradient(
+      ellipse 90% 60% at 50% -20%,
+      rgba(234, 179, 8, 0.15),
+      transparent 70%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(255, 255, 255, 0.02) 40px,
+      rgba(255, 255, 255, 0.02) 41px
+    ),
+    var(--tmpl-bg);
+  border-bottom: 2px solid var(--tmpl-border);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.heroInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.commandHudStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--tmpl-border);
+  padding: 0.375rem 1rem;
+  border-radius: var(--tmpl-radius);
+  font-family: var(--tmpl-font-body);
+  font-size: 0.75rem;
+  color: var(--tmpl-accent);
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hudPulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.heroHeadline {
+  font-family: var(--tmpl-font-heading);
+  font-size: clamp(2.25rem, 6.8vw, 4.75rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--tmpl-text);
+  max-width: 1000px;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  word-break: break-word;
+}
+
+.heroHeadlineHighlight {
+  color: var(--tmpl-accent);
+  text-shadow: 0 0 24px rgba(234, 179, 8, 0.4);
+}
+
+.heroLead {
+  font-size: clamp(0.9375rem, 2.2vw, 1.1875rem);
+  color: var(--tmpl-text-muted);
+  max-width: 760px;
+  line-height: 1.65;
+  margin: 0 0 2.5rem;
+}
+
+.heroButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+}
+
+.btnHazard {
+  background: var(--tmpl-accent);
+  color: var(--tmpl-btn-text);
+  border: 1px solid var(--tmpl-accent);
+  font-family: var(--tmpl-font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--tmpl-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.15s ease;
+  flex: 1 1 220px;
+  min-height: 48px;
+}
+
+.btnHazard:hover {
+  background: #ca8a04;
+  transform: translateY(-1px);
+}
+
+.btnTechnical {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--tmpl-text);
+  border: 1px solid var(--tmpl-border-light);
+  font-family: var(--tmpl-font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--tmpl-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.15s ease;
+  flex: 1 1 220px;
+  min-height: 48px;
+}
+
+.btnTechnical:hover {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: var(--tmpl-accent);
+  color: var(--tmpl-accent);
+}
+
+/* Telematics Gauge Matrix */
+.gaugeGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 600px) {
+  .gaugeGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gaugeGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.gaugeCard {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.gaugeCard:hover {
+  border-color: var(--tmpl-border);
+  transform: translateY(-2px);
+}
+
+.gaugeHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gaugeName {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tmpl-text-muted);
+  font-family: var(--tmpl-font-body);
+}
+
+.gaugeValue {
+  font-family: var(--tmpl-font-body);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--tmpl-text);
+  line-height: 1;
+}
+
+.gaugeBarTrack {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.25rem;
+}
+
+.gaugeBarFill {
+  height: 100%;
+  background: var(--tmpl-accent);
+  transition: width 0.4s ease;
+}
+
+.gaugeBarFillGreen {
+  background: #10b981;
+}
+
+.gaugeBarFillWarning {
+  background: #f59e0b;
+}
+
+.gaugeFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  color: var(--tmpl-text-muted);
+  font-family: var(--tmpl-font-body);
+}
+
+/* Vehicle Categories */
+.vehicleGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 680px) {
+  .vehicleGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .vehicleGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.vehicleCard {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.vehicleCard:hover {
+  border-color: var(--tmpl-border);
+  background: var(--tmpl-surface-elevated);
+}
+
+.vehicleClassBadge {
+  display: inline-flex;
+  font-family: var(--tmpl-font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--tmpl-accent);
+  background: rgba(234, 179, 8, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--tmpl-radius);
+  width: fit-content;
+}
+
+.vehicleTitle {
+  font-family: var(--tmpl-font-heading);
+  font-size: 1.375rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--tmpl-text);
+  margin: 0;
+}
+
+.vehicleDesc {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--tmpl-text-muted);
+  margin: 0;
+}
+
+.specTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--tmpl-border-light);
+  font-family: var(--tmpl-font-body);
+  font-size: 0.75rem;
+}
+
+.specRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.375rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.specKey {
+  color: var(--tmpl-text-muted);
+}
+
+.specVal {
+  color: var(--tmpl-text);
+  font-weight: 600;
+}
+
+/* Dispatch Simulator */
+.dispatchContainer {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border);
+  border-radius: var(--tmpl-radius);
+  padding: clamp(1.25rem, 3.5vw, 2.25rem);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+}
+
+.dispatchHeaderRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--tmpl-border-light);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.dispatchSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.routeTab {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--tmpl-border-light);
+  color: var(--tmpl-text-muted);
+  font-family: var(--tmpl-font-body);
+  font-size: 0.75rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--tmpl-radius);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.routeTab:hover,
+.routeTabActive {
+  background: rgba(234, 179, 8, 0.12);
+  border-color: var(--tmpl-accent);
+  color: var(--tmpl-accent);
+}
+
+.telemetryStream {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .telemetryStream {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.activeTruckBox {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.waypointList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.waypointItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-family: var(--tmpl-font-body);
+  font-size: 0.75rem;
+}
+
+.waypointBadgePassed {
+  color: #10b981;
+}
+
+.waypointBadgeCurrent {
+  color: var(--tmpl-accent);
+}
+
+.waypointBadgeAhead {
+  color: var(--tmpl-text-muted);
+}
