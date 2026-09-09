@@ -7,13 +7,13 @@
 [![React](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Design Tokens](https://img.shields.io/badge/CSS-Dark%20Luxury%20Amber-e8590c?style=for-the-badge)](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
-[![Audit Status](https://img.shields.io/badge/Audit%20%26%20Fix-Verified%20Production--Grade-emerald?style=for-the-badge)](./docs/architecture/AUDIT_AND_FIX_REPORT.md)
+[![Phase 04 Status](https://img.shields.io/badge/Phase%2004-Live%20Demo%20Studio%20Verified-emerald?style=for-the-badge)](./docs/architecture/PHASE_04_IMPLEMENTATION_REPORT.md)
 
 <p align="center">
   A category-defining digital marketplace, live device preview studio, and starter kit ecosystem engineered specifically for the logistics, maritime shipping, aviation, freight forwarding, telematics, and supply chain industries.
 </p>
 
-[Explore Documentation](./docs/architecture/LOGIFORGE_MASTER_BLUEPRINT.md) • [Audit & Fix Report](./docs/architecture/AUDIT_AND_FIX_REPORT.md) • [Phase 03 Report](./docs/architecture/PHASE_03_IMPLEMENTATION_REPORT.md) • [Data Model](./docs/architecture/DATA_MODEL_SPECIFICATION.md) • [Design System](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
+[Explore Blueprint](./docs/architecture/LOGIFORGE_MASTER_BLUEPRINT.md) • [Phase 04 Report](./docs/architecture/PHASE_04_IMPLEMENTATION_REPORT.md) • [Audit & Fix Report](./docs/architecture/AUDIT_AND_FIX_REPORT.md) • [Data Model](./docs/architecture/DATA_MODEL_SPECIFICATION.md) • [Design System](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
 
 </div>
 
@@ -23,7 +23,7 @@
 
 **LOGIFORGE** bridges the gap between generic theme marketplaces and bespoke agency code. Built as an ultra-premium dark luxury platform with incandescent tandoori orange accents and warm amber highlights, LOGIFORGE operates as a two-tier ecosystem:
 
-1. **The Platform Shell (Marketplace & Studio):** A high-performance, accessible catalog with multi-facet filtering, full-text fuzzy search, URL query synchronization, device viewport simulation, and interactive starter kit generation.
+1. **The Platform Shell (Marketplace & Studio):** A high-performance, accessible catalog with multi-facet filtering, full-text fuzzy search, URL query synchronization, device viewport simulation, interactive starter kit generation, and a dedicated **Client Presentation Mode**.
 2. **The Flagship Template Ecosystem:** A curated collection of 10 independent website templates. Every template has a unique typographic identity, custom color palette, dedicated CSS token scope, and signature logistics widgets (e.g. simulated cargo milestone tracking, vessel sailing schedules, telematics diagnostic cards, port berth timelines).
 
 ---
@@ -61,13 +61,28 @@ The platform features an intentionally curated dark luxury visual identity desig
 - **URL Query Synchronization:** State is serialized to URL parameters (`/templates?category=ocean-freight&style=minimalist&sort=popular`), ensuring shareable, bookmarkable, and reload-persistent filtered views.
 - **Active Filter Chips & Counter:** Dismissible filter chips with a one-click "Reset all" trigger.
 
-### 3. Template Deep-Dive & Live Demo Sandbox
-- **Template Details (`/templates/[slug]`):** Complete architectural breakdown with live preview links, technical specs (framework, responsiveness, design style, accessibility score), included page list, and core features.
-- **Live Device Preview Studio (`/demo/[slug]`):** Frame toolbar supporting Desktop (100%), Tablet (768px), and Mobile (375px) responsive viewport toggles with Client Presentation Mode.
-- **Interactive Starter Download Engine:** Generates and downloads a deterministic starter kit manifest JSON (`[slug]-starter-manifest.json`) formatted with template metadata, layout structure, color tokens, and npm setup commands.
-- **Isolated Embed Sandbox (`/demo/[slug]/embed`):** Clean, isolated iframe render without platform chrome.
+### 3. Live Demo Studio & Client Presentation Environment (`/demo/[slug]`)
+- **Multi-Device Viewport Simulation:**
+  - **Desktop (100% / 1440px):** Full-fidelity wide-screen viewport.
+  - **Tablet (768px):** Realistic hardware bezel with camera notch and orientation rotation (768×1024 Portrait / 1024×768 Landscape).
+  - **Mobile (375px):** Realistic hardware bezel with speaker grill, camera notch, and bottom home indicator bar (375×812 Portrait / 812×375 Landscape).
+  - **Fluid (100%):** Unconstrained responsive canvas.
+- **Zoom Scaling Controls:** Instant 50%, 75%, and 100% zoom scaling with smooth CSS transitions.
+- **Client Presentation Mode:**
+  - Collapses platform chrome into a sleek floating ambient HUD: `[ CLIENT PREVIEW • LOGIFORGE STUDIO ]`.
+  - Retains responsive device switcher in the floating HUD for presenting mobile vs tablet live to stakeholders.
+  - One-click native browser fullscreen toggle.
+  - Keyboard shortcuts: `P` to toggle presentation mode, `Escape` to cleanly exit.
+- **Template Included Pages Navigation:** Synchronized tabs (`Home Overview`, `Services Matrix`, `Shipment Tracking`, `Global Corridors`) triggering smooth section navigation in the sandboxed preview.
+- **Interactive Simulated Logistics Tracking Engine:** Dual-interface waybill simulation with quick sample triggers (`CN-8924-US`, `FO-4091-TX`, `SD-4421-EU`, `AC-9901-FRA`, `PA-7714-SGP`), custom input testing, and verified transit milestone audit timelines.
+- **Bidirectional `postMessage` Event Bus:** Typed communication between studio shell and sandboxed template runtime with real-time live connection beacon.
 
-### 4. Knowledge Hub & Design Pattern Guides (`/resources`)
+### 4. Template Deep-Dive & Sandboxed Embed (`/templates/[slug]` & `/demo/[slug]/embed`)
+- **Template Details (`/templates/[slug]`):** Complete architectural breakdown with live preview links, technical specs, included page list, and core features.
+- **Interactive Starter Download Engine:** Generates and downloads a deterministic starter kit manifest JSON (`[slug]-starter-manifest.json`) formatted with template metadata, layout structure, color tokens, and npm setup commands.
+- **Isolated Embed Sandbox (`/demo/[slug]/embed`):** Clean, isolated iframe render without platform chrome, complete with in-template search form, trade corridors, metrics, and compliance badges.
+
+### 5. Knowledge Hub & Design Pattern Guides (`/resources`)
 - **Pattern Guides Reader:** Built-in accessible `GuideModal` allowing users to read deep technical guides on:
   - *Waybill Transit Milestone Visualizer Patterns*
   - *Vessel AIS Telemetry & Port Congestion Boards*
@@ -98,7 +113,7 @@ The platform features an intentionally curated dark luxury visual identity desig
 /
 ├── /templates                          [Interactive Discovery Catalog & Faceted Filter Bar]
 │   └── /templates/[slug]               [Template Deep-Dive: Specs, Pages, Features, Starter Download]
-├── /demo/[slug]                        [Live Interactive Demo Studio Shell with Device Bar]
+├── /demo/[slug]                        [Live Interactive Demo Studio Shell with Device Bar & Presentation HUD]
 │   └── /demo/[slug]/embed              [Sandboxed, Clean Template Render (Isolated Viewport)]
 ├── /resources                          [Logistics Design Pattern Guides & Interactive Reader Modal]
 ├── /about                              [Platform Manifesto, Architecture Standards, Licensing]
@@ -119,7 +134,8 @@ d:/Desktop/LOGIFORGE/
 │       ├── IMPLEMENTATION_ROADMAP.md
 │       ├── PHASE_02_IMPLEMENTATION_REPORT.md
 │       ├── PHASE_03_IMPLEMENTATION_REPORT.md
-│       └── AUDIT_AND_FIX_REPORT.md      [Post-Phase 03 Audit & Remediation Report]
+│       ├── AUDIT_AND_FIX_REPORT.md
+│       └── PHASE_04_IMPLEMENTATION_REPORT.md [NEW Phase 04 Verified Report]
 │
 ├── src/
 │   ├── app/                            # Next.js 15 App Router Routes
@@ -129,13 +145,13 @@ d:/Desktop/LOGIFORGE/
 │   │   ├── error.tsx                   # Error boundary
 │   │   ├── not-found.tsx               # 404 entity handler
 │   │   ├── templates/                  # Catalog Discovery Page
-│   │   ├── demo/                       # /demo/[slug] and /demo/[slug]/embed
+│   │   ├── demo/                       # /demo/[slug] (Studio) and /demo/[slug]/embed (Sandbox)
 │   │   ├── resources/                  # /resources (with interactive GuideModal)
 │   │   └── about/                      # /about
 │   │
 │   ├── components/
 │   │   ├── platform/                   # Header, Footer, CatalogBrowser, GuideModal, StarterDownloadButton, TemplateCard
-│   │   ├── studio/                     # Demo frame controls & viewport types
+│   │   ├── studio/                     # EmbeddedTemplateView, Studio types & postMessage contracts [UPDATED Phase 04]
 │   │   ├── templates/                  # TemplateComponentManifest contract
 │   │   └── ui/                         # Container, SectionHeading, Card, IconButton, SearchField, Select, Badge, Button
 │   │
@@ -183,7 +199,7 @@ npm run start
 - `npm run typecheck`: **PASS (0 errors)**
 - `npm run lint`: **PASS (`✔ No ESLint warnings or errors`)**
 - `npm run build`: **PASS (All 27 routes pre-rendered statically)**
-- `next start`: **PASS (HTTP 200 OK across `/`, `/templates`, `/templates/[slug]`, `/demo/[slug]`, `/resources`, `/about`)**
+- `next start`: **PASS (HTTP 200 OK across all routes and views)**
 
 ---
 
@@ -193,7 +209,7 @@ npm run start
 - [x] **Phase 02:** Platform Foundation, Scaffolding, Core Token System & Data Schemas
 - [x] **Phase 03:** Platform Shell & Discovery UI (Faceted Filter Bar, Live URL Search Sync, Editorial Home)
 - [x] **Audit & Fix:** Comprehensive Quality & UI/UX Overhaul (Dark Luxury Amber Theme, Pill Buttons, Guide Modal, Starter Generator)
-- [ ] **Phase 04:** Live Demo Sandbox Enhancements & Client Presentation Mode
+- [x] **Phase 04:** Live Demo Sandbox Enhancements & Client Presentation Mode
 - [ ] **Phase 05:** Flagship Templates Wave 1 (CargoNova, FleetOne, ShipFlow)
 - [ ] **Phase 06:** Flagship Templates Wave 2 (SwiftDrop, PortAxis, AeroCargo, WarehouseX, SupplyCore, RouteIQ, MoveSphere)
 - [ ] **Phase 07:** Download Bundling Engine, Resources Hub & Production Hardening

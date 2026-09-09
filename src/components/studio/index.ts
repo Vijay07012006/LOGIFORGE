@@ -1,11 +1,7 @@
 /**
  * LOGIFORGE: Studio Component Foundation
+ * Phase 04: Live Demo Sandbox Enhancements & Client Presentation Mode
  */
 
-export interface StudioViewportConfig {
-  device: 'desktop' | 'tablet' | 'mobile' | 'fluid';
-  width: string;
-  height: string;
-  presentationMode: boolean;
-  activeTrackingNumber: string;
-}
+export * from './types';
+export * from './EmbeddedTemplateView';
