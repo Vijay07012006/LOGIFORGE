@@ -57,6 +57,13 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
     notFound();
   }
 
+  // Frame protection: prevent Demo Studio shell from ever being loaded inside an iframe (breaks recursive nesting)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.top !== window.self) {
+      window.location.replace(`/demo/${slug}/embed`);
+    }
+  }, [slug]);
+
   // Safe postMessage dispatcher to embedded iframe
   const sendToIframe = useCallback((message: HostToTemplateMessage) => {
     if (iframeRef.current && iframeRef.current.contentWindow) {

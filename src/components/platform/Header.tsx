@@ -12,6 +12,11 @@ export function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
+  // Eliminate duplicate platform header inside sandboxed template iframes
+  if (pathname?.includes('/embed')) {
+    return null;
+  }
+
   return (
     <>
       <header className={styles.header}>

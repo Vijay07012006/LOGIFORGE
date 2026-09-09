@@ -1,9 +1,20 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Box, ShieldCheck, ExternalLink } from 'lucide-react';
 import { LOGISTICS_CATEGORIES } from '@/data/categories';
 import styles from './Footer.module.css';
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on demo studio and isolated template embeds
+  if (pathname?.startsWith('/demo')) {
+    return null;
+  }
+
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
