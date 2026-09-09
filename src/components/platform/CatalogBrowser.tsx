@@ -10,6 +10,7 @@ import type {
   TemplateTier,
 } from '@/types/template';
 import { LOGISTICS_CATEGORIES } from '@/data/categories';
+import { getCollectionBySlug } from '@/lib/collections';
 import { filterTemplates } from '@/lib/filters';
 import { TemplateCard } from './TemplateCard';
 import { SearchField } from '@/components/ui/SearchField';
@@ -20,6 +21,7 @@ import {
   RotateCcw,
   SlidersHorizontal,
   Compass,
+  Layers,
 } from 'lucide-react';
 import styles from './CatalogBrowser.module.css';
 
@@ -66,6 +68,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
   const initialTier = (searchParams.get('tier') as TemplateTier) || 'all';
   const initialSort = (searchParams.get('sort') as CatalogFilterState['sortBy']) || 'featured';
   const initialSearch = searchParams.get('q') || '';
+  const initialCollection = searchParams.get('collection') || 'all';
 
   // Local state for filters
   const [searchQuery, setSearchQuery] = useState<string>(initialSearch);
@@ -73,6 +76,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
   const [style, setStyle] = useState<TemplateStyle | 'all'>(initialStyle);
   const [tier, setTier] = useState<TemplateTier | 'all'>(initialTier);
   const [sortBy, setSortBy] = useState<CatalogFilterState['sortBy']>(initialSort);
+  const [collection, setCollection] = useState<string>(initialCollection);
   const [showFiltersMobile, setShowFiltersMobile] = useState<boolean>(false);
 
   // Sync state with URL params when state changes
@@ -84,6 +88,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     if (style !== 'all') params.set('style', style);
     if (tier !== 'all') params.set('tier', tier);
     if (sortBy !== 'featured') params.set('sort', sortBy);
+    if (collection !== 'all') params.set('collection', collection);
 
     const queryString = params.toString();
     const targetUrl = queryString ? `${pathname}?${queryString}` : pathname;
@@ -91,10 +96,23 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     startTransition(() => {
       router.replace(targetUrl, { scroll: false });
     });
-  }, [searchQuery, category, style, tier, sortBy, pathname, router]);
+  }, [searchQuery, category, style, tier, sortBy, collection, pathname, router]);
+
+  // Find active collection data if present
+  const activeCollection = useMemo(() => {
+    if (collection === 'all') return null;
+    return getCollectionBySlug(collection) || null;
+  }, [collection]);
 
   // Compute filtered templates
   const filteredTemplates = useMemo(() => {
+    let base = initialTemplates;
+
+    // Filter by curated collection slugs first if active
+    if (activeCollection) {
+      base = base.filter((t) => activeCollection.featuredTemplateSlugs.includes(t.slug));
+    }
+
     const filterState: CatalogFilterState = {
       searchQuery,
       category,
@@ -102,12 +120,17 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
       tier,
       sortBy,
     };
-    return filterTemplates(initialTemplates, filterState);
-  }, [initialTemplates, searchQuery, category, style, tier, sortBy]);
+    return filterTemplates(base, filterState);
+  }, [initialTemplates, activeCollection, searchQuery, category, style, tier, sortBy]);
 
   // Active filter counters & helpers
   const hasActiveFilters =
-    searchQuery.trim() !== '' || category !== 'all' || style !== 'all' || tier !== 'all' || sortBy !== 'featured';
+    searchQuery.trim() !== '' ||
+    category !== 'all' ||
+    style !== 'all' ||
+    tier !== 'all' ||
+    sortBy !== 'featured' ||
+    collection !== 'all';
 
   const resetAllFilters = () => {
     setSearchQuery('');
@@ -115,6 +138,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     setStyle('all');
     setTier('all');
     setSortBy('featured');
+    setCollection('all');
   };
 
   const getCategoryName = (slug: string) => {
@@ -215,6 +239,20 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
 
         {hasActiveFilters && (
           <div className={styles.chipsGroup}>
+            {activeCollection && (
+              <span className={`${styles.filterChip} ${styles.collectionChip}`}>
+                <Layers size={12} />
+                <span>Collection: {activeCollection.title}</span>
+                <button
+                  type="button"
+                  onClick={() => setCollection('all')}
+                  aria-label="Clear collection filter"
+                >
+                  <X size={12} />
+                </button>
+              </span>
+            )}
+
             {searchQuery.trim() && (
               <span className={styles.filterChip}>
                 Search: &ldquo;{searchQuery}&rdquo;

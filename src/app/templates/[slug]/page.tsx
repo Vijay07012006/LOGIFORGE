@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { Play, Download, ArrowLeft, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { StarterDownloadButton } from '@/components/platform/StarterDownloadButton';
+import { Play, ArrowLeft, CheckCircle2, ShieldCheck } from 'lucide-react';
 import styles from './template-detail.module.css';
 
 interface PageProps {
@@ -74,10 +75,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
                 <span>Launch Live Demo Studio</span>
               </Button>
             </Link>
-            <Button variant="secondary" size="lg">
-              <Download size={18} />
-              <span>Download Starter Package</span>
-            </Button>
+            <StarterDownloadButton template={template} size="lg" variant="secondary" />
           </div>
         </div>
 

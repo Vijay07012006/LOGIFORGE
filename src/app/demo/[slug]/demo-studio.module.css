@@ -145,7 +145,7 @@
 }
 
 .simIcon {
-  color: #60A5FA;
+  color: #ffb347;
 }
 
 .simTitle {
@@ -176,8 +176,8 @@
 }
 
 .simPillActive {
-  background-color: rgba(37, 99, 235, 0.2);
-  color: #93C5FD;
+  background-color: rgba(232, 89, 12, 0.2);
+  color: #ff8e47;
   border-color: var(--lf-accent-primary);
 }
 

@@ -19,7 +19,7 @@
 
 .searchIcon {
   position: absolute;
-  left: 14px;
+  left: 16px;
   color: var(--lf-text-muted);
   pointer-events: none;
 }
@@ -27,10 +27,10 @@
 .input {
   width: 100%;
   height: 48px;
-  padding: 0 44px 0 44px;
+  padding: 0 44px 0 46px;
   background-color: var(--lf-bg-surface);
-  border: 1px solid var(--lf-border-medium);
-  border-radius: var(--lf-radius-lg);
+  border: 1px solid var(--lf-border-subtle);
+  border-radius: var(--lf-radius-pill);
   color: var(--lf-text-primary);
   font-family: var(--lf-font-sans);
   font-size: var(--lf-text-sm);
@@ -44,27 +44,27 @@
 .input:focus {
   outline: none;
   border-color: var(--lf-accent-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.25);
   background-color: var(--lf-bg-elevated);
 }
 
 .clearBtn {
   position: absolute;
-  right: 12px;
+  right: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: var(--lf-radius-full);
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--lf-text-secondary);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--lf-text-muted);
   border: none;
   cursor: pointer;
   transition: all var(--lf-transition-fast);
 }
 
 .clearBtn:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: var(--lf-text-primary);
+  background-color: rgba(232, 89, 12, 0.2);
+  color: #ff8e47;
 }

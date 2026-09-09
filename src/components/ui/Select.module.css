@@ -6,9 +6,9 @@
 
 .label {
   font-family: var(--lf-font-mono);
-  font-size: var(--lf-text-xs);
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--lf-text-muted);
 }
 
@@ -29,11 +29,11 @@
 
 .select {
   width: 100%;
-  height: 40px;
-  padding: 0 36px 0 14px;
+  height: 42px;
+  padding: 0 36px 0 16px;
   background-color: var(--lf-bg-surface);
-  border: 1px solid var(--lf-border-medium);
-  border-radius: var(--lf-radius-md);
+  border: 1px solid var(--lf-border-subtle);
+  border-radius: var(--lf-radius-pill);
   color: var(--lf-text-primary);
   font-family: var(--lf-font-sans);
   font-size: var(--lf-text-sm);
@@ -50,19 +50,21 @@
 .select:focus {
   outline: none;
   border-color: var(--lf-accent-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.25);
   background-color: var(--lf-bg-elevated);
 }
 
 .select option {
-  background-color: #0E131F;
-  color: #F8FAFC;
+  background-color: #1a1410;
+  color: #f5efe6;
   padding: 8px;
 }
 
-.arrow {
+.chevron {
   position: absolute;
-  right: 12px;
+  right: 14px;
   color: var(--lf-text-muted);
   pointer-events: none;
+  display: flex;
+  align-items: center;
 }

@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
 import { getSampleTrackingNumbers } from '@/lib/tracking';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { StarterDownloadButton } from '@/components/platform/StarterDownloadButton';
 import {
   ArrowLeft,
   Monitor,
@@ -14,7 +14,6 @@ import {
   Smartphone,
   Maximize2,
   Presentation,
-  Download,
   Search,
 } from 'lucide-react';
 import styles from './demo-studio.module.css';
@@ -149,12 +148,7 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
             </Badge>
           </button>
 
-          <Link href={`/templates/${template.slug}`}>
-            <Button variant="primary" size="sm">
-              <Download size={14} />
-              <span>Download</span>
-            </Button>
-          </Link>
+          <StarterDownloadButton template={template} size="sm" variant="primary" />
         </div>
       </header>
 
