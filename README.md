@@ -7,13 +7,13 @@
 [![React](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Design Tokens](https://img.shields.io/badge/CSS-Dark%20Luxury%20Amber-e8590c?style=for-the-badge)](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
-[![Phase 05 Status](https://img.shields.io/badge/Phase%2005-Flagships%20Wave%201%20Verified-emerald?style=for-the-badge)](./docs/architecture/PHASE_05_IMPLEMENTATION_REPORT.md)
+[![Phase 06 Status](https://img.shields.io/badge/Phase%2006-Flagships%20Wave%202%20Verified-emerald?style=for-the-badge)](./docs/architecture/PHASE_06_IMPLEMENTATION_REPORT.md)
 
 <p align="center">
   A category-defining digital marketplace, live device preview studio, and starter kit ecosystem engineered specifically for the logistics, maritime shipping, aviation, freight forwarding, telematics, and supply chain industries.
 </p>
 
-[Explore Blueprint](./docs/architecture/LOGIFORGE_MASTER_BLUEPRINT.md) • [Phase 05 Report](./docs/architecture/PHASE_05_IMPLEMENTATION_REPORT.md) • [Phase 04 Report](./docs/architecture/PHASE_04_IMPLEMENTATION_REPORT.md) • [Data Model](./docs/architecture/DATA_MODEL_SPECIFICATION.md) • [Design System](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
+[Explore Blueprint](./docs/architecture/LOGIFORGE_MASTER_BLUEPRINT.md) • [Phase 06 Report](./docs/architecture/PHASE_06_IMPLEMENTATION_REPORT.md) • [Phase 05 Report](./docs/architecture/PHASE_05_IMPLEMENTATION_REPORT.md) • [Phase 04 Report](./docs/architecture/PHASE_04_IMPLEMENTATION_REPORT.md) • [Data Model](./docs/architecture/DATA_MODEL_SPECIFICATION.md) • [Design System](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
 
 </div>
 
@@ -92,19 +92,19 @@ The platform features an intentionally curated dark luxury visual identity desig
 ---
 
 ## 📦 Flagship Templates Matrix
-
+ 
 | # | Template | Industry Focus | Style & Mood | Signature Feature | Status |
 | :- | :--- | :--- | :--- | :--- | :--- |
-| **01** | **CargoNova** | Global Freight Forwarding | Editorial Luxury | Multi-modal Trade Corridor Visualizer & Milestone Tracking | **LIVE (Phase 05)** |
-| **02** | **FleetOne** | Fleet & Asset Management | Industrial / Technical | Real-Time Vehicle Engine Telematics & Diagnostics | **LIVE (Phase 05)** |
-| **03** | **ShipFlow** | Ocean Freight & Shipping | Minimalist / Nordic | Live Vessel Sailing Matrix & Container Port Congestion | **LIVE (Phase 05)** |
-| **04** | **SwiftDrop** | Last-Mile Courier | Modern Bento Grid | Instant Urban Parcel Rate Calculator & Driver App Preview | Wave 2 |
-| **05** | **PortAxis** | Port Terminal & Intermodal | Enterprise / Authoritative | Deepwater Berth Availability Board & Intermodal Rail Yard |
-| **06** | **AeroCargo** | Air Cargo & Express Charter | Aviation / Precision Tech | IATA Airway Bill (AWB) Flight Tracker & Hold Estimator |
-| **07** | **WarehouseX** | 3PL Warehousing & Storage | Operations High-Density | Pallet ASN Ingestion Lookup & Automated Racking Monitor |
-| **08** | **SupplyCore** | Enterprise Supply Chain | Corporate / Resilient | Multi-Tier Supplier Risk Index & Scope-3 Carbon Visibility |
-| **09** | **RouteIQ** | Logistics Software & AI | Data-driven / Dark Tech | Dynamic Multi-Stop TSP Neural Engine & Predictive ETA |
-| **10** | **MoveSphere** | Intermodal Autonomous Freight | Futuristic / Glassmorphic | Holographic Global Transport Grid & Smart IoT Container |
+| **01** | **CargoNova** | Global Freight Forwarding | Editorial Luxury (`#0A192F`, `#D97706`) | Multi-modal Trade Corridor Visualizer & Milestone Tracking | **LIVE (Phase 05)** |
+| **02** | **FleetOne** | Fleet & Asset Management | Industrial / Technical (`#0F172A`, `#E11D48`) | Real-Time Vehicle Engine Telematics & Diagnostics | **LIVE (Phase 05)** |
+| **03** | **ShipFlow** | Ocean Freight & Shipping | Minimalist / Nordic (`#0B1B2B`, `#0284C7`) | Live Vessel Sailing Matrix & Container Port Congestion | **LIVE (Phase 05)** |
+| **04** | **SwiftDrop** | Last-Mile Courier | Modern Bento Grid (`#0D0E15`, `#FF5722`) | Instant Urban Parcel Rate Calculator & Driver Digital POD | **LIVE (Phase 06)** |
+| **05** | **AeroCargo** | Air Cargo & Express Charter | Aviation Cockpit Dark (`#070A14`, `#38BDF8`) | IATA 11-digit AWB Radar, Hold Estimator & CEIV Pharma | **LIVE (Phase 06)** |
+| **06** | **PortAxis** | Port Terminal & Intermodal | Enterprise Steel Grey (`#070C18`, `#38BDF8`) | Deepwater Berth Availability Board & On-Dock Class-1 Rail | **LIVE (Phase 06)** |
+| **07** | **WarehouseX** | 3PL Warehousing & Storage | Operations High-Density | Pallet ASN Ingestion Lookup & Automated Racking Monitor | Scheduled |
+| **08** | **SupplyCore** | Enterprise Supply Chain | Corporate / Resilient | Multi-Tier Supplier Risk Index & Scope-3 Carbon Visibility | Scheduled |
+| **09** | **RouteIQ** | Logistics Software & AI | Data-driven / Dark Tech | Dynamic Multi-Stop TSP Neural Engine & Predictive ETA | Scheduled |
+| **10** | **MoveSphere** | Intermodal Autonomous Freight | Futuristic / Glassmorphic | Holographic Global Transport Grid & Smart IoT Container | Scheduled |
 
 ---
 

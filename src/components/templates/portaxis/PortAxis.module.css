@@ -1,0 +1,505 @@
+/* PortAxis: Deepwater Container Terminal & Rail Intermodal Theme Styles */
+
+.portaxisRoot {
+  --tmpl-accent: #38bdf8;
+  --tmpl-accent-secondary: #64748b;
+  --tmpl-bg: #070c18;
+  --tmpl-surface: #0f172a;
+  --tmpl-surface-elevated: #1e293b;
+  --tmpl-border: rgba(100, 116, 139, 0.25);
+  --tmpl-border-light: rgba(255, 255, 255, 0.08);
+  --tmpl-text: #f8fafc;
+  --tmpl-text-muted: #94a3b8;
+  --tmpl-nav-bg: rgba(7, 12, 24, 0.96);
+  --tmpl-footer-bg: #040810;
+  --tmpl-btn-text: #ffffff;
+  --tmpl-radius: 6px;
+  --tmpl-font-heading: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --tmpl-font-body: 'Inter', -apple-system, sans-serif;
+
+  background-color: var(--tmpl-bg);
+  color: var(--tmpl-text);
+  font-family: var(--tmpl-font-body);
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Sections Common */
+.section {
+  padding: clamp(3.5rem, 8vw, 6rem) 1.25rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--tmpl-radius);
+  margin-bottom: 0.875rem;
+}
+
+.sectionTitle {
+  font-family: var(--tmpl-font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  color: var(--tmpl-text);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.sectionSubtitle {
+  font-size: clamp(0.875rem, 2vw, 1.0625rem);
+  color: var(--tmpl-text-muted);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  padding: clamp(4.5rem, 10vw, 8rem) 1.25rem clamp(3rem, 7vw, 5rem);
+  background: radial-gradient(
+      ellipse 85% 55% at 50% -15%,
+      rgba(12, 74, 110, 0.4),
+      transparent 75%
+    ),
+    radial-gradient(
+      circle at 85% 40%,
+      rgba(56, 189, 248, 0.06),
+      transparent 50%
+    ),
+    var(--tmpl-bg);
+  border-bottom: 1px solid var(--tmpl-border);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.heroInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.terminalTicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--tmpl-border);
+  padding: 0.375rem 1rem;
+  border-radius: var(--tmpl-radius);
+  font-size: 0.75rem;
+  color: #38bdf8;
+  margin-bottom: 1.75rem;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.terminalPulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.heroHeadline {
+  font-family: var(--tmpl-font-heading);
+  font-size: clamp(2.25rem, 6.8vw, 4.85rem);
+  font-weight: 800;
+  line-height: 1.08;
+  color: var(--tmpl-text);
+  max-width: 1020px;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.03em;
+  word-break: break-word;
+}
+
+.heroHeadlineBlue {
+  color: #38bdf8;
+}
+
+.heroLead {
+  font-size: clamp(0.9375rem, 2.2vw, 1.1875rem);
+  color: var(--tmpl-text-muted);
+  max-width: 780px;
+  line-height: 1.65;
+  margin: 0 0 2.5rem;
+}
+
+.heroButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: 2rem;
+}
+
+.btnSteel {
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  font-family: var(--tmpl-font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--tmpl-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  flex: 1 1 200px;
+  min-height: 48px;
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.3);
+}
+
+.btnSteel:hover {
+  background: #0369a1;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4);
+}
+
+.btnHarbor {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--tmpl-text);
+  border: 1px solid var(--tmpl-border-light);
+  font-family: var(--tmpl-font-heading);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--tmpl-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  flex: 1 1 200px;
+  min-height: 48px;
+}
+
+.btnHarbor:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+/* Berth Scheduling Board */
+.berthBoardCard {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border);
+  border-radius: var(--tmpl-radius);
+  padding: clamp(1.25rem, 3.5vw, 2rem);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+}
+
+.berthGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .berthGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .berthGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.berthCard {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.berthCard:hover {
+  border-color: #38bdf8;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.berthHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.berthNumber {
+  font-family: monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.berthVesselName {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--tmpl-text);
+  margin: 0;
+}
+
+.berthStats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--tmpl-text-muted);
+  border-top: 1px solid var(--tmpl-border-light);
+  padding-top: 0.75rem;
+}
+
+/* Gate Turnaround & PIN Lookup */
+.gateCard {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: clamp(1.25rem, 3.5vw, 2.25rem);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+.gateFormRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.gateInputWrapper {
+  position: relative;
+  flex: 1 1 260px;
+}
+
+.gateInput {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--tmpl-border-light);
+  border-radius: var(--tmpl-radius);
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  font-size: 0.9375rem;
+  color: var(--tmpl-text);
+  box-sizing: border-box;
+}
+
+.gateInput:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+
+.yardResultBox {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--tmpl-border);
+  border-radius: var(--tmpl-radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Intermodal Rail Schedule */
+.railTableWrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.railTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 660px;
+}
+
+.railTable th {
+  text-align: left;
+  padding: 0.875rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--tmpl-text-muted);
+  border-bottom: 1px solid var(--tmpl-border-light);
+}
+
+.railTable td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 0.875rem;
+}
+
+/* Status Badges */
+.statusWorking {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.statusMoored {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.statusDeparting {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.statusCleared {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.statusPending {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(148, 163, 184, 0.12);
+  color: #94a3b8;
+}
+
+/* Capacities & Infrastructure Specs Grid */
+.specGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .specGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .specGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.specCard {
+  background: var(--tmpl-surface);
+  border: 1px solid var(--tmpl-border);
+  border-radius: var(--tmpl-radius);
+  padding: 1.75rem;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.specCard:hover {
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.specIconBox {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--tmpl-radius);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #38bdf8;
+  margin-bottom: 0.5rem;
+}
+
+.specTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--tmpl-text);
+  margin: 0;
+}
+
+.specValue {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.specDesc {
+  font-size: 0.875rem;
+  color: var(--tmpl-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+

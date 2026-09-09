@@ -6,6 +6,9 @@ import { EmbeddedTemplateView } from '@/components/studio/EmbeddedTemplateView';
 import { CargoNovaWebsite } from '@/components/templates/cargonova/CargoNovaWebsite';
 import { FleetOneWebsite } from '@/components/templates/fleetone/FleetOneWebsite';
 import { ShipFlowWebsite } from '@/components/templates/shipflow/ShipFlowWebsite';
+import { SwiftDropWebsite } from '@/components/templates/swiftdrop/SwiftDropWebsite';
+import { AeroCargoWebsite } from '@/components/templates/aerocargo/AeroCargoWebsite';
+import { PortAxisWebsite } from '@/components/templates/portaxis/PortAxisWebsite';
 
 interface TemplateRendererProps {
   template: Template;
@@ -41,6 +44,36 @@ export function TemplateRenderer({
   if (template.slug === 'ship-flow') {
     return (
       <ShipFlowWebsite
+        template={template}
+        initialTracking={initialTracking}
+        initialPage={initialPage}
+      />
+    );
+  }
+
+  if (template.slug === 'swift-drop') {
+    return (
+      <SwiftDropWebsite
+        template={template}
+        initialTracking={initialTracking}
+        initialPage={initialPage}
+      />
+    );
+  }
+
+  if (template.slug === 'aero-cargo') {
+    return (
+      <AeroCargoWebsite
+        template={template}
+        initialTracking={initialTracking}
+        initialPage={initialPage}
+      />
+    );
+  }
+
+  if (template.slug === 'port-axis') {
+    return (
+      <PortAxisWebsite
         template={template}
         initialTracking={initialTracking}
         initialPage={initialPage}
