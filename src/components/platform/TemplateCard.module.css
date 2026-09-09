@@ -1,0 +1,330 @@
+.card {
+  background-color: var(--lf-bg-surface);
+  border: 1px solid var(--lf-border-subtle);
+  border-radius: var(--lf-radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--lf-transition-normal);
+  position: relative;
+}
+
+.card:hover {
+  border-color: var(--card-accent, var(--lf-border-accent));
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
+  transform: translateY(-3px);
+}
+
+.previewArea {
+  position: relative;
+  height: 180px;
+  background-color: #060910;
+  overflow: hidden;
+  border-bottom: 1px solid var(--lf-border-subtle);
+}
+
+.schematicBackground {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.08) 0%, #060910 80%);
+}
+
+.gridPattern {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.accentGlow {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--card-accent, #2563EB);
+  opacity: 0.15;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.schematicGraphic {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.schematicNode {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--card-accent, #2563EB);
+  box-shadow: 0 0 10px var(--card-accent, #2563EB);
+}
+
+.schematicLine {
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--card-accent, #2563EB), rgba(255, 255, 255, 0.1));
+}
+
+.schematicNodeEnd {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.previewCenterBadge {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.previewFontHeading {
+  font-size: var(--lf-text-xl);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.previewStyleLabel {
+  font-family: var(--lf-font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--card-accent, #60A5FA);
+}
+
+.previewHeader {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badgeCluster {
+  display: flex;
+  align-items: center;
+  gap: var(--lf-space-1);
+}
+
+.categoryPill {
+  font-family: var(--lf-font-mono);
+  font-size: 10px;
+  color: var(--lf-text-muted);
+  background-color: rgba(8, 11, 16, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 3px 8px;
+  border-radius: var(--lf-radius-sm);
+  border: 1px solid var(--lf-border-subtle);
+}
+
+.hoverOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background-color: rgba(8, 11, 16, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--lf-transition-normal);
+}
+
+.card:hover .hoverOverlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlayPlayBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lf-space-2);
+  background-color: var(--lf-accent-primary);
+  color: #FFFFFF;
+  padding: 10px 18px;
+  border-radius: var(--lf-radius-full);
+  font-size: var(--lf-text-xs);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--lf-shadow-glow);
+  transform: scale(0.95);
+  transition: transform var(--lf-transition-fast);
+}
+
+.card:hover .overlayPlayBtn {
+  transform: scale(1);
+}
+
+.content {
+  padding: var(--lf-space-5);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--lf-space-3);
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--lf-space-2);
+}
+
+.name {
+  font-size: var(--lf-text-lg);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.nameLink {
+  color: var(--lf-text-primary);
+  text-decoration: none;
+  transition: color var(--lf-transition-fast);
+}
+
+.nameLink:hover {
+  color: var(--card-accent, #60A5FA);
+}
+
+.tagline {
+  font-size: var(--lf-text-xs);
+  color: var(--lf-text-muted);
+  margin-top: 2px;
+}
+
+.cornerLink {
+  color: var(--lf-text-muted);
+  transition: color var(--lf-transition-fast);
+  padding: 2px;
+}
+
+.cornerLink:hover {
+  color: var(--lf-text-primary);
+}
+
+.description {
+  font-size: var(--lf-text-xs);
+  color: var(--lf-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tagsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tagPill {
+  font-family: var(--lf-font-mono);
+  font-size: 10px;
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--lf-text-muted);
+  padding: 2px 6px;
+  border-radius: var(--lf-radius-sm);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--lf-space-4);
+  padding: var(--lf-space-2) 0;
+  border-top: 1px solid var(--lf-border-subtle);
+  border-bottom: 1px solid var(--lf-border-subtle);
+  font-size: var(--lf-text-xs);
+  color: var(--lf-text-muted);
+}
+
+.ratingGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.starIcon {
+  color: #F59E0B;
+}
+
+.ratingVal {
+  font-family: var(--lf-font-mono);
+  font-weight: 600;
+  color: var(--lf-text-primary);
+}
+
+.reviewCount {
+  color: var(--lf-text-muted);
+}
+
+.downloadGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.downloadIcon {
+  color: var(--lf-text-muted);
+}
+
+.downloadVal {
+  font-family: var(--lf-font-mono);
+  color: var(--lf-text-secondary);
+}
+
+.verifiedGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.shieldIcon {
+  color: var(--lf-accent-emerald);
+}
+
+.verifiedText {
+  font-family: var(--lf-font-mono);
+  font-size: 10px;
+  color: var(--lf-accent-emerald);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--lf-space-2);
+  margin-top: auto;
+}
+
+.actionBtn {
+  flex: 1;
+  display: flex;
+}
+
+.actionBtn button {
+  width: 100%;
+}

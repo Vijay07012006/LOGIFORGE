@@ -1,0 +1,189 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--lf-z-modal);
+  background-color: rgba(5, 7, 11, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 200ms ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.drawer {
+  width: 85%;
+  max-width: 360px;
+  height: 100%;
+  background-color: var(--lf-bg-surface);
+  border-left: 1px solid var(--lf-border-medium);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+  animation: slideIn 250ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--lf-space-4) var(--lf-space-5);
+  border-bottom: 1px solid var(--lf-border-subtle);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--lf-space-2);
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--lf-radius-sm);
+  background-color: var(--lf-bg-elevated);
+  border: 1px solid var(--lf-border-accent);
+  color: #60A5FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brandName {
+  font-size: var(--lf-text-base);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--lf-text-primary);
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--lf-radius-md);
+  color: var(--lf-text-secondary);
+  background: transparent;
+  border: 1px solid var(--lf-border-subtle);
+  cursor: pointer;
+  transition: all var(--lf-transition-fast);
+}
+
+.closeBtn:hover {
+  color: var(--lf-text-primary);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  padding: var(--lf-space-4) var(--lf-space-3);
+  gap: var(--lf-space-1);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--lf-space-3);
+  padding: var(--lf-space-3) var(--lf-space-4);
+  border-radius: var(--lf-radius-md);
+  font-size: var(--lf-text-sm);
+  font-weight: 500;
+  color: var(--lf-text-secondary);
+  text-decoration: none;
+  transition: all var(--lf-transition-fast);
+}
+
+.navItem:hover {
+  background-color: var(--lf-bg-elevated);
+  color: var(--lf-text-primary);
+}
+
+.active {
+  background-color: rgba(37, 99, 235, 0.12);
+  color: #60A5FA;
+  font-weight: 600;
+}
+
+.countBadge {
+  margin-left: auto;
+  font-size: 10px;
+}
+
+.categoriesSection {
+  padding: var(--lf-space-4) var(--lf-space-5);
+  border-top: 1px solid var(--lf-border-subtle);
+  flex: 1;
+  overflow-y: auto;
+}
+
+.catHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--lf-space-3);
+}
+
+.catTitle {
+  font-family: var(--lf-font-mono);
+  font-size: var(--lf-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--lf-text-muted);
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--lf-text-xs);
+  color: #60A5FA;
+  text-decoration: none;
+}
+
+.catList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lf-space-2);
+}
+
+.catLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--lf-space-2) var(--lf-space-3);
+  border-radius: var(--lf-radius-sm);
+  font-size: var(--lf-text-xs);
+  color: var(--lf-text-secondary);
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.02);
+  transition: all var(--lf-transition-fast);
+}
+
+.catLink:hover {
+  background-color: var(--lf-bg-elevated);
+  color: var(--lf-text-primary);
+}
+
+.catDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.footer {
+  padding: var(--lf-space-4) var(--lf-space-5);
+  border-top: 1px solid var(--lf-border-subtle);
+  background-color: var(--lf-bg-base);
+}

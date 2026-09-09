@@ -2,11 +2,20 @@
  * LOGIFORGE: General Utility Helpers
  */
 
-export function cn(...inputs: (string | undefined | null | false | Record<string, boolean>)[]): string {
+export type ClassValue =
+  | string
+  | number
+  | bigint
+  | boolean
+  | undefined
+  | null
+  | Record<string, boolean>;
+
+export function cn(...inputs: ClassValue[]): string {
   const classes: string[] = [];
 
   for (const input of inputs) {
-    if (!input) continue;
+    if (!input || input === true) continue;
 
     if (typeof input === 'string') {
       classes.push(input);

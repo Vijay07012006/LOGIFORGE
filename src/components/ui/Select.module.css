@@ -1,0 +1,68 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lf-space-1);
+}
+
+.label {
+  font-family: var(--lf-font-mono);
+  font-size: var(--lf-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--lf-text-muted);
+}
+
+.selectContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  left: 12px;
+  color: var(--lf-text-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  width: 100%;
+  height: 40px;
+  padding: 0 36px 0 14px;
+  background-color: var(--lf-bg-surface);
+  border: 1px solid var(--lf-border-medium);
+  border-radius: var(--lf-radius-md);
+  color: var(--lf-text-primary);
+  font-family: var(--lf-font-sans);
+  font-size: var(--lf-text-sm);
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: all var(--lf-transition-fast);
+}
+
+.hasIcon {
+  padding-left: 36px;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--lf-accent-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  background-color: var(--lf-bg-elevated);
+}
+
+.select option {
+  background-color: #0E131F;
+  color: #F8FAFC;
+  padding: 8px;
+}
+
+.arrow {
+  position: absolute;
+  right: 12px;
+  color: var(--lf-text-muted);
+  pointer-events: none;
+}

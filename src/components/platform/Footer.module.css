@@ -28,11 +28,11 @@
 .top {
   display: flex;
   flex-direction: column;
-  gap: var(--lf-space-8);
+  gap: var(--lf-space-10);
   margin-bottom: var(--lf-space-12);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .top {
     flex-direction: row;
     justify-content: space-between;
@@ -41,32 +41,35 @@
 
 .brandColumn {
   max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--lf-space-3);
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: var(--lf-space-2);
-  margin-bottom: var(--lf-space-3);
   color: var(--lf-text-primary);
+  text-decoration: none;
 }
 
 .logoIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   background-color: var(--lf-bg-elevated);
-  border: 1px solid var(--lf-border-medium);
+  border: 1px solid var(--lf-border-accent);
   border-radius: var(--lf-radius-sm);
   color: #60A5FA;
 }
 
 .brandName {
-  font-size: var(--lf-text-base);
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-size: var(--lf-text-lg);
+  font-weight: 800;
+  letter-spacing: 0.06em;
 }
 
 .tagline {
@@ -75,16 +78,42 @@
   color: var(--lf-text-muted);
 }
 
+.repoLink {
+  margin-top: var(--lf-space-2);
+}
+
+.githubBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--lf-radius-md);
+  background-color: var(--lf-bg-elevated);
+  border: 1px solid var(--lf-border-subtle);
+  color: var(--lf-text-secondary);
+  font-size: var(--lf-text-xs);
+  text-decoration: none;
+  transition: all var(--lf-transition-fast);
+}
+
+.githubBadge:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--lf-text-primary);
+  border-color: var(--lf-border-medium);
+}
+
 .linksGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--lf-space-8);
+  flex: 1;
+  max-width: 800px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .linksGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--lf-space-12);
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--lf-space-6);
   }
 }
 
@@ -92,7 +121,7 @@
   font-size: var(--lf-text-xs);
   font-family: var(--lf-font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--lf-text-primary);
   margin-bottom: var(--lf-space-4);
 }
@@ -105,13 +134,15 @@
 }
 
 .linkList a {
-  font-size: var(--lf-text-sm);
+  font-size: var(--lf-text-xs);
   color: var(--lf-text-secondary);
+  text-decoration: none;
   transition: color var(--lf-transition-fast);
+  line-height: 1.5;
 }
 
 .linkList a:hover {
-  color: var(--lf-text-primary);
+  color: #60A5FA;
 }
 
 .bottom {
@@ -124,12 +155,19 @@
   color: var(--lf-text-muted);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .bottom {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
+}
+
+.statusBadges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--lf-space-4);
 }
 
 .status {
@@ -145,4 +183,16 @@
   border-radius: 50%;
   background-color: var(--lf-accent-emerald);
   box-shadow: 0 0 8px var(--lf-accent-emerald);
+}
+
+.shield {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--lf-font-mono);
+  color: var(--lf-text-muted);
+}
+
+.shieldIcon {
+  color: var(--lf-accent-emerald);
 }
