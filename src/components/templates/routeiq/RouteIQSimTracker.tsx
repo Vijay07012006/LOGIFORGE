@@ -66,21 +66,57 @@ const PRESET_ROUTES: Record<string, RouteSimulationRecord> = {
 
 interface RouteIQSimTrackerProps {
   initialKey?: string;
+  onSearchPerformed?: (trackingNumber: string, found: boolean) => void;
 }
 
 export const RouteIQSimTracker: React.FC<RouteIQSimTrackerProps> = ({
   initialKey = 'RQ-2048-AI',
+  onSearchPerformed,
 }) => {
   const [searchQuery, setSearchQuery] = useState(initialKey);
   const [activeRecord, setActiveRecord] = useState<RouteSimulationRecord | null>(
     PRESET_ROUTES[initialKey] || PRESET_ROUTES['RQ-2048-AI']
   );
 
+  React.useEffect(() => {
+    if (initialKey) {
+      const clean = initialKey.trim().toUpperCase();
+      setSearchQuery(clean);
+      if (clean && PRESET_ROUTES[clean]) {
+        setActiveRecord(PRESET_ROUTES[clean]);
+        onSearchPerformed?.(clean, true);
+      } else if (clean) {
+        setActiveRecord({
+          streamKey: clean,
+          vehicleId: 'TELEMETRY-UNIT-CUSTOM',
+          driverId: 'Assigned Neural Dispatch Node',
+          origin: 'Origin Node Dispatch',
+          destination: 'Destination Multi-Drop Hub',
+          stopsCount: 12,
+          originalMiles: 450,
+          optimizedMiles: 360,
+          savedFuelGal: 14.5,
+          status: 'In Transit • Algorithmic Green',
+          currentMilestone: 'Autonomous route optimization synced across cellular IoT',
+          nextRecalculation: 'In 2 minutes',
+        });
+        onSearchPerformed?.(clean, true);
+      } else {
+        setActiveRecord(null);
+      }
+    }
+  }, [initialKey, onSearchPerformed]);
+
   const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const clean = searchQuery.trim().toUpperCase();
+    if (!clean) {
+      setActiveRecord(null);
+      return;
+    }
     if (PRESET_ROUTES[clean]) {
       setActiveRecord(PRESET_ROUTES[clean]);
+      onSearchPerformed?.(clean, true);
     } else {
       setActiveRecord({
         streamKey: clean,
@@ -96,11 +132,13 @@ export const RouteIQSimTracker: React.FC<RouteIQSimTrackerProps> = ({
         currentMilestone: 'Autonomous route optimization synced across cellular IoT',
         nextRecalculation: 'In 2 minutes',
       });
+      onSearchPerformed?.(clean, true);
     }
   };
 
   return (
-    <section id="tracking" className={styles.section}>
+    <section id="sim" className={styles.section} style={{ position: 'relative' }}>
+      <div id="tracking" style={{ position: 'absolute', top: '-80px' }} />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <Cpu size={14} />
@@ -148,7 +186,7 @@ export const RouteIQSimTracker: React.FC<RouteIQSimTrackerProps> = ({
           ))}
         </div>
 
-        {activeRecord && (
+        {activeRecord ? (
           <div style={{ background: '#0a0d18', border: '1px solid var(--tmpl-border)', borderRadius: '10px', padding: '1.75rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--tmpl-border-subtle)', paddingBottom: '1rem' }}>
               <div>
@@ -228,6 +266,10 @@ export const RouteIQSimTracker: React.FC<RouteIQSimTrackerProps> = ({
                 </div>
               </div>
             </div>
+          </div>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: '#94a3b8' }}>
+            No neural dispatch telemetry stream found for identifier: {searchQuery || 'empty'}. Try sample <strong>RQ-2048-AI</strong>.
           </div>
         )}
       </div>

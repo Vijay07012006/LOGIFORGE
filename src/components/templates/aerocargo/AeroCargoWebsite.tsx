@@ -59,6 +59,7 @@ export function AeroCargoWebsite({
   initialPage = 'home',
 }: AeroCargoWebsiteProps) {
   const [activeSection, setActiveSection] = useState(initialPage);
+  const [currentTracking, setCurrentTracking] = useState(initialTracking);
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
@@ -73,7 +74,7 @@ export function AeroCargoWebsite({
           type: 'TEMPLATE_PAGE_CHANGED',
           pageSlug: id,
         },
-        '*'
+        window.location.origin
       );
     }
   };
@@ -83,6 +84,11 @@ export function AeroCargoWebsite({
       if (typeof window !== 'undefined' && event.origin !== window.location.origin) return;
       const data = event.data;
       if (!data || typeof data !== 'object') return;
+
+      if (data.type === 'INJECT_TRACKING_QUERY' && typeof data.trackingNumber === 'string') {
+        setCurrentTracking(data.trackingNumber);
+        scrollToSection('awb');
+      }
 
       if (data.type === 'NAVIGATE_TEMPLATE_PAGE' && typeof data.pageSlug === 'string') {
         scrollToSection(data.pageSlug);
@@ -99,12 +105,25 @@ export function AeroCargoWebsite({
           title: template.name,
           currentRoute: activeSection,
         },
-        '*'
+        window.location.origin
       );
     }
 
     return () => window.removeEventListener('message', handleHostMessage);
   }, [template.slug, template.name, activeSection]);
+
+  const handleTrackingSearchPerformed = (trackingNumber: string, found: boolean) => {
+    if (typeof window !== 'undefined' && window.parent !== window) {
+      window.parent.postMessage(
+        {
+          type: 'TRACKING_SEARCH_PERFORMED',
+          trackingNumber,
+          resultFound: found,
+        },
+        window.location.origin
+      );
+    }
+  };
 
   return (
     <div className={styles.aerocargoRoot}>
@@ -131,7 +150,10 @@ export function AeroCargoWebsite({
       </div>
 
       {/* AWB Tracking */}
-      <AeroCargoAwbTrack initialTracking={initialTracking} />
+      <AeroCargoAwbTrack
+        initialTracking={currentTracking}
+        onSearchPerformed={handleTrackingSearchPerformed}
+      />
 
       {/* ULD Calculator */}
       <AeroCargoUldCalc />

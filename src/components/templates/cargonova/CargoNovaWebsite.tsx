@@ -78,7 +78,7 @@ export function CargoNovaWebsite({
           type: 'TEMPLATE_PAGE_CHANGED',
           pageSlug: id,
         },
-        '*'
+        window.location.origin
       );
     }
   };
@@ -111,7 +111,7 @@ export function CargoNovaWebsite({
           title: template.name,
           currentRoute: activeSection,
         },
-        '*'
+        window.location.origin
       );
     }
 
@@ -126,7 +126,7 @@ export function CargoNovaWebsite({
           trackingNumber,
           resultFound: found,
         },
-        '*'
+        window.location.origin
       );
     }
   }, []);

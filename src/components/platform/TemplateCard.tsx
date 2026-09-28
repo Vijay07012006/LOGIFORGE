@@ -12,7 +12,7 @@ export interface TemplateCardProps {
   priority?: boolean;
 }
 
-export function TemplateCard({ template }: TemplateCardProps) {
+export function TemplateCard({ template, priority = false }: TemplateCardProps) {
   return (
     <article
       className={styles.card}
@@ -23,6 +23,16 @@ export function TemplateCard({ template }: TemplateCardProps) {
     >
       {/* Visual Preview Banner with Logistics Aesthetic */}
       <div className={styles.previewArea}>
+        {template.thumbnailImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={template.thumbnailImage}
+            alt=""
+            aria-hidden="true"
+            className={styles.previewImg}
+            loading={priority ? 'eager' : 'lazy'}
+          />
+        )}
         <div className={styles.schematicBackground}>
           <div className={styles.gridPattern} />
           <div className={styles.accentGlow} />

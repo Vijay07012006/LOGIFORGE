@@ -91,7 +91,7 @@ export function MoveSphereWebsite({
           type: 'TEMPLATE_PAGE_CHANGED',
           pageSlug: id,
         },
-        '*'
+        window.location.origin
       );
     }
   };
@@ -122,7 +122,7 @@ export function MoveSphereWebsite({
           title: template.name,
           currentRoute: activeSection,
         },
-        '*'
+        window.location.origin
       );
     }
 

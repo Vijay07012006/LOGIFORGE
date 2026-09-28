@@ -17,6 +17,16 @@ export const MoveSphereHero: React.FC<MoveSphereHeroProps> = ({
 }) => {
   return (
     <section className={styles.hero}>
+      <div className={styles.heroBgMedia} aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/movesphere/movesphere-hero.webp"
+          alt=""
+          className={styles.heroBgImg}
+          loading="eager"
+        />
+        <div className={styles.heroOverlay} />
+      </div>
       <div className={styles.heroInner}>
         <div className={styles.quantumTicker}>
           <span className={styles.pulseDot} />

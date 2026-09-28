@@ -5,7 +5,8 @@ import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { StarterDownloadButton } from '@/components/platform/StarterDownloadButton';
-import { Play, ArrowLeft, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Play, ArrowLeft, CheckCircle2, ShieldCheck, ExternalLink } from 'lucide-react';
+import { LocalShareButton } from '@/components/platform/LocalShareButton';
 import styles from './template-detail.module.css';
 
 interface PageProps {
@@ -75,8 +76,48 @@ export default async function TemplateDetailPage({ params }: PageProps) {
                 <span>Launch Live Demo Studio</span>
               </Button>
             </Link>
-            <StarterDownloadButton template={template} size="lg" variant="secondary" />
+            <Link href={`/demo/${template.slug}/embed`} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="lg">
+                <ExternalLink size={18} />
+                <span>Isolated Embed</span>
+              </Button>
+            </Link>
+            <LocalShareButton slug={template.slug} name={template.name} mode="template" size="lg" variant="secondary" />
+            <StarterDownloadButton template={template} size="lg" variant="outline" />
           </div>
+        </div>
+
+        {/* Template Media Architecture Preview */}
+        <div className={styles.mediaPreviewPanel}>
+          <div className={styles.mediaFrame}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={template.previewImage}
+              alt={`${template.name} Architecture Preview`}
+              className={styles.mediaMainImg}
+            />
+            <div className={styles.mediaBadgeOverlay}>
+              <Badge variant="primary" size="sm">
+                Production Preview
+              </Badge>
+              <span className={styles.mediaDimBadge}>1600 × 900 High-DPI</span>
+            </div>
+          </div>
+          {template.galleryImages && template.galleryImages.length > 1 && (
+            <div className={styles.galleryStrip}>
+              {template.galleryImages.slice(0, 3).map((imgUrl, idx) => (
+                <div key={idx} className={styles.galleryItem}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={imgUrl}
+                    alt={`${template.name} View ${idx + 1}`}
+                    className={styles.galleryImg}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Technical Specifications Grid */}
@@ -169,6 +210,30 @@ export default async function TemplateDetailPage({ params }: PageProps) {
                 <p className={styles.auditDesc}>
                   Meets strict isolation guidelines. Zero style pollution, WCAG accessible colors, and typed contracts.
                 </p>
+              </div>
+            </div>
+
+            <div className={styles.specsCard}>
+              <h3 className={styles.specsTitle}>Client Delivery Routes</h3>
+              <div className={styles.specRow}>
+                <span className={styles.specLabel}>Demo Route</span>
+                <Link href={`/demo/${template.slug}`} className={styles.specValLink}>
+                  /demo/{template.slug}
+                </Link>
+              </div>
+              <div className={styles.specRow}>
+                <span className={styles.specLabel}>Embed Route</span>
+                <Link href={`/demo/${template.slug}/embed`} target="_blank" className={styles.specValLink}>
+                  /demo/{template.slug}/embed
+                </Link>
+              </div>
+              <div className={styles.specRow}>
+                <span className={styles.specLabel}>Sample Waybill</span>
+                <span className={styles.specVal}>{template.sections.tracking?.sampleTrackingNumbers?.[0] || 'N/A'}</span>
+              </div>
+              <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <LocalShareButton slug={template.slug} name={template.name} mode="demo" size="sm" variant="outline" />
+                <LocalShareButton slug={template.slug} name={template.name} mode="embed" size="sm" variant="ghost" />
               </div>
             </div>
           </aside>

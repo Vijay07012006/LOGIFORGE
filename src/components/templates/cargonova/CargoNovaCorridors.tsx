@@ -110,6 +110,8 @@ export function CargoNovaCorridors() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem',
                   fontSize: '0.75rem',
                   color: 'var(--tmpl-text-muted)',
                   borderTop: '1px solid var(--tmpl-border-light)',

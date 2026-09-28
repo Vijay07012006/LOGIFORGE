@@ -182,5 +182,15 @@
   }
   .footer {
     padding: 14px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .footerLeft {
+    justify-content: center;
+    text-align: center;
+  }
+  .footer button {
+    width: 100%;
   }
 }

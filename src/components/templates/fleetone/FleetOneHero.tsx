@@ -15,6 +15,16 @@ export function FleetOneHero({
 }: FleetOneHeroProps) {
   return (
     <section className={styles.hero} id="home">
+      <div className={styles.heroBgMedia} aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/fleetone/fleetone-hero.webp"
+          alt=""
+          className={styles.heroBgImg}
+          loading="eager"
+        />
+        <div className={styles.heroOverlay} />
+      </div>
       <div className={styles.heroInner}>
         <div className={styles.commandHudStatus}>
           <span className={styles.hudPulse} />

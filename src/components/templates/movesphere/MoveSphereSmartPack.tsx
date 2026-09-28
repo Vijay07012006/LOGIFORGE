@@ -80,7 +80,7 @@ export const MoveSphereSmartPack: React.FC = () => {
         </button>
       </div>
 
-      <div style={{ background: '#0a121e', border: '1px solid var(--tmpl-border)', borderRadius: '16px', padding: '2rem', maxWidth: '840px', margin: '0 auto' }}>
+      <div style={{ background: '#0a121e', border: '1px solid var(--tmpl-border)', borderRadius: '16px', padding: 'clamp(1.25rem, 4vw, 2rem)', maxWidth: '840px', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid var(--tmpl-border-subtle)', paddingBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <span style={{ fontSize: '0.75rem', color: '#2dd4bf', textTransform: 'uppercase', fontWeight: 700 }}>RECOMMENDED CONTAINER PROFILE</span>
@@ -93,7 +93,7 @@ export const MoveSphereSmartPack: React.FC = () => {
           </span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: '1.25rem' }}>
           <div style={{ background: 'var(--tmpl-surface-elevated)', padding: '1.25rem', borderRadius: '10px' }}>
             <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>ATMOSPHERIC ENVIRONMENT</div>
             <div style={{ color: '#f8fafc', fontWeight: 600, fontSize: '0.9375rem', marginTop: '0.375rem' }}>

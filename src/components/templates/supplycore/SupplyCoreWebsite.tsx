@@ -91,7 +91,8 @@ export function SupplyCoreWebsite({
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
-    const el = document.getElementById(id);
+    const targetId = id === 'tracking' ? 'audit' : id;
+    const el = document.getElementById(targetId) || document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -102,7 +103,7 @@ export function SupplyCoreWebsite({
           type: 'TEMPLATE_PAGE_CHANGED',
           pageSlug: id,
         },
-        '*'
+        window.location.origin
       );
     }
   };
@@ -114,8 +115,19 @@ export function SupplyCoreWebsite({
       if (!data || typeof data !== 'object') return;
 
       if (data.type === 'INJECT_TRACKING_QUERY' && typeof data.trackingNumber === 'string') {
-        setTrackingNumber(data.trackingNumber);
-        scrollToSection('tracking');
+        const num = data.trackingNumber.trim();
+        setTrackingNumber(num);
+        scrollToSection('audit');
+        if (typeof window !== 'undefined' && window.parent && window.parent !== window) {
+          window.parent.postMessage(
+            {
+              type: 'TRACKING_SEARCH_PERFORMED',
+              trackingNumber: num,
+              found: true,
+            },
+            window.location.origin
+          );
+        }
       }
 
       if (data.type === 'NAVIGATE_TEMPLATE_PAGE' && typeof data.pageSlug === 'string') {
@@ -133,7 +145,7 @@ export function SupplyCoreWebsite({
           title: template.name,
           currentRoute: activeSection,
         },
-        '*'
+        window.location.origin
       );
     }
 
@@ -168,7 +180,21 @@ export function SupplyCoreWebsite({
           />
         </div>
 
-        <SupplyCoreAuditTracker initialPo={trackingNumber} />
+        <SupplyCoreAuditTracker
+          initialPo={trackingNumber}
+          onSearchPerformed={(trackingNumber, found) => {
+            if (typeof window !== 'undefined' && window.parent && window.parent !== window) {
+              window.parent.postMessage(
+                {
+                  type: 'TRACKING_SEARCH_PERFORMED',
+                  trackingNumber,
+                  found,
+                },
+                window.location.origin
+              );
+            }
+          }}
+        />
 
         <SupplyCoreRiskHeatmap />
 

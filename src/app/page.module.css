@@ -24,6 +24,18 @@
   overflow: hidden;
 }
 
+.heroBgImage {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/platform/hero-ambient-logistics.webp');
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0.16;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
+  pointer-events: none;
+}
+
 .radarRing {
   position: absolute;
   top: -320px;
@@ -682,6 +694,130 @@
 .colLink:hover {
   color: #e8590c;
   transform: translateX(4px);
+}
+
+.mediaShowcaseSection {
+  padding: clamp(64px, 8vw, 96px) 0;
+  background: #080604;
+  border-top: 1px solid var(--lf-border-subtle);
+  border-bottom: 1px solid var(--lf-border-subtle);
+}
+
+.mediaGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+}
+
+.mediaCardLarge {
+  grid-column: span 12;
+}
+
+@media (min-width: 1024px) {
+  .mediaCardLarge {
+    grid-column: span 7;
+  }
+}
+
+.mediaCardVideo {
+  grid-column: span 12;
+}
+
+@media (min-width: 1024px) {
+  .mediaCardVideo {
+    grid-column: span 5;
+  }
+}
+
+.mediaCardCol {
+  grid-column: span 12;
+}
+
+@media (min-width: 640px) {
+  .mediaCardCol {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mediaCardCol {
+    grid-column: span 4;
+  }
+}
+
+.mediaMediaWrapper {
+  position: relative;
+  border-radius: var(--lf-radius-card);
+  overflow: hidden;
+  border: 1px solid var(--lf-border-subtle);
+  background-color: #14100c;
+  aspect-ratio: 16 / 9;
+  display: flex;
+}
+
+.mediaImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 300ms ease;
+}
+
+.mediaMediaWrapper:hover .mediaImg {
+  transform: scale(1.02);
+}
+
+.mediaOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 6, 4, 0.2) 0%, rgba(8, 6, 4, 0.9) 85%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(16px, 3vw, 28px);
+  gap: 8px;
+}
+
+.mediaOverlayCompact {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 6, 4, 0.1) 0%, rgba(8, 6, 4, 0.88) 85%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  gap: 6px;
+}
+
+.mediaTitle {
+  font-family: var(--lf-font-heading);
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-weight: 700;
+  color: #f5efe6;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.mediaSubTitle {
+  font-family: var(--lf-font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5efe6;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.mediaCaption {
+  font-size: 13px;
+  color: #b8a99a;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 580px;
+}
+
+.mediaCtaRow {
+  margin-top: 4px;
 }
 
 /* =========================================================================

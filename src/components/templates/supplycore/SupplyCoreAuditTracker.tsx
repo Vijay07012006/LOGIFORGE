@@ -58,21 +58,55 @@ const PRESET_AUDITS: Record<string, SupplyAuditRecord> = {
 
 interface SupplyCoreAuditTrackerProps {
   initialPo?: string;
+  onSearchPerformed?: (trackingNumber: string, found: boolean) => void;
 }
 
 export const SupplyCoreAuditTracker: React.FC<SupplyCoreAuditTrackerProps> = ({
   initialPo = 'SC-7700-GL',
+  onSearchPerformed,
 }) => {
   const [searchQuery, setSearchQuery] = useState(initialPo);
   const [activeRecord, setActiveRecord] = useState<SupplyAuditRecord | null>(
     PRESET_AUDITS[initialPo] || PRESET_AUDITS['SC-7700-GL']
   );
 
+  React.useEffect(() => {
+    if (initialPo) {
+      const clean = initialPo.trim().toUpperCase();
+      setSearchQuery(clean);
+      if (clean && PRESET_AUDITS[clean]) {
+        setActiveRecord(PRESET_AUDITS[clean]);
+        onSearchPerformed?.(clean, true);
+      } else if (clean) {
+        setActiveRecord({
+          poNumber: clean,
+          project: 'Custom Global Procurement Line Audit',
+          contractValue: '$5,000,000 USD (Estimated)',
+          resilienceIndex: '92.0 / 100 (Standard Tier-2 Coverage)',
+          tier1Supplier: 'Audited Global Tier-1 Partner Node',
+          tier2Fabricator: 'Certified Regional Component Fabricator',
+          tier3RawMinerals: 'Verified Conflict-Free Smelter List (CFSL)',
+          esgScore: 'A- Aligned',
+          customsSanctionCheck: 'Passed',
+          contingencyStatus: 'Standard SLA secondary vendor active',
+        });
+        onSearchPerformed?.(clean, true);
+      } else {
+        setActiveRecord(null);
+      }
+    }
+  }, [initialPo, onSearchPerformed]);
+
   const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const clean = searchQuery.trim().toUpperCase();
+    if (!clean) {
+      setActiveRecord(null);
+      return;
+    }
     if (PRESET_AUDITS[clean]) {
       setActiveRecord(PRESET_AUDITS[clean]);
+      onSearchPerformed?.(clean, true);
     } else {
       setActiveRecord({
         poNumber: clean,
@@ -86,11 +120,13 @@ export const SupplyCoreAuditTracker: React.FC<SupplyCoreAuditTrackerProps> = ({
         customsSanctionCheck: 'Passed',
         contingencyStatus: 'Standard SLA secondary vendor active',
       });
+      onSearchPerformed?.(clean, true);
     }
   };
 
   return (
-    <section id="tracking" className={styles.section}>
+    <section id="audit" className={styles.section} style={{ position: 'relative' }}>
+      <div id="tracking" style={{ position: 'absolute', top: '-80px' }} />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <Layers size={14} />
@@ -138,7 +174,7 @@ export const SupplyCoreAuditTracker: React.FC<SupplyCoreAuditTrackerProps> = ({
           ))}
         </div>
 
-        {activeRecord && (
+        {activeRecord ? (
           <div style={{ background: '#0b1020', border: '1px solid var(--tmpl-border)', borderRadius: '8px', padding: '1.75rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--tmpl-border-subtle)', paddingBottom: '1rem' }}>
               <div>
@@ -201,6 +237,10 @@ export const SupplyCoreAuditTracker: React.FC<SupplyCoreAuditTrackerProps> = ({
                 </div>
               </div>
             </div>
+          </div>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: '#94a3b8' }}>
+            No purchase order or contract audit found for identifier: {searchQuery || 'empty'}. Try sample <strong>SC-7700-GL</strong>.
           </div>
         )}
       </div>

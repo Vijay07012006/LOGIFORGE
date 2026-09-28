@@ -61,7 +61,7 @@ export const SupplyCoreScope3Calc: React.FC = () => {
               type="number"
               className={styles.calcInput}
               value={distanceKm}
-              onChange={(e) => setDistanceKm(Math.max(1, Number(e.target.value)))}
+              onChange={(e) => setDistanceKm(Math.max(1, Number(e.target.value) || 1))}
               min={1}
             />
           </div>
@@ -73,7 +73,7 @@ export const SupplyCoreScope3Calc: React.FC = () => {
               type="number"
               className={styles.calcInput}
               value={weightTons}
-              onChange={(e) => setWeightTons(Math.max(1, Number(e.target.value)))}
+              onChange={(e) => setWeightTons(Math.max(1, Number(e.target.value) || 1))}
               min={1}
             />
           </div>

@@ -45,7 +45,8 @@ const INFRASTRUCTURE_SPECS = [
 
 export const PortAxisCapacities: React.FC = () => {
   return (
-    <section id="infrastructure" className={styles.section}>
+    <section id="capacities" className={styles.section}>
+      <span id="infrastructure" />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <Layers size={14} />

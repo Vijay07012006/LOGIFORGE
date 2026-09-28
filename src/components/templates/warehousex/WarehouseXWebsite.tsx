@@ -95,14 +95,16 @@ const FOOTER_COLS = [
 
 export function WarehouseXWebsite({
   template,
-  initialTracking,
+  initialTracking = 'WX-5510-IL',
   initialPage = 'home',
 }: WarehouseXWebsiteProps) {
   const [activeSection, setActiveSection] = useState(initialPage);
+  const [currentTracking, setCurrentTracking] = useState(initialTracking);
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
-    const el = document.getElementById(id);
+    const targetId = id === 'tracking' ? 'asn' : id;
+    const el = document.getElementById(targetId) || document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -113,7 +115,7 @@ export function WarehouseXWebsite({
           type: 'TEMPLATE_PAGE_CHANGED',
           pageSlug: id,
         },
-        '*'
+        window.location.origin
       );
     }
   };
@@ -123,8 +125,24 @@ export function WarehouseXWebsite({
       if (typeof window !== 'undefined' && event.origin !== window.location.origin) return;
       if (!event.data || typeof event.data !== 'object') return;
 
-      if (event.data.type === 'NAVIGATE_PAGE' && event.data.pageSlug) {
+      if ((event.data.type === 'NAVIGATE_PAGE' || event.data.type === 'NAVIGATE_TEMPLATE_PAGE') && event.data.pageSlug) {
         scrollToSection(event.data.pageSlug);
+      }
+
+      if (event.data.type === 'INJECT_TRACKING_QUERY' && event.data.trackingNumber) {
+        const num = String(event.data.trackingNumber).trim();
+        setCurrentTracking(num);
+        scrollToSection('asn');
+        if (typeof window !== 'undefined' && window.parent !== window) {
+          window.parent.postMessage(
+            {
+              type: 'TRACKING_SEARCH_PERFORMED',
+              trackingNumber: num,
+              found: true,
+            },
+            window.location.origin
+          );
+        }
       }
     }
 
@@ -138,7 +156,7 @@ export function WarehouseXWebsite({
           title: template.name,
           currentRoute: activeSection,
         },
-        '*'
+        window.location.origin
       );
     }
 
@@ -173,7 +191,21 @@ export function WarehouseXWebsite({
           />
         </div>
 
-        <WarehouseXAsnTracker initialAsn={initialTracking || 'WX-5510-IL'} />
+        <WarehouseXAsnTracker
+          initialAsn={currentTracking}
+          onSearchPerformed={(trackingNumber, found) => {
+            if (typeof window !== 'undefined' && window.parent !== window) {
+              window.parent.postMessage(
+                {
+                  type: 'TRACKING_SEARCH_PERFORMED',
+                  trackingNumber,
+                  found,
+                },
+                window.location.origin
+              );
+            }
+          }}
+        />
 
         <WarehouseXRackVisualizer />
 

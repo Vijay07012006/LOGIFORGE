@@ -56,7 +56,7 @@ export function EmbeddedTemplateView({
           trackingNumber: trimmed,
           resultFound: !!result,
         },
-        '*'
+        window.location.origin
       );
     }
   }, []);
@@ -93,7 +93,7 @@ export function EmbeddedTemplateView({
           title: template.name,
           currentRoute: activePage,
         },
-        '*'
+        window.location.origin
       );
     }
 
@@ -110,7 +110,7 @@ export function EmbeddedTemplateView({
           type: 'TEMPLATE_PAGE_CHANGED',
           pageSlug,
         },
-        '*'
+        window.location.origin
       );
     }
 

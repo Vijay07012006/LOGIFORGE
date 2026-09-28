@@ -117,7 +117,8 @@ export function CargoNovaRateCalculator() {
                 step="100"
                 value={weightKg}
                 onChange={(e) => {
-                  setWeightKg(Number(e.target.value));
+                  const val = Math.max(0, Number(e.target.value) || 0);
+                  setWeightKg(val);
                   setSubmitted(false);
                 }}
                 className={styles.calcInput}

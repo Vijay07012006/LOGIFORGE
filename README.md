@@ -1,224 +1,222 @@
 <div align="center">
 
 # ⚡ LOGIFORGE
-### Premium Logistics Website Template Platform & Live Design Studio
+### Enterprise Logistics Website Template Platform & Interactive Design Studio
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Design Tokens](https://img.shields.io/badge/CSS-Dark%20Luxury%20Amber-e8590c?style=for-the-badge)](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
-[![Phase 09 Status](https://img.shields.io/badge/Phase%2009-Product%20Hardened%20%26%20Verified-emerald?style=for-the-badge)](./docs/architecture/PHASE_09_IMPLEMENTATION_REPORT.md)
+[![Design Tokens](https://img.shields.io/badge/CSS-Dark%20Luxury%20Amber-e8590c?style=for-the-badge)](./docs/ARCHITECTURE.md)
+[![Production Ready](https://img.shields.io/badge/Status-100%25%20Verified%20%26%20Certified-emerald?style=for-the-badge)](./PHASE_11_RELEASE_HARDENING_REPORT.md)
 
 <p align="center">
-  A category-defining digital marketplace, live device preview studio, and starter kit ecosystem engineered specifically for the logistics, maritime shipping, aviation, freight forwarding, telematics, and supply chain industries.
+  A category-defining digital marketplace, live device preview studio, and starter kit ecosystem engineered specifically for freight forwarding, maritime shipping, aviation, fleet telematics, warehousing, and global supply chain enterprises.
 </p>
 
-[Explore Blueprint](./docs/architecture/LOGIFORGE_MASTER_BLUEPRINT.md) • [Phase 09 Report](./docs/architecture/PHASE_09_IMPLEMENTATION_REPORT.md) • [Phase 08 Report](./docs/architecture/PHASE_08_IMPLEMENTATION_REPORT.md) • [Phase 07 Report](./docs/architecture/PHASE_07_IMPLEMENTATION_REPORT.md) • [Data Model](./docs/architecture/DATA_MODEL_SPECIFICATION.md) • [Design System](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
+[System Architecture](./docs/ARCHITECTURE.md) • [Template Development Guide](./docs/TEMPLATE_DEVELOPMENT.md) • [Phase 11 QA Report](./PHASE_11_RELEASE_HARDENING_REPORT.md) • [Data Model](./docs/architecture/DATA_MODEL_SPECIFICATION.md) • [Design System](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
 
 </div>
 
 ---
 
-## 🧭 Overview
+## 🧭 1. What is LOGIFORGE?
 
-**LOGIFORGE** bridges the gap between generic theme marketplaces and bespoke agency code. Built as an ultra-premium dark luxury platform with incandescent tandoori orange accents and warm amber highlights, LOGIFORGE operates as a two-tier ecosystem:
+**LOGIFORGE** is an enterprise-grade digital marketplace and interactive design studio created to replace generic website templates with domain-specific, high-performance web applications tailored to the global supply chain industry.
 
-1. **The Platform Shell (Marketplace & Studio):** A high-performance, accessible catalog with multi-facet filtering, full-text fuzzy search, URL query synchronization, device viewport simulation, interactive starter kit generation, and a dedicated **Client Presentation Mode**.
-2. **The Flagship Template Ecosystem:** A curated collection of 10 independent website templates. Every template has a unique typographic identity, custom color palette, dedicated CSS token scope, and signature logistics widgets (e.g. simulated cargo milestone tracking, vessel sailing schedules, telematics diagnostic cards, port berth timelines).
+Built as an ultra-premium dark luxury platform with incandescent tandoori orange accents and warm golden amber highlights, LOGIFORGE operates as a seamless two-tier ecosystem:
 
----
-
-## 🎨 Ultra-Premium Design System & Aesthetics
-
-The platform features an intentionally curated dark luxury visual identity designed for modern enterprise logistics:
-
-- **Deep Warm Base (`#0d0a08`):** Deep warm black eliminating harsh blue glare while retaining high contrast.
-- **Layered Brown Card Surface (`#1a1410`):** `linear-gradient(160deg, #1f1712, #14100c)` creating rich tactile depth.
-- **Tandoori Orange Primary Accent (`#e8590c`):** High-energy incandescent orange for primary CTAs, active radio beacons, and hover glow rings.
-- **Golden Amber Secondary Accent (`#ffb347`):** Warm golden tone for ratings, prices, category badges, and 4px letter-spaced eyebrows.
-- **Warm Cream & Taupe Typography:** `#f5efe6` primary text paired with `#b8a99a` soft taupe for secondary metadata.
-- **Pill Architecture (`50px` radius):** Fluid pill buttons with subtle 3D lift (`translateY(-3px) scale(1.03)`) and ambient amber glow.
-- **Fluid Typography:** CSS `clamp(2.6rem, 7vw, 5.2rem)` hero titles and `clamp(2rem, 4.5vw, 3.4rem)` section headers.
-- **Bespoke Scrollbars & Selection:** Custom `#3a2f26` track with orange hover thumbs and branded text highlight selection.
+1. **The Platform Shell (Marketplace & Studio):** An accessible, responsive catalog featuring multi-attribute faceted filtering, full-text fuzzy search, URL query synchronization, simulated multi-device viewports (Desktop, Tablet, Mobile), physical hardware bezels, orientation rotation, and a dedicated **Client Presentation Mode**.
+2. **The Flagship Template Ecosystem:** A curated collection of 10 production-ready website templates. Every template features a unique typographic identity, custom color palette, dedicated CSS token scope (`--tmpl-*`), and working domain interactions (e.g. simulated waybill milestone tracking, live transponder radar, vessel sailing matrices, vehicle CAN-bus telematics, dynamic TSP heuristic solvers, and Scope-3 carbon estimators).
 
 ---
 
-## 🚀 Key Features & Capabilities
+## 🚀 2. Core Capabilities & Architecture
 
-### 1. High-End Editorial Logistics Home Page (`/`)
-- **Editorial Logistics Hero:** Features an atmospheric radar vector pulse, simulated waybill transit ticker (`CN-8924-US`, `AC-9901-FRA`, `FO-4091-TX`), and primary discovery CTAs.
-- **Deterministic Platform Metrics:** 10 Flagships, 11 Disciplines, 100% Type Safety, 0ms Style Leakage.
-- **Featured Template Spotlight:** Interactive showcase rendering top flagship templates via `TemplateCard`.
-- **11 Logistics Categories Explorer:** Direct navigation into catalog filters by industry sub-niche.
-- **4-Perspective Value Proposition:** Tailored benefits for Developers, Designers, Agencies, and Logistics Clients.
-- **Curated Collections Showcase:** Sector packs for enterprise freight, urban couriers, and smart logistics with direct catalog query routing.
+### 2.1 Editorial Logistics Marketplace (`/` & `/templates`)
+- **Atmospheric Editorial Hero:** Features a live waybill transit ticker (`CN-8924-US`, `AC-9901-FRA`, `FO-4091-TX`), vector radar pulse, and primary discovery CTAs.
+- **Faceted Catalog Browser:** Multi-attribute filtering across 11 industry disciplines, 9 aesthetic styles, and 3 license tiers with instant fuzzy search and dismissible filter chips.
+- **URL Parameter Synchronization:** Search, category, style, and sort states serialize directly into the browser URL (`/templates?category=ocean-freight&style=minimalist&sort=popular`), ensuring persistent, shareable views.
 
-### 2. Interactive Discovery Catalog (`/templates`)
-- **Full-Text Fuzzy Search:** Instant matching across template name, tagline, description, tags, and trade corridors.
-- **Multi-Attribute Filters:** Filter by Category (11 disciplines), Style (9 aesthetic profiles), and License Tier (Free, Premium, Enterprise).
-- **Curated Collection Filtering:** Supports `?collection=[slug]` query parameters directly from the homepage with active dismissible collection chips.
-- **Sort Controls:** Sort by Featured first, Downloads (Popularity), User Rating, or Newest.
-- **URL Query Synchronization:** State is serialized to URL parameters (`/templates?category=ocean-freight&style=minimalist&sort=popular`), ensuring shareable, bookmarkable, and reload-persistent filtered views.
-- **Active Filter Chips & Counter:** Dismissible filter chips with a one-click "Reset all" trigger.
+### 2.2 Interactive Demo Studio (`/demo/[slug]`)
+- **Multi-Device Hardware Simulation:**
+  - **Desktop (100% / 1440px):** Unconstrained wide-screen presentation.
+  - **Tablet (Max 768px):** Hardware bezel with camera notch and orientation rotation (768×1024 Portrait / 1024×768 Landscape).
+  - **Mobile (Max 375px):** Hardware bezel with speaker grill, camera notch, and bottom home indicator bar (375×812 Portrait / 812×375 Landscape). Scales down to 320px screens with zero horizontal overflow.
+- **Zoom Scaling Controls:** Instant 50%, 75%, and 100% zoom canvas scaling.
+- **Client Presentation Mode:** Fullscreen overlay (`fixed, z-index: 999999`) completely hiding background platform navigation with an ambient floating HUD. Toggleable with one click or keyboard shortcut `P` (press `Escape` to cleanly exit).
+- **Blueprint Views Navigation:** Synchronized tabs dynamically mapped to each template's real sections (e.g. Berth Board, Gate Turnaround, Rail Intermodal), triggering smooth section scrolling in the sandboxed preview.
 
-### 3. Live Demo Studio & Client Presentation Environment (`/demo/[slug]`)
-- **Multi-Device Viewport Simulation:**
-  - **Desktop (100% / 1440px):** Full-fidelity wide-screen viewport.
-  - **Tablet (Max 768px):** Fluid hardware bezel with camera notch and orientation rotation (768×1024 Portrait / 1024×768 Landscape).
-  - **Mobile (Max 375px):** Fluid hardware bezel with speaker grill, camera notch, adaptive border radius, and bottom home indicator bar (375×812 Portrait / 812×375 Landscape). Automatically scales and fits down to 320px screens with zero horizontal overflow.
-  - **Fluid (100%):** Unconstrained responsive canvas.
-- **Zoom Scaling Controls:** Instant 50%, 75%, and 100% zoom scaling with smooth CSS transitions.
-- **Client Presentation Mode:**
-  - Full-screen viewport isolation (`fixed`, `z-index: 999999`) completely hiding background platform navigation and chrome.
-  - Sleek floating ambient HUD: `[ CLIENT PREVIEW • LOGIFORGE STUDIO ]`.
-  - Retains responsive device switcher in the floating HUD for presenting mobile vs tablet live to stakeholders.
-  - One-click native browser fullscreen toggle.
-  - Keyboard shortcuts: `P` to toggle presentation mode, `Escape` to cleanly exit.
-- **Template Included Pages Navigation:** Synchronized tabs (`Home Overview`, `Services Matrix`, `Shipment Tracking`, `Global Corridors`) triggering smooth section navigation in the sandboxed preview.
-- **Interactive Simulated Logistics Tracking Engine:** Dual-interface waybill simulation with quick sample triggers (`CN-8924-US`, `FO-4091-TX`, `SD-4421-EU`, `AC-9901-FRA`, `PA-7714-SGP`), custom input testing, and verified transit milestone audit timelines.
-- **Bidirectional `postMessage` Event Bus:** Typed communication between studio shell and sandboxed template runtime with real-time live connection beacon.
+### 2.3 Sandboxed Embed Mode (`/demo/[slug]/embed`)
+- Isolated, clean template render free of platform chrome.
+- Suppresses platform header and footer automatically.
+- Frame-busting protection prevents recursive iframe embedding.
+- Communicates with the parent host shell via a strictly typed, origin-validated `postMessage` protocol.
 
-### 4. Template Deep-Dive & Sandboxed Embed (`/templates/[slug]` & `/demo/[slug]/embed`)
-- **Template Details (`/templates/[slug]`):** Complete architectural breakdown with live preview links, technical specs, included page list, and core features.
-- **Interactive Starter Download Engine:** Generates and downloads a deterministic starter kit manifest JSON (`[slug]-starter-manifest.json`) formatted with template metadata, layout structure, color tokens, and npm setup commands.
-- **Isolated Embed Sandbox (`/demo/[slug]/embed`):** Clean, isolated iframe render without platform chrome, complete with in-template search form, trade corridors, metrics, and compliance badges.
-
-### 5. Knowledge Hub & Design Pattern Guides (`/resources`)
-- **Pattern Guides Reader:** Built-in accessible `GuideModal` allowing users to read deep technical guides on:
-  - *Waybill Transit Milestone Visualizer Patterns*
-  - *Vessel AIS Telemetry & Port Congestion Boards*
-  - *Heavy Fleet Diagnostics & Sensor Stream Architecture*
+### 2.4 Simulated Tracking & Telemetry Engine
+- Operates 100% locally with zero external network dependencies.
+- Dual-interface waybill simulation supporting both one-click quick sample pills and custom waybill entries.
+- Deterministic multi-milestone timelines with timestamps, facilities, carriers, and transponder speeds.
 
 ---
 
-## 📦 Flagship Templates Matrix
- 
-| # | Template | Industry Focus | Style & Mood | Signature Feature | Status |
-| :- | :--- | :--- | :--- | :--- | :--- |
-| **01** | **CargoNova** | Global Freight Forwarding | Editorial Luxury (`#0A192F`, `#D97706`) | Multi-modal Trade Corridor Visualizer & Milestone Tracking | **LIVE (Phase 05)** |
-| **02** | **FleetOne** | Fleet & Asset Management | Industrial / Technical (`#0F172A`, `#E11D48`) | Real-Time Vehicle Engine Telematics & Diagnostics | **LIVE (Phase 05)** |
-| **03** | **ShipFlow** | Ocean Freight & Shipping | Minimalist / Nordic (`#0B1B2B`, `#0284C7`) | Live Vessel Sailing Matrix & Container Port Congestion | **LIVE (Phase 05)** |
-| **04** | **SwiftDrop** | Last-Mile Courier | Modern Bento Grid (`#0D0E15`, `#FF5722`) | Instant Urban Parcel Rate Calculator & Driver Digital POD | **LIVE (Phase 06)** |
-| **05** | **AeroCargo** | Air Cargo & Express Charter | Aviation Cockpit Dark (`#070A14`, `#38BDF8`) | IATA 11-digit AWB Radar, Hold Estimator & CEIV Pharma | **LIVE (Phase 06)** |
-| **06** | **PortAxis** | Port Terminal & Intermodal | Enterprise Steel Grey (`#070C18`, `#38BDF8`) | Deepwater Berth Availability Board & On-Dock Class-1 Rail | **LIVE (Phase 06)** |
-| **07** | **WarehouseX** | 3PL Warehousing & Storage | Operations High-Density (`#060B12`, `#10B981`) | Pallet ASN Ingestion Lookup, ASRS Density & Dock Turnaround | **LIVE (Phase 08)** |
-| **08** | **SupplyCore** | Enterprise Supply Chain | Corporate / Resilient (`#080B14`, `#6366F1`) | Multi-Tier Supplier Risk Index & Scope-3 Carbon Visibility | **LIVE (Phase 08)** |
-| **09** | **RouteIQ** | Logistics Software & AI | Data-driven / Dark Tech (`#05070E`, `#A855F7`) | Dynamic Multi-Stop TSP Neural Engine & CAN-Bus Telemetry | **LIVE (Phase 08)** |
-| **10** | **MoveSphere** | Intermodal Autonomous Freight | Futuristic / Glassmorphic (`#03060D`, `#14B8A6`) | Smart Quantum Sensor Telemetry & Autonomous Corridors | **LIVE (Phase 08)** |
+## 📦 3. Flagship Templates Matrix (10/10 Live)
+
+| # | Template | Industry Focus | Visual Style & Color Tokens | Signature Interactive Feature | Status |
+| :- | :--- | :--- | :--- | :--- | :---: |
+| **01** | **CargoNova** | Global Freight Forwarding | Editorial Luxury (`#0A192F`, `#D97706`) | Multi-modal Trade Corridor Visualizer & Tariff Rate Calculator | **LIVE** |
+| **02** | **FleetOne** | Fleet & Asset Management | Industrial / Technical (`#0F172A`, `#E11D48`) | Real-Time Engine Diagnostics & EV Battery Range Simulator | **LIVE** |
+| **03** | **ShipFlow** | Ocean Freight & Shipping | Minimalist / Nordic (`#0B1B2B`, `#0284C7`) | Live Vessel Sailing Matrix & Container Port Congestion Radar | **LIVE** |
+| **04** | **SwiftDrop** | Last-Mile Urban Courier | Modern Bento Grid (`#0D0E15`, `#FF5722`) | Instant Urban Parcel Rate Calculator & Driver Digital POD | **LIVE** |
+| **05** | **AeroCargo** | Air Freight & Charter | Aviation Cockpit Dark (`#070A14`, `#38BDF8`) | IATA 11-digit AWB Radar, ULD Estimator & Cold-Chain Vaults | **LIVE** |
+| **06** | **PortAxis** | Port Terminal & Intermodal | Enterprise Steel Grey (`#070C18`, `#38BDF8`) | Deepwater Berth Availability Board & On-Dock Class-1 Rail | **LIVE** |
+| **07** | **WarehouseX** | 3PL Warehousing & Storage | Operations High-Density (`#060B12`, `#10B981`) | Pallet ASN Ingestion Lookup, ASRS 3D Visualizer & Dock Scheduler | **LIVE** |
+| **08** | **SupplyCore** | Enterprise Supply Chain | Corporate / Resilient (`#080B14`, `#6366F1`) | Multi-Tier Supplier Risk Heatmap & Scope-3 Carbon Estimator | **LIVE** |
+| **09** | **RouteIQ** | Logistics Software & AI | Data-driven / Dark Tech (`#05070E`, `#A855F7`) | Dynamic Multi-Stop TSP Neural Engine & CAN-Bus Telemetry | **LIVE** |
+| **10** | **MoveSphere** | Intermodal Autonomous Freight | Futuristic / Glassmorphic (`#03060D`, `#14B8A6`) | Smart Quantum Sensor Telemetry & Cryogenic Custody Log | **LIVE** |
 
 ---
 
-## 🗺️ Route Architecture
+## 🗺️ 4. Route Architecture (35 Routes)
+
+LOGIFORGE contains 35 fully verified and operational application routes:
 
 ```
-/
-├── /templates                          [Interactive Discovery Catalog & Faceted Filter Bar]
-│   └── /templates/[slug]               [Template Deep-Dive: Specs, Pages, Features, Starter Download]
-├── /demo/[slug]                        [Live Interactive Demo Studio Shell with Device Bar & Presentation HUD]
-│   └── /demo/[slug]/embed              [Sandboxed, Clean Template Render (Isolated Viewport)]
-├── /resources                          [Logistics Design Pattern Guides & Interactive Reader Modal]
-├── /about                              [Platform Manifesto, Architecture Standards, Licensing]
+/                                       [Platform Homepage & Featured Spotlight]
+/templates                              [Interactive Catalog Browser & Faceted Filter Bar]
+/resources                              [Industry Benchmarks & Interactive GuideModal Reader]
+/about                                  [Platform Manifesto & Architecture Standards]
+/_not-found                             [Branded 404 Entity Fallback Handler]
+
+Template Showcases (10 Routes):
+├── /templates/cargo-nova               ├── /templates/port-axis
+├── /templates/fleet-one                ├── /templates/warehouse-x
+├── /templates/ship-flow                ├── /templates/supply-core
+├── /templates/swift-drop               ├── /templates/route-iq
+└── /templates/aero-cargo               └── /templates/move-sphere
+
+Live Demo Studios (10 Routes):
+├── /demo/cargo-nova                    ├── /demo/port-axis
+├── /demo/fleet-one                     ├── /demo/warehouse-x
+├── /demo/ship-flow                     ├── /demo/supply-core
+├── /demo/swift-drop                    ├── /demo/route-iq
+└── /demo/aero-cargo                    └── /demo/move-sphere
+
+Sandboxed Template Embeds (10 Routes):
+├── /demo/cargo-nova/embed              ├── /demo/port-axis/embed
+├── /demo/fleet-one/embed               ├── /demo/warehouse-x/embed
+├── /demo/ship-flow/embed               ├── /demo/supply-core/embed
+├── /demo/swift-drop/embed              ├── /demo/route-iq/embed
+└── /demo/aero-cargo/embed              └── /demo/move-sphere/embed
 ```
 
 ---
 
-## 🏗️ Folder Structure
+## 🔒 5. Security & Isolation Architecture
 
-```
-d:/Desktop/LOGIFORGE/
-├── docs/                               # Canonical architecture & specifications
-│   └── architecture/
-│       ├── LOGIFORGE_MASTER_BLUEPRINT.md
-│       ├── DATA_MODEL_SPECIFICATION.md
-│       ├── DESIGN_SYSTEM_SPECIFICATION.md
-│       ├── LIVE_DEMO_AND_SANDBOX_SPECIFICATION.md
-│       ├── IMPLEMENTATION_ROADMAP.md
-│       ├── PHASE_02_IMPLEMENTATION_REPORT.md
-│       ├── PHASE_03_IMPLEMENTATION_REPORT.md
-│       ├── AUDIT_AND_FIX_REPORT.md
-│       └── PHASE_04_IMPLEMENTATION_REPORT.md [NEW Phase 04 Verified Report]
-│
-├── src/
-│   ├── app/                            # Next.js 15 App Router Routes
-│   │   ├── layout.tsx                  # Root layout, metadata & viewport
-│   │   ├── page.tsx                    # Editorial Home Page
-│   │   ├── loading.tsx                 # Route-level loading state
-│   │   ├── error.tsx                   # Error boundary
-│   │   ├── not-found.tsx               # 404 entity handler
-│   │   ├── templates/                  # Catalog Discovery Page
-│   │   ├── demo/                       # /demo/[slug] (Studio) and /demo/[slug]/embed (Sandbox)
-│   │   ├── resources/                  # /resources (with interactive GuideModal)
-│   │   └── about/                      # /about
-│   │
-│   ├── components/
-│   │   ├── platform/                   # Header, Footer, CatalogBrowser, GuideModal, StarterDownloadButton, TemplateCard
-│   │   ├── studio/                     # EmbeddedTemplateView, Studio types & postMessage contracts [UPDATED Phase 04]
-│   │   ├── templates/                  # TemplateComponentManifest contract
-│   │   └── ui/                         # Container, SectionHeading, Card, IconButton, SearchField, Select, Badge, Button
-│   │
-│   ├── data/                           # Strongly typed centralized fixtures
-│   │   ├── categories/                 # 11 logistics category definitions
-│   │   ├── collections/                # 4 curated template collections
-│   │   ├── templates/                  # 10 flagship template metadata manifests
-│   │   └── tracking/                   # Simulated shipment milestone fixtures
-│   │
-│   ├── lib/                            # Business logic & lookup modules
-│   │   ├── categories/                 # Category lookup functions
-│   │   ├── collections/                # Collection lookup functions
-│   │   ├── filters/                    # Multi-facet search, filter, and sort engine
-│   │   ├── templates/                  # Template retrieval and relations
-│   │   ├── tracking/                   # Waybill fixture lookup
-│   │   └── utils/                      # Zero-dependency utilities (cn, formatters)
-│   │
-│   ├── styles/
-│   │   ├── tokens.css                  # Platform (--lf-*) Dark Luxury Design Tokens
-│   │   └── globals.css                 # CSS reset, custom dark scrollbar, focus rings
-│   │
-│   └── types/
-│       └── template.ts                 # Canonical TypeScript contracts
-```
+- **Strict Origin Validation:** All parent-iframe `postMessage` handlers validate `event.origin !== window.location.origin` and reject untrusted messages. Wildcard origins (`'*'`) are strictly prohibited in browser runtime.
+- **Recursive Iframe Protection:** The Demo Studio shell includes an automatic frame-busting guard (`window.top !== window.self`) redirecting to the isolated embed view if ever framed.
+- **Zero Unsafe HTML:** Zero instances of `dangerouslySetInnerHTML`, zero dynamic `eval()`, and zero unsanitized query param injections.
+- **No Third-Party Trackers or Secrets:** The platform operates 100% locally with zero analytics, zero external API keys, and zero telemetry pingbacks.
 
 ---
 
-## 🛠️ Quality & Verification Standards
+## 💻 6. Installation & Quickstart
+
+### Prerequisites
+- Node.js 18.17+ or 20+ (Next.js 15.x compatible)
+- npm 9+
+
+### Setup Commands
+```bash
+# Clone the repository
+git clone https://github.com/Vijay07012006/LOGIFORGE.git
+cd LOGIFORGE
+
+# Install dependencies (zero external paid packages)
+npm install
+
+# Start local development server
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to explore the platform.
+
+---
+
+## 🧪 7. Verification & Quality Commands
 
 ```bash
-# Run strict TypeScript typechecking
+# Run strict TypeScript typechecking (0 errors required)
 npm run typecheck
 
-# Run ESLint validation
+# Run ESLint standards check (0 warnings/errors required)
 npm run lint
 
-# Build production bundle with static route pre-generation (27 routes)
+# Build production bundle with static route pre-generation (27 pages)
 npm run build
 
 # Start production server locally
 npm run start
+
+# Run comprehensive 35-route automated test pass
+powershell -ExecutionPolicy Bypass -File scratch/test_all_qa_routes.ps1
 ```
 
-**Verification Matrix:**
-- `npm run typecheck`: **PASS (0 errors)**
-- `npm run lint`: **PASS (`✔ No ESLint warnings or errors`)**
-- `npm run build`: **PASS (All 27 routes pre-rendered statically)**
-- `next start`: **PASS (HTTP 200 OK across all routes and views)**
+---
+
+## 👩‍💻 8. Developer Guides
+
+### 8.1 Adding a New Template (Template #11)
+To add a new template predictably and repeatably, follow the detailed instructions in [docs/TEMPLATE_DEVELOPMENT.md](./docs/TEMPLATE_DEVELOPMENT.md):
+1. Create component directory in `src/components/templates/[slug]/`.
+2. Define template tokens (`--tmpl-*`) in `[Slug].module.css`.
+3. Implement website orchestrator with `postMessage` communication in `[Slug]Website.tsx`.
+4. Register metadata manifest in `src/data/templates/manifests.ts`.
+5. Wire the Template Dispatcher in `src/components/templates/dispatcher/TemplateRenderer.tsx`.
+6. Map Blueprint Views in `BLUEPRINT_NAV_BY_SLUG` in `src/app/demo/[slug]/page.tsx`.
+7. Add simulated tracking milestones in `src/data/tracking/fixtures.ts`.
+8. Run `npm run typecheck && npm run build` to certify.
+
+### 8.2 Adding Simulated Tracking Fixtures
+Add an entry in `src/data/tracking/fixtures.ts` under `SIMULATED_SHIPMENTS`:
+```typescript
+'MY-WAYBILL-01': {
+  trackingNumber: 'MY-WAYBILL-01',
+  status: 'in_transit',
+  origin: { code: 'HKG', city: 'Hong Kong', country: 'Hong Kong' },
+  destination: { code: 'LAX', city: 'Los Angeles', country: 'United States' },
+  eta: 'Tomorrow, 08:30 PST',
+  carrier: 'Global Logistics Express',
+  serviceLevel: 'Priority Air Freight',
+  milestones: [
+    { id: 'm1', status: 'completed', location: 'HKG Ramp', timestamp: 'Yesterday', description: 'Airway Bill manifest verified.' },
+    { id: 'm2', status: 'in_transit', location: 'Pacific Corridor FL340', timestamp: 'Today', description: 'Cruising at Mach 0.82.' }
+  ]
+}
+```
 
 ---
 
-## 📈 Implementation Status & Roadmap
+## 🔧 9. Troubleshooting & Known Considerations
 
-- [x] **Phase 01:** Product Architecture & Technical Blueprint (`docs/architecture/`)
-- [x] **Phase 02:** Platform Foundation, Scaffolding, Core Token System & Data Schemas
-- [x] **Phase 03:** Platform Shell & Discovery UI (Faceted Filter Bar, Live URL Search Sync, Editorial Home)
-- [x] **Audit & Fix:** Comprehensive Quality & UI/UX Overhaul (Dark Luxury Amber Theme, Pill Buttons, Guide Modal, Starter Generator)
-- [x] **Phase 04:** Live Demo Sandbox Enhancements & Client Presentation Mode
-- [x] **Phase 05:** Flagship Templates Wave 1 (CargoNova, FleetOne, ShipFlow)
-- [x] **Phase 06:** Flagship Templates Wave 2 (SwiftDrop, AeroCargo, PortAxis)
-- [x] **Phase 07:** Download Bundling Engine, Resources Hub & Production Hardening
-- [x] **Phase 08:** Flagship Expansion Wave 3 (WarehouseX, SupplyCore, RouteIQ, MoveSphere)
-- [x] **Phase 09:** Product Hardening, Responsive Zero-Overflow Audit & User Workflow Completion
+| Symptom | Cause | Solution |
+| :--- | :--- | :--- |
+| **`ENOENT: Failed to collect page data` during `npm run build`** | Background dev server (`next dev`) running concurrently and writing to `.next/` cache. | Terminate running `next dev` instances before executing `npm run build`. |
+| **`next lint` deprecation notice** | Next.js 15 outputs an informational notice regarding ESLint CLI migration in Next.js 16. | Informational only. `npm run lint` passes with 0 errors and requires no changes. |
+| **Iframe not scrolling to section in Demo Studio** | Target section ID mismatch in template component. | Ensure section has matching `id` or anchor alias corresponding to `BLUEPRINT_NAV_BY_SLUG`. |
 
 ---
 
-## 📄 License & Attribution
+## 🗺️ 10. Roadmap & Expansion
+
+- [x] **Phase 01–03:** Platform Foundation, Scaffolding, Data Schemas & Editorial Discovery Catalog
+- [x] **Phase 04–06:** Live Demo Studio, Sandboxed Embed Mode & Flagship Templates Wave 1 & 2
+- [x] **Phase 07–09:** Download Bundling Engine, Flagship Wave 3 & Responsive Zero-Overflow Audit
+- [x] **Phase 10A–10B:** Interaction Hardening, postMessage Bidirectional Sync & Simulated Tracking Fixtures
+- [x] **Phase 11:** Production-Grade Release Hardening & Comprehensive 35-Route QA
+- [x] **Phase 12:** Productization, Master Architecture Specification & Client-Delivery Readiness
+
+---
+
+## 📄 11. License & Attribution
 
 Distributed under the **LogiForge Commercial License**. Engineered by the **LogiForge Studio Architecture Team**.

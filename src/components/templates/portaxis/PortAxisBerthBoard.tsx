@@ -123,7 +123,8 @@ export const PortAxisBerthBoard: React.FC = () => {
   });
 
   return (
-    <section id="berth-schedule" className={styles.section}>
+    <section id="berths" className={styles.section}>
+      <span id="berth-schedule" />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <Ship size={14} />
@@ -275,23 +276,23 @@ export const PortAxisBerthBoard: React.FC = () => {
               </div>
 
               <div className={styles.berthStats}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem' }}>
                   <span>STS Gantry Gangs:</span>
-                  <strong style={{ color: '#f8fafc' }}>
+                  <strong style={{ color: '#f8fafc', textAlign: 'right' }}>
                     {b.cranes > 0 ? `${b.cranes} Super Post-Panamax` : 'Released'}
                   </strong>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem' }}>
                   <span>Gross Rate:</span>
-                  <strong style={{ color: '#38bdf8' }}>{b.grossMovesHr} moves/hr</strong>
+                  <strong style={{ color: '#38bdf8', textAlign: 'right' }}>{b.grossMovesHr} moves/hr</strong>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem' }}>
                   <span>Draft Depth:</span>
-                  <strong style={{ color: '#f8fafc' }}>{b.draft} CD</strong>
+                  <strong style={{ color: '#f8fafc', textAlign: 'right' }}>{b.draft} CD</strong>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem' }}>
                   <span>Estimated Departure:</span>
-                  <strong style={{ color: '#f8fafc' }}>{b.etd}</strong>
+                  <strong style={{ color: '#f8fafc', textAlign: 'right' }}>{b.etd}</strong>
                 </div>
               </div>
             </div>

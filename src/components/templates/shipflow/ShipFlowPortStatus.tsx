@@ -41,7 +41,8 @@ const PORTS = [
 
 export function ShipFlowPortStatus() {
   return (
-    <div className={styles.section} id="ports">
+    <div className={styles.section} id="status">
+      <span id="ports" />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <Anchor size={14} />
@@ -69,6 +70,8 @@ export function ShipFlowPortStatus() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '0.25rem',
                 paddingTop: '0.75rem',
                 borderTop: '1px solid var(--tmpl-border-light)',
                 fontSize: '0.75rem',

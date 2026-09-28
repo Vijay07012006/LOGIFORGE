@@ -61,6 +61,7 @@ export default function HomePage() {
        * ========================================================================= */}
       <section className={styles.heroSection}>
         <div className={styles.heroAtmosphere}>
+          <div className={styles.heroBgImage} aria-hidden="true" />
           <div className={styles.radarRing} />
           <div className={styles.radarRingOuter} />
           <div className={styles.vectorLineOne} />
@@ -235,6 +236,115 @@ export default function HomePage() {
                 </div>
               </Link>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* =========================================================================
+       * 4B. CLIENT PREVIEW & LOGISTICS PLATFORM MEDIA SHOWCASE
+       * ========================================================================= */}
+      <section className={styles.mediaShowcaseSection}>
+        <Container size="lg">
+          <SectionHeading
+            eyebrow="ENTERPRISE CAPABILITIES"
+            title="Engineered for Precision Logistics Platforms"
+            subtitle="Explore high-density operations dashboards, automated port terminal integrations, global trade corridors, and live telematics telemetry."
+          />
+
+          <div className={styles.mediaGrid}>
+            <div className={styles.mediaCardLarge}>
+              <div className={styles.mediaMediaWrapper}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/showcase/network.webp"
+                  alt="Global Freight and Maritime Intermodal Network"
+                  className={styles.mediaImg}
+                  loading="lazy"
+                />
+                <div className={styles.mediaOverlay}>
+                  <Badge variant="primary" size="sm">Global Trade Corridors</Badge>
+                  <h3 className={styles.mediaTitle}>Real-Time Intermodal Routing &amp; Vessel Tracking</h3>
+                  <p className={styles.mediaCaption}>
+                    Sub-minute milestone synchronizations connecting air routes, maritime deep-sea lanes, and rail freight terminals across 180+ countries.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.mediaCardVideo}>
+              <div className={styles.mediaMediaWrapper}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/platform/demo-studio-preview.webp"
+                  alt="Live Interactive Demo Studio & Responsive Sandbox Preview"
+                  className={styles.mediaImg}
+                  loading="lazy"
+                />
+                <div className={styles.mediaOverlay}>
+                  <Badge variant="accent" size="sm">Interactive Studio Recording</Badge>
+                  <h3 className={styles.mediaTitle}>Live Device Sandboxing &amp; Blueprint Navigation</h3>
+                  <p className={styles.mediaCaption}>
+                    Seamless switching between desktop, tablet, and mobile presets with stateful waybill injection and zero-leakage token isolation.
+                  </p>
+                  <div className={styles.mediaCtaRow}>
+                    <Link href="/demo/cargo-nova">
+                      <Button variant="primary" size="sm">
+                        <Play size={14} />
+                        <span>Launch Demo Studio</span>
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.mediaCardCol}>
+              <div className={styles.mediaMediaWrapper}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/showcase/port.webp"
+                  alt="Smart Automated Port Berth & Gate Turnaround Board"
+                  className={styles.mediaImg}
+                  loading="lazy"
+                />
+                <div className={styles.mediaOverlayCompact}>
+                  <Badge variant="secondary" size="sm">PortAxis Terminal</Badge>
+                  <h4 className={styles.mediaSubTitle}>Automated Port Berth &amp; Gate Turnaround</h4>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.mediaCardCol}>
+              <div className={styles.mediaMediaWrapper}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/showcase/warehouse.webp"
+                  alt="WarehouseX Automated Robotic Fulfillment Center"
+                  className={styles.mediaImg}
+                  loading="lazy"
+                />
+                <div className={styles.mediaOverlayCompact}>
+                  <Badge variant="secondary" size="sm">WarehouseX Fulfillment</Badge>
+                  <h4 className={styles.mediaSubTitle}>Robotic Shuttle Picking &amp; Inbound ASN</h4>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.mediaCardCol}>
+              <div className={styles.mediaMediaWrapper}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/showcase/telematics.webp"
+                  alt="FleetOne Highway Telematics & Convoy Management"
+                  className={styles.mediaImg}
+                  loading="lazy"
+                />
+                <div className={styles.mediaOverlayCompact}>
+                  <Badge variant="secondary" size="sm">FleetOne Telematics</Badge>
+                  <h4 className={styles.mediaSubTitle}>ECM CAN-Bus &amp; Highway Convoy Telemetry</h4>
+                </div>
+              </div>
+            </div>
           </div>
         </Container>
       </section>

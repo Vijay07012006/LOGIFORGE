@@ -92,7 +92,8 @@ export const PortAxisGateTurn: React.FC = () => {
   };
 
   return (
-    <section id="gate-turnaround" className={styles.section}>
+    <section id="gate" className={styles.section}>
+      <span id="gate-turnaround" />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <Truck size={14} />

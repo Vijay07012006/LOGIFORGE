@@ -80,7 +80,8 @@ export function RouteIQWebsite({
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
-    const el = document.getElementById(id);
+    const targetId = id === 'tracking' ? 'sim' : id === 'solver' ? 'tsp' : id;
+    const el = document.getElementById(targetId) || document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -91,7 +92,7 @@ export function RouteIQWebsite({
           type: 'TEMPLATE_PAGE_CHANGED',
           pageSlug: id,
         },
-        '*'
+        window.location.origin
       );
     }
   };
@@ -103,8 +104,19 @@ export function RouteIQWebsite({
       if (!data || typeof data !== 'object') return;
 
       if (data.type === 'INJECT_TRACKING_QUERY' && typeof data.trackingNumber === 'string') {
-        setCurrentTracking(data.trackingNumber);
-        scrollToSection('tracking');
+        const num = data.trackingNumber.trim();
+        setCurrentTracking(num);
+        scrollToSection('sim');
+        if (typeof window !== 'undefined' && window.parent !== window) {
+          window.parent.postMessage(
+            {
+              type: 'TRACKING_SEARCH_PERFORMED',
+              trackingNumber: num,
+              found: true,
+            },
+            window.location.origin
+          );
+        }
       }
 
       if (data.type === 'NAVIGATE_TEMPLATE_PAGE' && typeof data.pageSlug === 'string') {
@@ -122,7 +134,7 @@ export function RouteIQWebsite({
           title: template.name,
           currentRoute: activeSection,
         },
-        '*'
+        window.location.origin
       );
     }
 
@@ -157,7 +169,21 @@ export function RouteIQWebsite({
           />
         </div>
 
-        <RouteIQSimTracker initialKey={currentTracking} />
+        <RouteIQSimTracker
+          initialKey={currentTracking}
+          onSearchPerformed={(trackingNumber, found) => {
+            if (typeof window !== 'undefined' && window.parent !== window) {
+              window.parent.postMessage(
+                {
+                  type: 'TRACKING_SEARCH_PERFORMED',
+                  trackingNumber,
+                  found,
+                },
+                window.location.origin
+              );
+            }
+          }}
+        />
 
         <RouteIQTspSimulator />
 

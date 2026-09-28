@@ -66,21 +66,57 @@ const PRESET_ASNS: Record<string, PalletRecord> = {
 
 interface WarehouseXAsnTrackerProps {
   initialAsn?: string;
+  onSearchPerformed?: (trackingNumber: string, found: boolean) => void;
 }
 
 export const WarehouseXAsnTracker: React.FC<WarehouseXAsnTrackerProps> = ({
   initialAsn = 'WX-5510-IL',
+  onSearchPerformed,
 }) => {
   const [searchQuery, setSearchQuery] = useState(initialAsn);
   const [activeRecord, setActiveRecord] = useState<PalletRecord | null>(
     PRESET_ASNS[initialAsn] || PRESET_ASNS['WX-5510-IL']
   );
 
+  React.useEffect(() => {
+    if (initialAsn) {
+      const clean = initialAsn.trim().toUpperCase();
+      setSearchQuery(clean);
+      if (clean && PRESET_ASNS[clean]) {
+        setActiveRecord(PRESET_ASNS[clean]);
+        onSearchPerformed?.(clean, true);
+      } else if (clean) {
+        setActiveRecord({
+          asn: clean,
+          sku: 'SKU-GEN-9901 (General Freight)',
+          description: '30 Pallets • Inbound verified against WMS manifest',
+          palletCount: 30,
+          grossWeight: '12,500 kg',
+          status: 'staging',
+          bayLocation: 'BAY 02-BUFFER',
+          aisle: 'Aisle 01 (Cross-dock)',
+          level: 'Tier 1 Staging',
+          zone: 'Zone A (Ambient Dry)',
+          facility: 'WarehouseX Regional Facility Node',
+          inboundTimestamp: 'Today, Just Now',
+        });
+        onSearchPerformed?.(clean, true);
+      } else {
+        setActiveRecord(null);
+      }
+    }
+  }, [initialAsn, onSearchPerformed]);
+
   const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const clean = searchQuery.trim().toUpperCase();
+    if (!clean) {
+      setActiveRecord(null);
+      return;
+    }
     if (PRESET_ASNS[clean]) {
       setActiveRecord(PRESET_ASNS[clean]);
+      onSearchPerformed?.(clean, true);
     } else {
       setActiveRecord({
         asn: clean,
@@ -96,11 +132,13 @@ export const WarehouseXAsnTracker: React.FC<WarehouseXAsnTrackerProps> = ({
         facility: 'WarehouseX Regional Facility Node',
         inboundTimestamp: 'Today, Just Now',
       });
+      onSearchPerformed?.(clean, true);
     }
   };
 
   return (
-    <section id="tracking" className={styles.section}>
+    <section id="asn" className={styles.section} style={{ position: 'relative' }}>
+      <div id="tracking" style={{ position: 'absolute', top: '-80px' }} />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <Box size={14} />
@@ -148,7 +186,7 @@ export const WarehouseXAsnTracker: React.FC<WarehouseXAsnTrackerProps> = ({
           ))}
         </div>
 
-        {activeRecord && (
+        {activeRecord ? (
           <div className={styles.resultGrid}>
             <div className={styles.resultBlock}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -214,6 +252,10 @@ export const WarehouseXAsnTracker: React.FC<WarehouseXAsnTrackerProps> = ({
                 </div>
               </div>
             </div>
+          </div>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: '#94a3b8' }}>
+            No inbound ASN manifest found for identifier: {searchQuery || 'empty'}. Try sample <strong>WX-5510-IL</strong>.
           </div>
         )}
       </div>

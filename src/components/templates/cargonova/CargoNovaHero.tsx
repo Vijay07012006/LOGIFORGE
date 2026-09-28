@@ -12,6 +12,16 @@ interface CargoNovaHeroProps {
 export function CargoNovaHero({ onTrackClick, onQuoteClick }: CargoNovaHeroProps) {
   return (
     <section className={styles.hero} id="home">
+      <div className={styles.heroBgMedia} aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/cargonova/cargonova-hero.webp"
+          alt=""
+          className={styles.heroBgImg}
+          loading="eager"
+        />
+        <div className={styles.heroOverlay} />
+      </div>
       <div className={styles.heroInner}>
         <div className={styles.heroTicker}>
           <span className={styles.tickerDot} />

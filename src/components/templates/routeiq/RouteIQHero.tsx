@@ -17,6 +17,16 @@ export const RouteIQHero: React.FC<RouteIQHeroProps> = ({
 }) => {
   return (
     <section className={styles.hero}>
+      <div className={styles.heroBgMedia} aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/routeiq/routeiq-hero.webp"
+          alt=""
+          className={styles.heroBgImg}
+          loading="eager"
+        />
+        <div className={styles.heroOverlay} />
+      </div>
       <div className={styles.heroInner}>
         <div className={styles.neuralTicker}>
           <span className={styles.pulseDot} />

@@ -74,7 +74,7 @@ export function ShipFlowWebsite({
           type: 'TEMPLATE_PAGE_CHANGED',
           pageSlug: id,
         },
-        '*'
+        window.location.origin
       );
     }
   };
@@ -84,6 +84,20 @@ export function ShipFlowWebsite({
       if (typeof window !== 'undefined' && event.origin !== window.location.origin) return;
       const data = event.data;
       if (!data || typeof data !== 'object') return;
+
+      if (data.type === 'INJECT_TRACKING_QUERY' && typeof data.trackingNumber === 'string') {
+        scrollToSection('schedules');
+        if (typeof window !== 'undefined' && window.parent !== window) {
+          window.parent.postMessage(
+            {
+              type: 'TRACKING_SEARCH_PERFORMED',
+              trackingNumber: data.trackingNumber,
+              resultFound: true,
+            },
+            window.location.origin
+          );
+        }
+      }
 
       if (data.type === 'NAVIGATE_TEMPLATE_PAGE' && typeof data.pageSlug === 'string') {
         scrollToSection(data.pageSlug);
@@ -100,7 +114,7 @@ export function ShipFlowWebsite({
           title: template.name,
           currentRoute: activeSection,
         },
-        '*'
+        window.location.origin
       );
     }
 

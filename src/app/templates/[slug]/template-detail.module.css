@@ -81,6 +81,87 @@
   }
 }
 
+.mediaPreviewPanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lf-space-4);
+  margin-bottom: var(--lf-space-8);
+  width: 100%;
+}
+
+.mediaFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--lf-radius-card);
+  overflow: hidden;
+  border: 1px solid var(--lf-border-subtle);
+  background: #0d0a08;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.mediaMainImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.mediaFrame:hover .mediaMainImg {
+  transform: scale(1.02);
+}
+
+.mediaBadgeOverlay {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(13, 10, 8, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 6px 12px;
+  border-radius: var(--lf-radius-pill);
+  border: 1px solid var(--lf-border-subtle);
+}
+
+.mediaDimBadge {
+  font-size: 11px;
+  font-family: var(--lf-font-mono, monospace);
+  color: var(--lf-text-muted);
+  font-weight: 500;
+}
+
+.galleryStrip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--lf-space-3);
+  width: 100%;
+}
+
+.galleryItem {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--lf-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--lf-border-subtle);
+  background: #14100c;
+}
+
+.galleryImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.galleryItem:hover .galleryImg {
+  transform: scale(1.04);
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -249,6 +330,21 @@
   font-family: var(--lf-font-mono);
   color: var(--lf-text-primary);
   text-align: right;
+}
+
+.specValLink {
+  font-family: var(--lf-font-mono);
+  color: #ffb347;
+  font-size: 12px;
+  text-align: right;
+  text-decoration: none;
+  transition: color var(--lf-transition-fast);
+  word-break: break-all;
+}
+
+.specValLink:hover {
+  color: #ffa01c;
+  text-decoration: underline;
 }
 
 .auditCard {

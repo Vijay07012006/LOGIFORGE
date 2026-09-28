@@ -30,7 +30,8 @@ export const RouteIQTspSimulator: React.FC = () => {
   );
 
   return (
-    <section id="solver" className={styles.section}>
+    <section id="tsp" className={styles.section} style={{ position: 'relative' }}>
+      <div id="solver" style={{ position: 'absolute', top: '-80px' }} />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <GitBranch size={14} />

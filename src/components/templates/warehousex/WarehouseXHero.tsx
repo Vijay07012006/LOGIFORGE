@@ -16,7 +16,17 @@ export const WarehouseXHero: React.FC<WarehouseXHeroProps> = ({
   onDockSchedule,
 }) => {
   return (
-    <section className={styles.hero}>
+    <section id="home" className={styles.hero}>
+      <div className={styles.heroBgMedia} aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/warehousex/warehousex-hero.webp"
+          alt=""
+          className={styles.heroBgImg}
+          loading="eager"
+        />
+        <div className={styles.heroOverlay} />
+      </div>
       <div className={styles.heroInner}>
         <div className={styles.asrsLiveTicker}>
           <span className={styles.pulseDot} />

@@ -18,6 +18,11 @@
   transform: translateY(0px) scale(0.98);
 }
 
+.button:focus-visible {
+  outline: 2px solid var(--lf-accent, #ff7b2e);
+  outline-offset: 3px;
+}
+
 /* Sizing */
 .sm {
   font-size: 13px;

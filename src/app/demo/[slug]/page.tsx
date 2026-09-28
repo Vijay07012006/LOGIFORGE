@@ -7,6 +7,7 @@ import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
 import { getSampleTrackingNumbers } from '@/lib/tracking';
 import { Badge } from '@/components/ui/Badge';
 import { StarterDownloadButton } from '@/components/platform/StarterDownloadButton';
+import { LocalShareButton } from '@/components/platform/LocalShareButton';
 import type {
   ViewportPreset,
   ViewportOrientation,
@@ -33,6 +34,86 @@ interface DemoStudioProps {
   params: Promise<{ slug: string }>;
 }
 
+const BLUEPRINT_NAV_BY_SLUG: Record<string, { id: string; label: string }[]> = {
+  'cargo-nova': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'services', label: 'Services Matrix' },
+    { id: 'corridors', label: 'Trade Corridors' },
+    { id: 'tracking', label: 'Consignment Tracking' },
+  ],
+  'fleet-one': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'telematics', label: 'ECM Telematics' },
+    { id: 'vehicles', label: 'Fleet Assets' },
+    { id: 'dispatch', label: 'Highway Dispatch' },
+    { id: 'safety', label: 'Safety Specs' },
+  ],
+  'ship-flow': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'schedules', label: 'Vessel Schedules' },
+    { id: 'containers', label: 'Container Types' },
+    { id: 'status', label: 'Port Status' },
+    { id: 'sustainability', label: 'Decarbonization' },
+  ],
+  'swift-drop': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'rates', label: 'Parcel Calculator' },
+    { id: 'tracking', label: 'Courier Tracking' },
+    { id: 'features', label: 'Bento Features' },
+    { id: 'fleet', label: 'EV Fleet' },
+  ],
+  'aero-cargo': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'awb', label: 'AWB Radar' },
+    { id: 'uld', label: 'ULD Calculator' },
+    { id: 'pharma', label: 'Pharma Cold-Chain' },
+  ],
+  'port-axis': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'berths', label: 'Berth Board' },
+    { id: 'gate', label: 'Gate Turnaround' },
+    { id: 'capacities', label: 'Terminal Capacities' },
+    { id: 'intermodal', label: 'Rail Intermodal' },
+  ],
+  'warehouse-x': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'asn', label: 'Inbound ASN' },
+    { id: 'racks', label: 'Pallet Racking' },
+    { id: 'docks', label: 'Dock Scheduling' },
+  ],
+  'supply-core': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'audit', label: 'Audit Radar' },
+    { id: 'scope3', label: 'Scope-3 Carbon' },
+    { id: 'risk', label: 'Risk Heatmap' },
+  ],
+  'route-iq': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'sim', label: 'AI Simulation' },
+    { id: 'tsp', label: 'TSP Solver' },
+    { id: 'telemetry', label: 'Live Telemetry' },
+  ],
+  'move-sphere': [
+    { id: 'home', label: 'Home Overview' },
+    { id: 'smartpack', label: 'SmartPack CBM' },
+    { id: 'corridors', label: 'Corridor Maps' },
+    { id: 'tracking', label: 'Quantum Vaults' },
+  ],
+};
+
+const DEFAULT_TRACKING_BY_SLUG: Record<string, string> = {
+  'cargo-nova': 'CN-8924-US',
+  'fleet-one': 'FO-4091-TX',
+  'ship-flow': 'SF-1049-HK',
+  'swift-drop': 'SD-4421-EU',
+  'aero-cargo': 'AC-9901-FRA',
+  'port-axis': 'PA-3301-SG',
+  'warehouse-x': 'WX-5510-IL',
+  'supply-core': 'SC-7700-GL',
+  'route-iq': 'RQ-2048-AI',
+  'move-sphere': 'MS-9900-QUANTUM',
+};
+
 export default function DemoStudioPage({ params }: DemoStudioProps) {
   const { slug } = use(params);
   const router = useRouter();
@@ -40,15 +121,24 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
   const allTemplates = getAllTemplates();
   const sampleTrackingNumbers = getSampleTrackingNumbers();
 
+  const defaultTracking = DEFAULT_TRACKING_BY_SLUG[slug] || 'CN-8924-US';
+
   const [device, setDevice] = useState<ViewportPreset>('desktop');
   const [orientation, setOrientation] = useState<ViewportOrientation>('portrait');
   const [zoom, setZoom] = useState<ZoomLevel>(1);
   const [presentationMode, setPresentationMode] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [activeTrackingNumber, setActiveTrackingNumber] = useState<string>('CN-8924-US');
+  const [activeTrackingNumber, setActiveTrackingNumber] = useState<string>(defaultTracking);
   const [trackingSearchInput, setTrackingSearchInput] = useState<string>('');
   const [activePageSlug, setActivePageSlug] = useState<string>('home');
   const [iframeLoaded, setIframeLoaded] = useState<boolean>(false);
+
+  // Sync active tracking default and active tab when slug changes
+  useEffect(() => {
+    const nextDefault = DEFAULT_TRACKING_BY_SLUG[slug] || 'CN-8924-US';
+    setActiveTrackingNumber(nextDefault);
+    setActivePageSlug('home');
+  }, [slug]);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const studioRef = useRef<HTMLDivElement>(null);
@@ -56,6 +146,7 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
   if (!template) {
     notFound();
   }
+
 
   // Frame protection: prevent Demo Studio shell from ever being loaded inside an iframe (breaks recursive nesting)
   useEffect(() => {
@@ -405,6 +496,8 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
 
           {/* Action Controls */}
           <div className={styles.toolRight}>
+            <LocalShareButton slug={template.slug} name={template.name} mode="demo" size="sm" variant="ghost" />
+
             <a
               href={`/demo/${template.slug}/embed`}
               target="_blank"
@@ -442,32 +535,19 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
               <span>Included Blueprint Views:</span>
             </div>
             <div className={styles.pageNavTabs}>
-              <button
-                onClick={() => handlePageChange('home')}
-                className={`${styles.pageTab} ${activePageSlug === 'home' ? styles.pageTabActive : ''}`}
-              >
-                Home Overview
-              </button>
-              <button
-                onClick={() => handlePageChange('services')}
-                className={`${styles.pageTab} ${activePageSlug === 'services' ? styles.pageTabActive : ''}`}
-              >
-                Services Matrix
-              </button>
-              <button
-                onClick={() => handlePageChange('tracking')}
-                className={`${styles.pageTab} ${activePageSlug === 'tracking' ? styles.pageTabActive : ''}`}
-              >
-                Shipment Tracking
-              </button>
-              {template.sections.globalNetwork && (
+              {(BLUEPRINT_NAV_BY_SLUG[slug] || [
+                { id: 'home', label: 'Home Overview' },
+                { id: 'services', label: 'Services Matrix' },
+                { id: 'tracking', label: 'Shipment Tracking' },
+              ]).map((tab) => (
                 <button
-                  onClick={() => handlePageChange('network')}
-                  className={`${styles.pageTab} ${activePageSlug === 'network' ? styles.pageTabActive : ''}`}
+                  key={tab.id}
+                  onClick={() => handlePageChange(tab.id)}
+                  className={`${styles.pageTab} ${activePageSlug === tab.id ? styles.pageTabActive : ''}`}
                 >
-                  Global Corridors
+                  {tab.label}
                 </button>
-              )}
+              ))}
             </div>
           </div>
         </div>
@@ -482,7 +562,11 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
           </div>
 
           <div className={styles.simPills}>
-            {sampleTrackingNumbers.map((no) => (
+            {(template?.sections?.tracking?.sampleTrackingNumbers &&
+            template.sections.tracking.sampleTrackingNumbers.length > 0
+              ? template.sections.tracking.sampleTrackingNumbers
+              : sampleTrackingNumbers
+            ).map((no) => (
               <button
                 key={no}
                 onClick={() => handleTrackingSelect(no)}

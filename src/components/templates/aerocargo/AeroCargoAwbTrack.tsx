@@ -20,8 +20,21 @@ export function AeroCargoAwbTrack({
     lookupSimulatedShipment(initialTracking)
   );
 
+  React.useEffect(() => {
+    if (initialTracking) {
+      setAwbQuery(initialTracking);
+      const res = lookupSimulatedShipment(initialTracking.trim().toUpperCase());
+      setShipment(res);
+      onSearchPerformed?.(initialTracking.trim().toUpperCase(), !!res);
+    }
+  }, [initialTracking, onSearchPerformed]);
+
   const handleSearch = (code: string) => {
     const trimmed = code.trim().toUpperCase();
+    if (!trimmed) {
+      setShipment(null);
+      return;
+    }
     const res = lookupSimulatedShipment(trimmed);
     setShipment(res);
     onSearchPerformed?.(trimmed, !!res);

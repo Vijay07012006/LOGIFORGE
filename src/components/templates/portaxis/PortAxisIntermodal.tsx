@@ -72,7 +72,8 @@ export const PortAxisIntermodal: React.FC = () => {
   const [selectedTrain, setSelectedTrain] = useState<RailSchedule>(RAIL_TIMETABLE[0]);
 
   return (
-    <section id="rail-intermodal" className={styles.section}>
+    <section id="intermodal" className={styles.section}>
+      <span id="rail-intermodal" />
       <div className={styles.sectionHeader}>
         <div className={styles.eyebrow}>
           <Train size={14} />

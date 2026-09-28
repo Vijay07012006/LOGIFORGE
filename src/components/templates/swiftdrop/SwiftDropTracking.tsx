@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { SimulatedShipment } from '@/types/template';
 import { lookupSimulatedShipment } from '@/lib/tracking';
 import { Search, MapPin, ShieldCheck, UserCheck } from 'lucide-react';
@@ -19,6 +19,15 @@ export function SwiftDropTracking({
   const [shipment, setShipment] = useState<SimulatedShipment | null>(() =>
     lookupSimulatedShipment(initialTracking)
   );
+
+  useEffect(() => {
+    if (initialTracking) {
+      setQuery(initialTracking);
+      const res = lookupSimulatedShipment(initialTracking);
+      setShipment(res);
+      onSearchPerformed?.(initialTracking, !!res);
+    }
+  }, [initialTracking, onSearchPerformed]);
 
   const handleSearch = (num: string) => {
     const trimmed = num.trim().toUpperCase();
@@ -146,7 +155,11 @@ export function SwiftDropTracking({
           </div>
         ) : (
           <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--tmpl-text-muted)' }}>
-            No parcel found for identifier: {query}. Try sample <strong>SD-4421-EU</strong>.
+            {query.trim() ? (
+              <>No parcel found for identifier: <strong>{query}</strong>. Try sample <strong>SD-4421-EU</strong> or <strong>SD-9014-UK</strong>.</>
+            ) : (
+              <>Please enter a delivery waybill number above or select sample <strong>SD-4421-EU</strong>.</>
+            )}
           </div>
         )}
       </div>
