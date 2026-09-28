@@ -29,8 +29,12 @@ export function TemplateCard({ template, priority = false }: TemplateCardProps) 
             src={template.thumbnailImage}
             alt=""
             aria-hidden="true"
+            width={600}
+            height={338}
             className={styles.previewImg}
             loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            fetchPriority={priority ? 'high' : 'auto'}
           />
         )}
         <div className={styles.schematicBackground}>

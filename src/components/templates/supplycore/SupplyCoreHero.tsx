@@ -22,6 +22,10 @@ export const SupplyCoreHero: React.FC<SupplyCoreHeroProps> = ({
         <img
           src="/images/supplycore/supplycore-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

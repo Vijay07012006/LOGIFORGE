@@ -17,6 +17,10 @@ export function SwiftDropHero({ onQuoteClick, onTrackClick }: SwiftDropHeroProps
         <img
           src="/images/swiftdrop/swiftdrop-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

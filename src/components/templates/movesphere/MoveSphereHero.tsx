@@ -22,6 +22,10 @@ export const MoveSphereHero: React.FC<MoveSphereHeroProps> = ({
         <img
           src="/images/movesphere/movesphere-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

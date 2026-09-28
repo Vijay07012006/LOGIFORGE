@@ -3,10 +3,14 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { Box, Compass, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { MobileDrawer } from './MobileDrawer';
 import styles from './Header.module.css';
+
+const MobileDrawer = dynamic(() => import('./MobileDrawer').then((m) => m.MobileDrawer), {
+  ssr: false,
+});
 
 export function Header() {
   const pathname = usePathname();

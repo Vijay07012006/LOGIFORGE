@@ -17,6 +17,10 @@ export function AeroCargoHero({ onAwbClick, onUldClick }: AeroCargoHeroProps) {
         <img
           src="/images/aerocargo/aerocargo-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

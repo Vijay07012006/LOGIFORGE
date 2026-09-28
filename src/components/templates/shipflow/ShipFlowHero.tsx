@@ -20,6 +20,10 @@ export function ShipFlowHero({
         <img
           src="/images/shipflow/shipflow-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

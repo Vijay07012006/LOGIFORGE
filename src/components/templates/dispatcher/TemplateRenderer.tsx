@@ -1,19 +1,78 @@
 'use client';
 
 import React from 'react';
+import dynamic from 'next/dynamic';
 import type { Template } from '@/types/template';
 import { EmbeddedTemplateView } from '@/components/studio/EmbeddedTemplateView';
-import { CargoNovaWebsite } from '@/components/templates/cargonova/CargoNovaWebsite';
-import { FleetOneWebsite } from '@/components/templates/fleetone/FleetOneWebsite';
-import { ShipFlowWebsite } from '@/components/templates/shipflow/ShipFlowWebsite';
-import { SwiftDropWebsite } from '@/components/templates/swiftdrop/SwiftDropWebsite';
-import { AeroCargoWebsite } from '@/components/templates/aerocargo/AeroCargoWebsite';
-import { PortAxisWebsite } from '@/components/templates/portaxis/PortAxisWebsite';
-import { WarehouseXWebsite } from '@/components/templates/warehousex/WarehouseXWebsite';
-import { SupplyCoreWebsite } from '@/components/templates/supplycore/SupplyCoreWebsite';
 
-import { RouteIQWebsite } from '@/components/templates/routeiq/RouteIQWebsite';
-import { MoveSphereWebsite } from '@/components/templates/movesphere/MoveSphereWebsite';
+const LoadingTemplateSkeleton = () => (
+  <div
+    style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#090d16',
+      color: '#8c7e70',
+      fontFamily: 'monospace',
+      fontSize: '12px',
+      letterSpacing: '0.08em',
+    }}
+  >
+    INITIALIZING TEMPLATE RUNTIME...
+  </div>
+);
+
+// Dynamic code-splitting for each flagship website to reduce initial bundle size
+const CargoNovaWebsite = dynamic(
+  () => import('@/components/templates/cargonova/CargoNovaWebsite').then((m) => m.CargoNovaWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const FleetOneWebsite = dynamic(
+  () => import('@/components/templates/fleetone/FleetOneWebsite').then((m) => m.FleetOneWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const ShipFlowWebsite = dynamic(
+  () => import('@/components/templates/shipflow/ShipFlowWebsite').then((m) => m.ShipFlowWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const SwiftDropWebsite = dynamic(
+  () => import('@/components/templates/swiftdrop/SwiftDropWebsite').then((m) => m.SwiftDropWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const AeroCargoWebsite = dynamic(
+  () => import('@/components/templates/aerocargo/AeroCargoWebsite').then((m) => m.AeroCargoWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const PortAxisWebsite = dynamic(
+  () => import('@/components/templates/portaxis/PortAxisWebsite').then((m) => m.PortAxisWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const WarehouseXWebsite = dynamic(
+  () => import('@/components/templates/warehousex/WarehouseXWebsite').then((m) => m.WarehouseXWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const SupplyCoreWebsite = dynamic(
+  () => import('@/components/templates/supplycore/SupplyCoreWebsite').then((m) => m.SupplyCoreWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const RouteIQWebsite = dynamic(
+  () => import('@/components/templates/routeiq/RouteIQWebsite').then((m) => m.RouteIQWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
+const MoveSphereWebsite = dynamic(
+  () => import('@/components/templates/movesphere/MoveSphereWebsite').then((m) => m.MoveSphereWebsite),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
 
 interface TemplateRendererProps {
   template: Template;

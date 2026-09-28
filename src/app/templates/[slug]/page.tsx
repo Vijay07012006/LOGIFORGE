@@ -94,6 +94,10 @@ export default async function TemplateDetailPage({ params }: PageProps) {
             <img
               src={template.previewImage}
               alt={`${template.name} Architecture Preview`}
+              width={1600}
+              height={900}
+              fetchPriority="high"
+              decoding="async"
               className={styles.mediaMainImg}
             />
             <div className={styles.mediaBadgeOverlay}>
@@ -111,8 +115,11 @@ export default async function TemplateDetailPage({ params }: PageProps) {
                   <img
                     src={imgUrl}
                     alt={`${template.name} View ${idx + 1}`}
+                    width={600}
+                    height={338}
                     className={styles.galleryImg}
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               ))}

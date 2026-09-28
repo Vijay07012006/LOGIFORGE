@@ -20,6 +20,10 @@ export function FleetOneHero({
         <img
           src="/images/fleetone/fleetone-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

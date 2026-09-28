@@ -128,6 +128,27 @@
   border-top: 1px solid var(--lf-border-subtle);
   flex: 1;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #3a2f26 #0d0a08;
+}
+
+.categoriesSection::-webkit-scrollbar {
+  width: 5px;
+}
+
+.categoriesSection::-webkit-scrollbar-track {
+  background: rgba(13, 10, 8, 0.6);
+  border-radius: 4px;
+}
+
+.categoriesSection::-webkit-scrollbar-thumb {
+  background: #3a2f26;
+  border-radius: 4px;
+}
+
+.categoriesSection::-webkit-scrollbar-thumb:hover {
+  background: var(--lf-accent-primary, #e8590c);
 }
 
 .catHeader {

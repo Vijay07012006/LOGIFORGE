@@ -22,6 +22,10 @@ export const RouteIQHero: React.FC<RouteIQHeroProps> = ({
         <img
           src="/images/routeiq/routeiq-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

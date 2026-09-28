@@ -97,9 +97,30 @@
 .content {
   padding: 28px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #3a2f26 #0d0a08;
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: rgba(13, 10, 8, 0.6);
+  border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: #3a2f26;
+  border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: var(--lf-accent-primary, #e8590c);
 }
 
 .section {

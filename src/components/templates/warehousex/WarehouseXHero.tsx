@@ -22,6 +22,10 @@ export const WarehouseXHero: React.FC<WarehouseXHeroProps> = ({
         <img
           src="/images/warehousex/warehousex-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

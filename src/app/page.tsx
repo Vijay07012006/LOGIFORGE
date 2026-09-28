@@ -258,8 +258,11 @@ export default function HomePage() {
                 <img
                   src="/images/showcase/network.webp"
                   alt="Global Freight and Maritime Intermodal Network"
+                  width={1200}
+                  height={675}
                   className={styles.mediaImg}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className={styles.mediaOverlay}>
                   <Badge variant="primary" size="sm">Global Trade Corridors</Badge>
@@ -277,8 +280,11 @@ export default function HomePage() {
                 <img
                   src="/images/platform/demo-studio-preview.webp"
                   alt="Live Interactive Demo Studio & Responsive Sandbox Preview"
+                  width={1280}
+                  height={720}
                   className={styles.mediaImg}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className={styles.mediaOverlay}>
                   <Badge variant="accent" size="sm">Interactive Studio Recording</Badge>
@@ -304,8 +310,11 @@ export default function HomePage() {
                 <img
                   src="/images/showcase/port.webp"
                   alt="Smart Automated Port Berth & Gate Turnaround Board"
+                  width={1200}
+                  height={675}
                   className={styles.mediaImg}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className={styles.mediaOverlayCompact}>
                   <Badge variant="secondary" size="sm">PortAxis Terminal</Badge>
@@ -320,8 +329,11 @@ export default function HomePage() {
                 <img
                   src="/images/showcase/warehouse.webp"
                   alt="WarehouseX Automated Robotic Fulfillment Center"
+                  width={1200}
+                  height={675}
                   className={styles.mediaImg}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className={styles.mediaOverlayCompact}>
                   <Badge variant="secondary" size="sm">WarehouseX Fulfillment</Badge>
@@ -336,8 +348,11 @@ export default function HomePage() {
                 <img
                   src="/images/showcase/telematics.webp"
                   alt="FleetOne Highway Telematics & Convoy Management"
+                  width={1200}
+                  height={675}
                   className={styles.mediaImg}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className={styles.mediaOverlayCompact}>
                   <Badge variant="secondary" size="sm">FleetOne Telematics</Badge>

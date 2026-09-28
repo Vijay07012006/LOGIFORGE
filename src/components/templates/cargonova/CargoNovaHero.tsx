@@ -17,6 +17,10 @@ export function CargoNovaHero({ onTrackClick, onQuoteClick }: CargoNovaHeroProps
         <img
           src="/images/cargonova/cargonova-hero.webp"
           alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className={styles.heroBgImg}
           loading="eager"
         />

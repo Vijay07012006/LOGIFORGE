@@ -86,9 +86,29 @@
   align-items: center;
   gap: var(--lf-space-2);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: var(--lf-space-3);
   border-bottom: 1px solid var(--lf-border-subtle);
   scrollbar-width: thin;
+  scrollbar-color: rgba(232, 89, 12, 0.4) rgba(20, 16, 12, 0.6);
+}
+
+.categoryPillsBar::-webkit-scrollbar {
+  height: 5px;
+}
+
+.categoryPillsBar::-webkit-scrollbar-track {
+  background: rgba(13, 10, 8, 0.6);
+  border-radius: 4px;
+}
+
+.categoryPillsBar::-webkit-scrollbar-thumb {
+  background: #3a2f26;
+  border-radius: 4px;
+}
+
+.categoryPillsBar::-webkit-scrollbar-thumb:hover {
+  background: var(--lf-accent-primary, #e8590c);
 }
 
 @media (min-width: 1024px) {

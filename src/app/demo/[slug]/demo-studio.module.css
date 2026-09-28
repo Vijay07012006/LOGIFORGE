@@ -229,11 +229,27 @@
   z-index: var(--lf-z-toolbar, 50);
   flex-shrink: 0;
   overflow-x: auto;
-  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 89, 12, 0.4) rgba(20, 16, 12, 0.6);
 }
 
 .toolbar::-webkit-scrollbar {
-  display: none;
+  height: 5px;
+}
+
+.toolbar::-webkit-scrollbar-track {
+  background: rgba(13, 10, 8, 0.6);
+  border-radius: 4px;
+}
+
+.toolbar::-webkit-scrollbar-thumb {
+  background: #3a2f26;
+  border-radius: 4px;
+}
+
+.toolbar::-webkit-scrollbar-thumb:hover {
+  background: var(--lf-accent-primary, #e8590c);
 }
 
 .toolLeft,
@@ -481,11 +497,27 @@
   padding: 6px var(--lf-space-4, 16px);
   overflow-x: auto;
   flex-shrink: 0;
-  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 89, 12, 0.4) rgba(20, 16, 12, 0.6);
 }
 
 .pageNavBar::-webkit-scrollbar {
-  display: none;
+  height: 5px;
+}
+
+.pageNavBar::-webkit-scrollbar-track {
+  background: rgba(13, 10, 8, 0.6);
+  border-radius: 4px;
+}
+
+.pageNavBar::-webkit-scrollbar-thumb {
+  background: #3a2f26;
+  border-radius: 4px;
+}
+
+.pageNavBar::-webkit-scrollbar-thumb:hover {
+  background: var(--lf-accent-primary, #e8590c);
 }
 
 .pageNavInner {
@@ -552,11 +584,27 @@
   gap: var(--lf-space-3, 12px);
   overflow-x: auto;
   flex-shrink: 0;
-  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 89, 12, 0.4) rgba(20, 16, 12, 0.6);
 }
 
 .simulationBar::-webkit-scrollbar {
-  display: none;
+  height: 5px;
+}
+
+.simulationBar::-webkit-scrollbar-track {
+  background: rgba(13, 10, 8, 0.6);
+  border-radius: 4px;
+}
+
+.simulationBar::-webkit-scrollbar-thumb {
+  background: #3a2f26;
+  border-radius: 4px;
+}
+
+.simulationBar::-webkit-scrollbar-thumb:hover {
+  background: var(--lf-accent-primary, #e8590c);
 }
 
 .simLabelGroup {
@@ -647,7 +695,10 @@
   padding: 24px 12px 60px;
   background: radial-gradient(circle at center, #14100c 0%, #080605 100%);
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #3a2f26 #0d0a08;
   position: relative;
   width: 100%;
   box-sizing: border-box;
