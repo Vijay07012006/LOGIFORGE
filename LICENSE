@@ -1,0 +1,29 @@
+# LOGIFORGE Commercial Developer License
+
+Copyright (c) 2026 LOGIFORGE Platforms & LogiForge Studio. All rights reserved.
+
+## 1. Grant of License
+
+Subject to the terms and conditions of this License, LOGIFORGE grants to authorized licensees (including individual developers, design agencies, and enterprise organizations) a perpetual, worldwide, non-exclusive commercial license to:
+
+1. **Use and Modify:** Customize, modify, adapt, and build upon any or all of the 10 LOGIFORGE flagship website templates, platform shell components, design token specifications, and simulated logistics workflows.
+2. **Client Deliverables:** Incorporate the templates and component architectures into customized commercial websites, web applications, customer portals, and enterprise dashboards delivered to end clients. The developer's license to develop with and adapt the template source code is non-transferable to other developers; however, licensees are expressly authorized to transfer finished, customized end-product deliverables to their end clients, provided the client receives the work as an incorporated deliverable and is not granted sub-licensing or raw template redistribution rights.
+3. **Internal Deployment:** Deploy customized or unmodified template instances across organizational infrastructure for operational, customer-facing, or internal business operations.
+
+## 2. Permitted Uses
+
+- Personal, client, and commercial end-product deployments.
+- Re-styling, theme customization, token re-mapping (`--tmpl-*`, `--lf-*`), and section restructuring.
+- Replacing simulated tracking engines and local data fixtures with production carrier APIs, telematics feeds, or proprietary WMS/TMS backend services.
+
+## 3. Restrictions & Limitations
+
+The licensee shall **NOT**:
+
+1. **Re-distribute as a Raw Template or Theme:** Sub-license, resell, redistribute, rent, lease, or make the raw source code, template files, or starter kits available as a standalone website template, boilerplate, or theme on any public marketplace, repository, or distribution platform.
+2. **Competing Template Platforms:** Package LOGIFORGE templates into a competing website builder, software-as-a-service (SaaS) template marketplace, or downloadable theme generator.
+3. **Attribution & Notices:** Remove or alter copyright notices or license identifiers within the raw source files without an explicit enterprise agreement.
+
+## 4. Disclaimer of Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS, ARCHITECTS, OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

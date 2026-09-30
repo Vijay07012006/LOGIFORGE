@@ -6,7 +6,7 @@
 
 The architecture is built upon four foundational design principles:
 1. **Zero Style Bleed (CSS Modules Isolation):** Every flagship website template operates in its own isolated CSS token scope. Global design tokens (`--lf-*`) style the platform shell, while template-specific tokens (`--tmpl-*`) style each independent template runtime.
-2. **Deterministic Client-Side Simulation:** Complex logistics interactions—such as waybill milestone tracking, vessel schedule lookups, WMS rack visualization, traveling salesperson (TSP) neural dispatch solvers, and  Scope-3 carbon emissions estimation—operate 100% locally with deterministic fixtures, requiring zero external paid APIs or cloud dependencies.
+2. **Deterministic Client-Side Simulation:** Complex logistics interactions—such as waybill milestone tracking, vessel schedule lookups, WMS rack visualization, traveling salesperson (TSP) heuristic solvers, and simulated Scope-3 carbon emissions estimation—operate 100% locally with deterministic fixtures, requiring zero external paid APIs or cloud dependencies.
 3. **Sandboxed Two-Tier Preview Runtime:** The Demo Studio operates as a parent host shell that embeds the live template inside an isolated iframe, communicating across frames via a strictly validated, bidirectional `postMessage` protocol.
 4. **Resilient Route & Dispatcher Hierarchy:** A centralized template catalog and dispatcher gracefully route requests to dedicated flagship implementations while providing a standardized fallback runtime (`EmbeddedTemplateView`) for dynamic or custom templates.
 
@@ -63,10 +63,10 @@ The architecture is built upon four foundational design principles:
 │ Interactive Domain Modules (`src/components/templates/`)   │
 ├─────────────────────────────────────────────────────────────┤
 │  • Rate Calculators & Quotation Engines                     │
-│  • Live Telemetry Feeds & AIS Port Congestion Radar         │
-│  • WMS Advance Shipping Notice (ASN) Pallet Trackers        │
-│  • Dynamic NP-Hard TSP Heuristic Solvers                    │
-│  • Scope-3 Carbon Accounting Simulators (ISO 14064)         │
+│  • Simulated Telemetry Gauges & Port Congestion Visualizers │
+│  • Simulated WMS ASN Pallet Ingestion Trackers              │
+│  • Deterministic TSP Heuristic Solvers                      │
+│  • Freight Scope-3 Carbon Estimator Simulators             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -152,11 +152,12 @@ if (typeof window !== 'undefined' && event.origin !== window.location.origin) {
   return; // Reject untrusted cross-origin messages
 }
 ```
-Wildcard target origins (`'*'`) are strictly prohibited in browser runtime:
+Runtime messaging explicitly targets the application origin (`window.location.origin`):
 ```typescript
-const targetOrigin = typeof window !== 'undefined' ? window.location.origin : '*';
+const targetOrigin = window.location.origin;
 iframeRef.current.contentWindow.postMessage(message, targetOrigin);
 ```
+Wildcard target origins (`'*'`) are never used for cross-origin transmission, and receiving event handlers authenticate `event.source === iframeRef.current.contentWindow` to prevent spoofing.
 
 ---
 
@@ -231,11 +232,14 @@ The platform employs a two-tier token architecture:
 ## 8. Directory & File Organization
 
 ```
-d:/Desktop/LOGIFORGE/
-├── docs/                               # System Architecture & Development Documentation
+LOGIFORGE/
+├── docs/                               # System Architecture & Documentation
 │   ├── ARCHITECTURE.md                 # Master Architecture Specification
 │   ├── TEMPLATE_DEVELOPMENT.md         # Template Development & Extension Guide
-│   └── architecture/                   # Milestone Implementation Reports & Blueprints
+│   ├── SECURITY.md                     # Content Security Policy & Frame Isolation
+│   ├── DEPLOYMENT.md                   # Static Generation & Vercel Hosting Architecture
+│   ├── architecture/                   # Specifications, Data Models & Master Blueprints
+│   └── reports/                        # Historical Engineering & QA Audit Archive
 │
 ├── src/
 │   ├── app/                            # Next.js 15 App Router Routes

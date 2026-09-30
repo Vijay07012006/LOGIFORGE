@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 
-const BRAIN_DIR = 'C:\\Users\\lenovo\\.gemini\\antigravity-ide\\brain\\1668dba3-d0e4-47ae-be52-a60236e361ae';
+const RAW_ASSETS_DIR = process.env.RAW_ASSETS_DIR || path.resolve(__dirname, '../raw_assets');
 const PUBLIC_DIR = path.resolve(__dirname, '../public');
 
 const TEMPLATE_MAP = [
@@ -69,13 +69,16 @@ const TEMPLATE_MAP = [
   }
 ];
 
-function findBrainFile(pattern) {
-  const files = fs.readdirSync(BRAIN_DIR);
-  const matched = files.find(f => f.startsWith(pattern) && f.endsWith('.jpg'));
-  if (!matched) {
-    throw new Error(`Could not find brain image matching pattern: ${pattern}`);
+function findRawAssetFile(pattern) {
+  if (!fs.existsSync(RAW_ASSETS_DIR)) {
+    throw new Error(`Raw assets directory not found at: ${RAW_ASSETS_DIR}. Set RAW_ASSETS_DIR environment variable.`);
   }
-  return path.join(BRAIN_DIR, matched);
+  const files = fs.readdirSync(RAW_ASSETS_DIR);
+  const matched = files.find(f => f.startsWith(pattern) && (f.endsWith('.jpg') || f.endsWith('.png')));
+  if (!matched) {
+    throw new Error(`Could not find raw asset image matching pattern: ${pattern}`);
+  }
+  return path.join(RAW_ASSETS_DIR, matched);
 }
 
 async function run() {
@@ -99,7 +102,7 @@ async function run() {
 
   // 1. Process Platform Hero
   console.log('Processing Platform Hero...');
-  const platformSrc = findBrainFile('platform_hero');
+  const platformSrc = findRawAssetFile('platform_hero');
   await sharp(platformSrc)
     .resize(1920, 1080, { fit: 'cover' })
     .webp({ quality: 84 })
@@ -113,7 +116,7 @@ async function run() {
   // 2. Process Each Template Hero, Preview, and Thumbnail
   for (const t of TEMPLATE_MAP) {
     console.log(`Processing template ${t.slug} (${t.folder})...`);
-    const src = findBrainFile(t.filePattern);
+    const src = findRawAssetFile(t.filePattern);
 
     // Full hero (1600x900)
     const heroDest = path.join(PUBLIC_DIR, `images/${t.folder}/${t.prefix}-hero.webp`);
@@ -150,7 +153,7 @@ async function run() {
 
     // If secondary image exists (e.g. cargonova terminal)
     if (t.secondaryPattern) {
-      const secSrc = findBrainFile(t.secondaryPattern);
+      const secSrc = findRawAssetFile(t.secondaryPattern);
       await sharp(secSrc)
         .resize(1600, 900, { fit: 'cover' })
         .webp({ quality: 84 })
@@ -183,10 +186,10 @@ async function run() {
 
   // 3. Process Collections
   console.log('Processing Collections...');
-  const cargoSrc = findBrainFile('cargonova_hero');
-  const swiftSrc = findBrainFile('swiftdrop_hero');
-  const moveSrc = findBrainFile('movesphere_hero');
-  const portSrc = findBrainFile('portaxis_hero');
+  const cargoSrc = findRawAssetFile('cargonova_hero');
+  const swiftSrc = findRawAssetFile('swiftdrop_hero');
+  const moveSrc = findRawAssetFile('movesphere_hero');
+  const portSrc = findRawAssetFile('portaxis_hero');
 
   await sharp(cargoSrc).resize(800, 450, { fit: 'cover' }).webp({ quality: 80 })
     .toFile(path.join(PUBLIC_DIR, 'images/collections/enterprise-freight.webp'));

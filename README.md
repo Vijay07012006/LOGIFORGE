@@ -6,14 +6,15 @@
 [![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Design Tokens](https://img.shields.io/badge/CSS-Dark%20Luxury%20Amber-e8590c?style=for-the-badge)](./docs/ARCHITECTURE.md)
-[![Production Ready](https://img.shields.io/badge/Status-100%25%20Verified%20%26%20Certified-emerald?style=for-the-badge)](./PHASE_11_RELEASE_HARDENING_REPORT.md)
+[![Production Release](https://img.shields.io/badge/Release-v1.0.0-emerald?style=for-the-badge)](https://github.com/Vijay07012006/LOGIFORGE/releases/tag/v1.0.0)
+[![Live Demo](https://img.shields.io/badge/Live-logiforge--hazel.vercel.app-00dfa2?style=for-the-badge&logo=vercel)](https://logiforge-hazel.vercel.app)
+[![License](https://img.shields.io/badge/License-Commercial-amber?style=for-the-badge)](./LICENSE)
 
 <p align="center">
   A category-defining digital marketplace, live device preview studio, and starter kit ecosystem engineered specifically for freight forwarding, maritime shipping, aviation, fleet telematics, warehousing, and global supply chain enterprises.
 </p>
 
-[System Architecture](./docs/ARCHITECTURE.md) • [Template Development Guide](./docs/TEMPLATE_DEVELOPMENT.md) • [Phase 11 QA Report](./PHASE_11_RELEASE_HARDENING_REPORT.md) • [Data Model](./docs/architecture/DATA_MODEL_SPECIFICATION.md) • [Design System](./docs/architecture/DESIGN_SYSTEM_SPECIFICATION.md)
+[System Architecture](./docs/ARCHITECTURE.md) • [Template Development](./docs/TEMPLATE_DEVELOPMENT.md) • [Security Policy](./docs/SECURITY.md) • [Deployment Guide](./docs/DEPLOYMENT.md) • [Audit Reports](./docs/reports/) • [License](./LICENSE)
 
 </div>
 
@@ -26,7 +27,7 @@
 Built as an ultra-premium dark luxury platform with incandescent tandoori orange accents and warm golden amber highlights, LOGIFORGE operates as a seamless two-tier ecosystem:
 
 1. **The Platform Shell (Marketplace & Studio):** An accessible, responsive catalog featuring multi-attribute faceted filtering, full-text fuzzy search, URL query synchronization, simulated multi-device viewports (Desktop, Tablet, Mobile), physical hardware bezels, orientation rotation, and a dedicated **Client Presentation Mode**.
-2. **The Flagship Template Ecosystem:** A curated collection of 10 production-ready website templates. Every template features a unique typographic identity, custom color palette, dedicated CSS token scope (`--tmpl-*`), and working domain interactions (e.g. simulated waybill milestone tracking, live transponder radar, vessel sailing matrices, vehicle CAN-bus telematics, dynamic TSP heuristic solvers, and Scope-3 carbon estimators).
+2. **The Flagship Template Ecosystem:** A curated collection of 10 production-ready website templates. Every template features a unique typographic identity, custom color palette, dedicated CSS token scope (`--tmpl-*`), and working client-side simulated domain interactions (e.g. simulated waybill milestone tracking, transponder radar visualizers, simulated vessel sailing schedules, simulated vehicle telematics gauges, deterministic TSP heuristic route optimizers, and simulated Scope-3 carbon estimators).
 
 ---
 
@@ -51,6 +52,7 @@ Built as an ultra-premium dark luxury platform with incandescent tandoori orange
 - Suppresses platform header and footer automatically.
 - Frame-busting protection prevents recursive iframe embedding.
 - Communicates with the parent host shell via a strictly typed, origin-validated `postMessage` protocol.
+- Content Security Policy disabling `'unsafe-eval'` in production to ensure secure client sandboxing.
 
 ### 2.4 Simulated Tracking & Telemetry Engine
 - Operates 100% locally with zero external network dependencies.
@@ -64,67 +66,74 @@ Built as an ultra-premium dark luxury platform with incandescent tandoori orange
 | # | Template | Industry Focus | Visual Style & Color Tokens | Signature Interactive Feature | Status |
 | :- | :--- | :--- | :--- | :--- | :---: |
 | **01** | **CargoNova** | Global Freight Forwarding | Editorial Luxury (`#0A192F`, `#D97706`) | Multi-modal Trade Corridor Visualizer & Tariff Rate Calculator | **LIVE** |
-| **02** | **FleetOne** | Fleet & Asset Management | Industrial / Technical (`#0F172A`, `#E11D48`) | Real-Time Engine Diagnostics & EV Battery Range Simulator | **LIVE** |
-| **03** | **ShipFlow** | Ocean Freight & Shipping | Minimalist / Nordic (`#0B1B2B`, `#0284C7`) | Live Vessel Sailing Matrix & Container Port Congestion Radar | **LIVE** |
-| **04** | **SwiftDrop** | Last-Mile Urban Courier | Modern Bento Grid (`#0D0E15`, `#FF5722`) | Instant Urban Parcel Rate Calculator & Driver Digital POD | **LIVE** |
-| **05** | **AeroCargo** | Air Freight & Charter | Aviation Cockpit Dark (`#070A14`, `#38BDF8`) | IATA 11-digit AWB Radar, ULD Estimator & Cold-Chain Vaults | **LIVE** |
-| **06** | **PortAxis** | Port Terminal & Intermodal | Enterprise Steel Grey (`#070C18`, `#38BDF8`) | Deepwater Berth Availability Board & On-Dock Class-1 Rail | **LIVE** |
-| **07** | **WarehouseX** | 3PL Warehousing & Storage | Operations High-Density (`#060B12`, `#10B981`) | Pallet ASN Ingestion Lookup, ASRS 3D Visualizer & Dock Scheduler | **LIVE** |
-| **08** | **SupplyCore** | Enterprise Supply Chain | Corporate / Resilient (`#080B14`, `#6366F1`) | Multi-Tier Supplier Risk Heatmap & Scope-3 Carbon Estimator | **LIVE** |
-| **09** | **RouteIQ** | Logistics Software & AI | Data-driven / Dark Tech (`#05070E`, `#A855F7`) | Dynamic Multi-Stop TSP Neural Engine & CAN-Bus Telemetry | **LIVE** |
-| **10** | **MoveSphere** | Intermodal Autonomous Freight | Futuristic / Glassmorphic (`#03060D`, `#14B8A6`) | Smart Quantum Sensor Telemetry & Cryogenic Custody Log | **LIVE** |
+| **02** | **FleetOne** | Fleet & Asset Management | Industrial / Technical (`#0F172A`, `#E11D48`) | Simulated Engine Diagnostics & EV Battery Range Estimator | **LIVE** |
+| **03** | **ShipFlow** | Ocean Freight & Shipping | Minimalist / Nordic (`#0B1B2B`, `#0284C7`) | Simulated Vessel Sailing Matrix & Port Congestion Visualizer | **LIVE** |
+| **04** | **SwiftDrop** | Last-Mile Urban Courier | Modern Bento Grid (`#0D0E15`, `#FF5722`) | Instant Urban Parcel Rate Calculator & Driver Digital POD Demo | **LIVE** |
+| **05** | **AeroCargo** | Air Freight & Charter | Aviation Cockpit Dark (`#070A14`, `#38BDF8`) | Simulated AWB Radar, ULD Estimator & Cold-Chain Vaults Showcase | **LIVE** |
+| **06** | **PortAxis** | Port Terminal & Intermodal | Enterprise Steel Grey (`#070C18`, `#38BDF8`) | Simulated Berth Availability Board & On-Dock Rail Showcase | **LIVE** |
+| **07** | **WarehouseX** | 3PL Warehousing & Storage | Operations High-Density (`#060B12`, `#10B981`) | Simulated ASN Pallet Ingestion Lookup, ASRS Visualizer & Dock Scheduler | **LIVE** |
+| **08** | **SupplyCore** | Enterprise Supply Chain | Corporate / Resilient (`#080B14`, `#6366F1`) | Multi-Tier Supplier Risk Heatmap & Simulated Scope-3 Carbon Estimator | **LIVE** |
+| **09** | **RouteIQ** | Logistics Software & AI | Data-driven / Dark Tech (`#05070E`, `#A855F7`) | Dynamic Multi-Stop TSP Heuristic Solver & Simulated Telemetry Gauges | **LIVE** |
+| **10** | **MoveSphere** | Intermodal Autonomous Freight | Futuristic / Glassmorphic (`#03060D`, `#14B8A6`) | Simulated Multi-Sensor Environmental Telemetry & Cold-Chain Custody Log | **LIVE** |
 
 ---
 
-## 🗺️ 4. Route Architecture (35 Routes)
+## 🗺️ 4. Route Architecture (36 Endpoints, 40 Pre-Rendered Pages)
 
-LOGIFORGE contains 35 fully verified and operational application routes:
+LOGIFORGE compiles to **40 pre-rendered static outputs** at build time. This represents **36 public application routes and endpoints** (4 primary platform pages, 30 dynamic template pages across detail, studio, and embed modes, plus `/robots.txt` and `/sitemap.xml`), along with standard Next.js build outputs (`/_not-found` and `/icon.svg`):
 
 ```
-/                                       [Platform Homepage & Featured Spotlight]
-/templates                              [Interactive Catalog Browser & Faceted Filter Bar]
-/resources                              [Industry Benchmarks & Interactive GuideModal Reader]
-/about                                  [Platform Manifesto & Architecture Standards]
-/_not-found                             [Branded 404 Entity Fallback Handler]
+Platform Core Routes (4 Pages):
+├── /                                       [Platform Homepage & Featured Spotlight]
+├── /templates                              [Interactive Catalog Browser & Faceted Filter Bar]
+├── /resources                              [Industry Benchmarks & Interactive GuideModal Reader]
+└── /about                                  [Platform Manifesto & Architecture Standards]
 
-Template Showcases (10 Routes):
-├── /templates/cargo-nova               ├── /templates/port-axis
-├── /templates/fleet-one                ├── /templates/warehouse-x
-├── /templates/ship-flow                ├── /templates/supply-core
-├── /templates/swift-drop               ├── /templates/route-iq
-└── /templates/aero-cargo               └── /templates/move-sphere
+Template Showcases (10 Pages):
+├── /templates/cargo-nova                   ├── /templates/port-axis
+├── /templates/fleet-one                    ├── /templates/warehouse-x
+├── /templates/ship-flow                    ├── /templates/supply-core
+├── /templates/swift-drop                   ├── /templates/route-iq
+└── /templates/aero-cargo                   └── /templates/move-sphere
 
-Live Demo Studios (10 Routes):
-├── /demo/cargo-nova                    ├── /demo/port-axis
-├── /demo/fleet-one                     ├── /demo/warehouse-x
-├── /demo/ship-flow                     ├── /demo/supply-core
-├── /demo/swift-drop                    ├── /demo/route-iq
-└── /demo/aero-cargo                    └── /demo/move-sphere
+Live Demo Studios (10 Pages):
+├── /demo/cargo-nova                        ├── /demo/port-axis
+├── /demo/fleet-one                         ├── /demo/warehouse-x
+├── /demo/ship-flow                         ├── /demo/supply-core
+├── /demo/swift-drop                        ├── /demo/route-iq
+└── /demo/aero-cargo                        └── /demo/move-sphere
 
-Sandboxed Template Embeds (10 Routes):
-├── /demo/cargo-nova/embed              ├── /demo/port-axis/embed
-├── /demo/fleet-one/embed               ├── /demo/warehouse-x/embed
-├── /demo/ship-flow/embed               ├── /demo/supply-core/embed
-├── /demo/swift-drop/embed              ├── /demo/route-iq/embed
-└── /demo/aero-cargo/embed              └── /demo/move-sphere/embed
+Sandboxed Template Embeds (10 Pages):
+├── /demo/cargo-nova/embed                  ├── /demo/port-axis/embed
+├── /demo/fleet-one/embed                   ├── /demo/warehouse-x/embed
+├── /demo/ship-flow/embed                   ├── /demo/supply-core/embed
+├── /demo/swift-drop/embed                  ├── /demo/route-iq/embed
+└── /demo/aero-cargo/embed                  └── /demo/move-sphere/embed
+
+Metadata, SEO & Error Endpoints:
+├── /sitemap.xml                            [Search Engine XML Sitemap]
+├── /robots.txt                             [Search Crawler Policy]
+├── /icon.svg                               [Vector Brand Favicon]
+└── /_not-found                             [Branded 404 Entity Fallback Handler]
 ```
 
 ---
 
 ## 🔒 5. Security & Isolation Architecture
 
-- **Strict Origin Validation:** All parent-iframe `postMessage` handlers validate `event.origin !== window.location.origin` and reject untrusted messages. Wildcard origins (`'*'`) are strictly prohibited in browser runtime.
+- **Strict Origin Validation:** All parent-iframe `postMessage` handlers validate `event.origin !== window.location.origin` and reject untrusted messages. Runtime messaging targets the application origin directly.
 - **Recursive Iframe Protection:** The Demo Studio shell includes an automatic frame-busting guard (`window.top !== window.self`) redirecting to the isolated embed view if ever framed.
-- **Zero Unsafe HTML:** Zero instances of `dangerouslySetInnerHTML`, zero dynamic `eval()`, and zero unsanitized query param injections.
-- **No Third-Party Trackers or Secrets:** The platform operates 100% locally with zero analytics, zero external API keys, and zero telemetry pingbacks.
+- **Zero Unsafe HTML & Zero Eval:** Zero instances of `dangerouslySetInnerHTML`, zero dynamic `eval()` in production, and zero unsanitized query param injections.
+- **Content Security Policy:** HTTP response headers blocking unauthorized external framing and object embedding while disabling `'unsafe-eval'` in production. Read full details in [docs/SECURITY.md](./docs/SECURITY.md).
+- **No Third-Party Trackers or Secrets:** The platform operates 100% locally with zero analytics trackers, zero external API keys, and zero telemetry pingbacks.
 
 ---
 
 ## 💻 6. Installation & Quickstart
 
 ### Prerequisites
-- Node.js 18.17+ or 20+ (Next.js 15.x compatible)
-- npm 9+
+- Node.js >= 20.0.0
+- npm >= 10.0.0
 
 ### Setup Commands
 ```bash
@@ -151,14 +160,11 @@ npm run typecheck
 # Run ESLint standards check (0 warnings/errors required)
 npm run lint
 
-# Build production bundle with static route pre-generation (27 pages)
+# Build production bundle with static route pre-generation (40 pages)
 npm run build
 
 # Start production server locally
 npm run start
-
-# Run comprehensive 35-route automated test pass
-powershell -ExecutionPolicy Bypass -File scratch/test_all_qa_routes.ps1
 ```
 
 ---
@@ -206,17 +212,18 @@ Add an entry in `src/data/tracking/fixtures.ts` under `SIMULATED_SHIPMENTS`:
 
 ---
 
-## 🗺️ 10. Roadmap & Expansion
+## 📚 10. Documentation & Historical Provenance
 
-- [x] **Phase 01–03:** Platform Foundation, Scaffolding, Data Schemas & Editorial Discovery Catalog
-- [x] **Phase 04–06:** Live Demo Studio, Sandboxed Embed Mode & Flagship Templates Wave 1 & 2
-- [x] **Phase 07–09:** Download Bundling Engine, Flagship Wave 3 & Responsive Zero-Overflow Audit
-- [x] **Phase 10A–10B:** Interaction Hardening, postMessage Bidirectional Sync & Simulated Tracking Fixtures
-- [x] **Phase 11:** Production-Grade Release Hardening & Comprehensive 35-Route QA
-- [x] **Phase 12:** Productization, Master Architecture Specification & Client-Delivery Readiness
+Comprehensive architectural specifications, security policies, deployment guides, and historical audit reports are available in [`docs/`](./docs/):
+
+- [System Architecture Specification](./docs/ARCHITECTURE.md) — Architectural overview, design system, and component hierarchies.
+- [Template Development & Extension Guide](./docs/TEMPLATE_DEVELOPMENT.md) — Guide for building, styling, and certifying new templates.
+- [Security & Isolation Architecture](./docs/SECURITY.md) — Content Security Policy, iframe isolation, and origin validation.
+- [Production Deployment & Infrastructure Guide](./docs/DEPLOYMENT.md) — Static pre-generation, edge caching, and zero-cost hosting.
+- [Engineering Phase Reports & QA Archive](./docs/reports/README.md) — Provenance index covering historical development milestone reports.
 
 ---
 
 ## 📄 11. License & Attribution
 
-Distributed under the **LogiForge Commercial License**. Engineered by the **LogiForge Studio Architecture Team**.
+Distributed under the [LogiForge Commercial Developer License](./LICENSE). Engineered by the **LogiForge Studio Architecture Team**.
