@@ -44,8 +44,7 @@ export interface TemplateMetric {
 
 export interface TemplatePageSpec {
   id: string;
-
-
+  title: string;
   slug: string;
   description: string;
   previewImageUrl?: string;
