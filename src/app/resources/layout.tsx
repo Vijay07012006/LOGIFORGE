@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Logistics Web Engineering Guides & UX Patterns',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
     title: 'Logistics Web Engineering Guides & UX Patterns | LOGIFORGE',
     description:
       'Technical guides on logistics UX design patterns, waybill hierarchy, scoped design token architectures, and regulatory freight UI compliance.',
-    url: 'https://logiforge.dev/resources',
+    url: `${SITE_URL}/resources`,
     type: 'website',
     images: [
       {

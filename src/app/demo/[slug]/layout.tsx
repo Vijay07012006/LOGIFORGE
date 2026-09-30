@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
+import { SITE_URL } from '@/lib/utils';
 
 interface DemoLayoutProps {
   params: Promise<{ slug: string }>;
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title: `${title} | LOGIFORGE`,
       description,
-      url: `https://logiforge.dev${canonicalPath}`,
+      url: `${SITE_URL}${canonicalPath}`,
       type: 'website',
       images: [
         {

@@ -43,7 +43,7 @@ export function StarterDownloadButton({
         ],
       },
       exportedAt: new Date().toISOString(),
-      architecture: 'LOGIFORGE v0.3.0 Platform Foundation',
+      architecture: 'LOGIFORGE v1.0.0 Platform Foundation',
     };
 
     const blob = new Blob([JSON.stringify(starterPackage, null, 2)], {

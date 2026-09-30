@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import { useSearchParams } from 'next/navigation';
 import type { Template } from '@/types/template';
-import { EmbeddedTemplateView } from '@/components/studio/EmbeddedTemplateView';
 
 const LoadingTemplateSkeleton = () => (
   <div
@@ -74,23 +74,32 @@ const MoveSphereWebsite = dynamic(
   { loading: () => <LoadingTemplateSkeleton /> }
 );
 
+const EmbeddedTemplateView = dynamic(
+  () => import('@/components/studio/EmbeddedTemplateView').then((m) => m.EmbeddedTemplateView),
+  { loading: () => <LoadingTemplateSkeleton /> }
+);
+
 interface TemplateRendererProps {
   template: Template;
   initialTracking?: string;
   initialPage?: string;
 }
 
-export function TemplateRenderer({
+function TemplateRendererInner({
   template,
   initialTracking,
   initialPage = 'home',
 }: TemplateRendererProps) {
+  const searchParams = useSearchParams();
+  const effectiveTracking = searchParams.get('tracking') || initialTracking;
+  const effectivePage = searchParams.get('page') || initialPage || 'home';
+
   if (template.slug === 'cargo-nova') {
     return (
       <CargoNovaWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -99,8 +108,8 @@ export function TemplateRenderer({
     return (
       <FleetOneWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -109,8 +118,8 @@ export function TemplateRenderer({
     return (
       <ShipFlowWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -119,8 +128,8 @@ export function TemplateRenderer({
     return (
       <SwiftDropWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -129,8 +138,8 @@ export function TemplateRenderer({
     return (
       <AeroCargoWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -139,8 +148,8 @@ export function TemplateRenderer({
     return (
       <PortAxisWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -149,8 +158,8 @@ export function TemplateRenderer({
     return (
       <WarehouseXWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -159,8 +168,8 @@ export function TemplateRenderer({
     return (
       <SupplyCoreWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -169,8 +178,8 @@ export function TemplateRenderer({
     return (
       <RouteIQWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -179,8 +188,8 @@ export function TemplateRenderer({
     return (
       <MoveSphereWebsite
         template={template}
-        initialTracking={initialTracking}
-        initialPage={initialPage}
+        initialTracking={effectiveTracking}
+        initialPage={effectivePage}
       />
     );
   }
@@ -189,8 +198,16 @@ export function TemplateRenderer({
   return (
     <EmbeddedTemplateView
       template={template}
-      initialTracking={initialTracking}
-      initialPage={initialPage}
+      initialTracking={effectiveTracking}
+      initialPage={effectivePage}
     />
+  );
+}
+
+export function TemplateRenderer(props: TemplateRendererProps) {
+  return (
+    <Suspense fallback={<LoadingTemplateSkeleton />}>
+      <TemplateRendererInner {...props} />
+    </Suspense>
   );
 }

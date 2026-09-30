@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { StarterDownloadButton } from '@/components/platform/StarterDownloadButton';
 import { Play, ArrowLeft, CheckCircle2, ShieldCheck, ExternalLink } from 'lucide-react';
 import { LocalShareButton } from '@/components/platform/LocalShareButton';
+import { SITE_URL } from '@/lib/utils';
 import styles from './template-detail.module.css';
 
 interface PageProps {
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${fullTitle} | LOGIFORGE`,
       description: template.shortDescription,
-      url: `https://logiforge.dev${canonicalPath}`,
+      url: `${SITE_URL}${canonicalPath}`,
       type: 'website',
       images: [
         {
@@ -74,14 +75,18 @@ export default async function TemplateDetailPage({ params }: PageProps) {
     description: template.shortDescription,
     applicationCategory: 'WebApplication',
     operatingSystem: 'Web Browser',
-    url: `https://logiforge.dev/templates/${template.slug}`,
-    image: `https://logiforge.dev${template.previewImage}`,
+    url: `${SITE_URL}/templates/${template.slug}`,
+    image: `${SITE_URL}${template.previewImage}`,
     softwareVersion: template.version,
     author: {
       '@type': 'Organization',
       name: 'LOGIFORGE',
     },
   };
+
+  const secondaryGallery = Array.from(
+    new Set((template.galleryImages ?? []).filter((img) => img !== template.previewImage))
+  );
 
   return (
     <div className={styles.page}>
@@ -151,14 +156,14 @@ export default async function TemplateDetailPage({ params }: PageProps) {
               <span className={styles.mediaDimBadge}>1600 × 900 High-DPI</span>
             </div>
           </div>
-          {template.galleryImages && template.galleryImages.length > 1 && (
+          {secondaryGallery.length > 0 && (
             <div className={styles.galleryStrip}>
-              {template.galleryImages.slice(0, 3).map((imgUrl, idx) => (
-                <div key={idx} className={styles.galleryItem}>
+              {secondaryGallery.slice(0, 3).map((imgUrl, idx) => (
+                <div key={imgUrl} className={styles.galleryItem}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={imgUrl}
-                    alt={`${template.name} View ${idx + 1}`}
+                    alt={`${template.name} Supplementary Architecture View ${idx + 1}`}
                     width={600}
                     height={338}
                     className={styles.galleryImg}

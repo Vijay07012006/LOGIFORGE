@@ -374,3 +374,28 @@
   color: var(--lf-text-secondary);
   line-height: 1.55;
 }
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--lf-space-6) 0 var(--lf-space-16);
+  }
+  .panel,
+  .specsCard,
+  .auditCard {
+    padding: 18px;
+  }
+  .pageTitleRow,
+  .specRow {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .mediaBadgeOverlay {
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    gap: 6px;
+  }
+  .mediaDimBadge {
+    display: none;
+  }
+}

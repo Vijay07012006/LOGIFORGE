@@ -1,6 +1,10 @@
 /**
- * LOGIFORGE: General Utility Helpers
+ * LOGIFORGE: General Utility Helpers & Centralized Site Origin
  */
+
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://logiforge-hazel.vercel.app'
+).replace(/\/+$/, '');
 
 export type ClassValue =
   | string

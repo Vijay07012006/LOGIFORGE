@@ -77,7 +77,7 @@ export default function HomePage() {
               <span className={styles.beaconDot} />
             </span>
             <span className={styles.signalText}>LOGISTICS TEMPLATE PLATFORM &amp; STUDIO</span>
-            <span className={styles.signalVersion}>v0.3.0 READY</span>
+            <span className={styles.signalVersion}>v1.0 READY</span>
           </div>
 
           {/* Headline & Subtitle */}
@@ -414,7 +414,7 @@ export default function HomePage() {
               <ul className={styles.personaPoints}>
                 <li><CheckCircle2 size={15} /> 9 distinct aesthetic directions from Editorial to High-Tech</li>
                 <li><CheckCircle2 size={15} /> Authentic logistics schematics, port matrices, and route maps</li>
-                <li><CheckCircle2 size={15} /> WCAG 2.1 AA accessible contrast and visible focus tokens</li>
+                <li><CheckCircle2 size={15} /> High-contrast dark-mode legibility and visible focus tokens</li>
               </ul>
             </div>
 

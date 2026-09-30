@@ -12,9 +12,10 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
   async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
     const cspHeader = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "font-src 'self' data:",

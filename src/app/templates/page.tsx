@@ -4,6 +4,7 @@ import { getAllTemplates } from '@/lib/templates';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { CatalogBrowser } from '@/components/platform/CatalogBrowser';
+import { SITE_URL } from '@/lib/utils';
 import styles from './templates.module.css';
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     title: 'Logistics Website Templates Catalog | LOGIFORGE',
     description:
       'Discover and filter 10 specialized logistics website templates across freight forwarding, telematics, maritime, air cargo, 3PL, and last-mile delivery.',
-    url: 'https://logiforge.dev/templates',
+    url: `${SITE_URL}/templates`,
     type: 'website',
     images: [
       {
@@ -59,7 +60,7 @@ export default function TemplatesCatalogPage() {
     name: 'Logistics Website Templates Catalog',
     description:
       'Complete directory of 10 production-grade logistics website templates engineered by LOGIFORGE.',
-    url: 'https://logiforge.dev/templates',
+    url: `${SITE_URL}/templates`,
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: templates.length,
@@ -67,7 +68,7 @@ export default function TemplatesCatalogPage() {
         '@type': 'ListItem',
         position: index + 1,
         name: t.name,
-        url: `https://logiforge.dev/templates/${t.slug}`,
+        url: `${SITE_URL}/templates/${t.slug}`,
       })),
     },
   };

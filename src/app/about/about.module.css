@@ -152,3 +152,19 @@
   color: #ffb347;
   font-family: var(--lf-font-mono);
 }
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--lf-space-8) 0 var(--lf-space-16);
+  }
+  .asideCard {
+    padding: 18px;
+  }
+  .principleItem {
+    padding: 12px 14px;
+  }
+  .metaRow {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}

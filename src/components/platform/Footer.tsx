@@ -52,7 +52,7 @@ export function Footer() {
           <div className={styles.linksGrid}>
             {/* Column 1: Platform */}
             <div className={styles.column}>
-              <h4 className={styles.colTitle}>Platform</h4>
+              <h3 className={styles.colTitle}>Platform</h3>
               <ul className={styles.linkList}>
                 <li><Link href="/templates">Templates Catalog (10)</Link></li>
                 <li><Link href="/templates?tier=premium">Premium Flagships</Link></li>
@@ -64,7 +64,7 @@ export function Footer() {
 
             {/* Column 2: Logistics Categories */}
             <div className={styles.column}>
-              <h4 className={styles.colTitle}>Disciplines</h4>
+              <h3 className={styles.colTitle}>Disciplines</h3>
               <ul className={styles.linkList}>
                 {LOGISTICS_CATEGORIES.slice(0, 6).map((cat) => (
                   <li key={cat.id}>
@@ -76,7 +76,7 @@ export function Footer() {
 
             {/* Column 3: More Disciplines */}
             <div className={styles.column}>
-              <h4 className={styles.colTitle}>More Sectors</h4>
+              <h3 className={styles.colTitle}>More Sectors</h3>
               <ul className={styles.linkList}>
                 {LOGISTICS_CATEGORIES.slice(6).map((cat) => (
                   <li key={cat.id}>
@@ -88,7 +88,7 @@ export function Footer() {
 
             {/* Column 4: Architecture & Specs */}
             <div className={styles.column}>
-              <h4 className={styles.colTitle}>Architecture</h4>
+              <h3 className={styles.colTitle}>Architecture</h3>
               <ul className={styles.linkList}>
                 <li><Link href="/about#principles">Engineering Rules</Link></li>
                 <li><Link href="/about#licensing">Commercial Licensing</Link></li>
@@ -107,11 +107,11 @@ export function Footer() {
           <div className={styles.statusBadges}>
             <div className={styles.status}>
               <span className={styles.statusDot} />
-              <span>Core v0.3.0 • Phase 03 Shell Verified</span>
+              <span>Release v1.0.0 • 10 Flagship Architectures</span>
             </div>
             <div className={styles.shield}>
               <ShieldCheck size={14} className={styles.shieldIcon} />
-              <span>WCAG 2.1 AA Compliant</span>
+              <span>Accessible Keyboard &amp; Focus UX</span>
             </div>
           </div>
         </div>

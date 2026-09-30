@@ -6,7 +6,6 @@ import { TemplateRenderer } from '@/components/templates/dispatcher/TemplateRend
 
 interface EmbedPageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ tracking?: string; page?: string }>;
 }
 
 export async function generateStaticParams() {
@@ -32,21 +31,13 @@ export async function generateMetadata({ params }: EmbedPageProps): Promise<Meta
   };
 }
 
-export default async function TemplateEmbedPage({ params, searchParams }: EmbedPageProps) {
+export default async function TemplateEmbedPage({ params }: EmbedPageProps) {
   const { slug } = await params;
-  const { tracking, page } = await searchParams;
-
   const template = getTemplateBySlug(slug);
 
   if (!template) {
     notFound();
   }
 
-  return (
-    <TemplateRenderer
-      template={template}
-      initialTracking={tracking}
-      initialPage={page || 'home'}
-    />
-  );
+  return <TemplateRenderer template={template} />;
 }

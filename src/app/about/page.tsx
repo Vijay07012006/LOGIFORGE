@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ShieldCheck, Compass, CheckCircle2 } from 'lucide-react';
+import { SITE_URL } from '@/lib/utils';
 import styles from './about.module.css';
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     title: 'About LOGIFORGE — Architecture & Engineering Standards | LOGIFORGE',
     description:
       'The architectural standards, engineering principles, and vision behind the LOGIFORGE logistics template platform.',
-    url: 'https://logiforge.dev/about',
+    url: `${SITE_URL}/about`,
     type: 'website',
     images: [
       {
@@ -75,7 +76,7 @@ export default function AboutPage() {
               </p>
             </section>
 
-            <section className={styles.section}>
+            <section id="principles" className={styles.section}>
               <h2 className={styles.sectionHeading}>Platform Engineering Rules</h2>
               <div className={styles.principleList}>
                 {principles.map((rule, idx) => (
@@ -99,7 +100,7 @@ export default function AboutPage() {
             <div className={styles.asideCard}>
               <div className={styles.cardHeader}>
                 <ShieldCheck size={20} className={styles.shieldIcon} />
-                <h3 className={styles.cardTitle}>Phase 02 Architecture Status</h3>
+                <h3 className={styles.cardTitle}>Platform Architecture Status</h3>
               </div>
               <p className={styles.cardText}>
                 The platform foundation, core design token system, 11-category registry, and 10 flagship template manifests are fully verified.

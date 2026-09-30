@@ -3,6 +3,7 @@ import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import '@/styles/globals.css';
 import { Header } from '@/components/platform/Header';
 import { Footer } from '@/components/platform/Footer';
+import { SITE_URL } from '@/lib/utils';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,7 +20,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://logiforge.dev'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'LOGIFORGE | Premium Logistics Website Templates & Design Studio',
     template: '%s | LOGIFORGE',
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://logiforge.dev',
+    url: SITE_URL,
     siteName: 'LOGIFORGE',
     title: 'LOGIFORGE | Premium Logistics Website Templates & Studio',
     description:
@@ -82,23 +83,23 @@ const platformJsonLd = {
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://logiforge.dev/#website',
-      url: 'https://logiforge.dev',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
       name: 'LOGIFORGE',
       description:
         'Category-defining logistics website template platform and interactive design studio.',
       publisher: {
-        '@id': 'https://logiforge.dev/#organization',
+        '@id': `${SITE_URL}/#organization`,
       },
     },
     {
       '@type': 'Organization',
-      '@id': 'https://logiforge.dev/#organization',
+      '@id': `${SITE_URL}/#organization`,
       name: 'LOGIFORGE',
-      url: 'https://logiforge.dev',
+      url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
-        url: 'https://logiforge.dev/icon.svg',
+        url: `${SITE_URL}/icon.svg`,
       },
     },
   ],
