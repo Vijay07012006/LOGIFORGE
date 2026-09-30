@@ -1,13 +1,39 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ShieldCheck, Compass, CheckCircle2 } from 'lucide-react';
 import styles from './about.module.css';
 
-export const metadata = {
-  title: 'About LOGIFORGE | Architecture & Standards',
+export const metadata: Metadata = {
+  title: 'About LOGIFORGE — Architecture & Engineering Standards',
   description: 'The architectural standards, engineering principles, and vision behind the LOGIFORGE logistics template platform.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: 'About LOGIFORGE — Architecture & Engineering Standards | LOGIFORGE',
+    description:
+      'The architectural standards, engineering principles, and vision behind the LOGIFORGE logistics template platform.',
+    url: 'https://logiforge.dev/about',
+    type: 'website',
+    images: [
+      {
+        url: '/images/templates/cargo-nova/preview.webp',
+        width: 1200,
+        height: 630,
+        alt: 'LOGIFORGE Architecture & Standards',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About LOGIFORGE — Architecture & Engineering Standards | LOGIFORGE',
+    description:
+      'The architectural standards, engineering principles, and vision behind the LOGIFORGE logistics template platform.',
+    images: ['/images/templates/cargo-nova/preview.webp'],
+  },
 };
 
 export default function AboutPage() {

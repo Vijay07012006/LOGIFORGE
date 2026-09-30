@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { X, Box, Compass, Play, BookOpen, Info, ArrowRight } from 'lucide-react';
@@ -16,16 +16,46 @@ export interface MobileDrawerProps {
 
 export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   const pathname = usePathname();
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
 
-  // Close on Escape key
+  // Close on Escape key & trap Tab focus
   useEffect(() => {
+    if (!isOpen) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    closeBtnRef.current?.focus();
+
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape') {
         onClose();
+        return;
+      }
+
+      if (e.key === 'Tab' && drawerRef.current) {
+        const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
       }
     }
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      previouslyFocused?.focus();
+    };
   }, [isOpen, onClose]);
 
   // Lock body scroll when drawer is open
@@ -45,6 +75,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   return (
     <div className={styles.overlay} onClick={onClose} role="presentation">
       <div
+        ref={drawerRef}
         className={styles.drawer}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
@@ -60,6 +91,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             <span className={styles.brandName}>LOGIFORGE</span>
           </Link>
           <button
+            ref={closeBtnRef}
             type="button"
             onClick={onClose}
             className={styles.closeBtn}

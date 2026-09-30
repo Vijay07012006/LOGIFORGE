@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { X, CheckCircle2, BookOpen } from 'lucide-react';
@@ -25,12 +25,37 @@ interface GuideModalProps {
 }
 
 export function GuideModal({ guide, onClose }: GuideModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (!guide) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    closeBtnRef.current?.focus();
 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
         onClose();
+        return;
+      }
+
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
       }
     }
 
@@ -40,6 +65,7 @@ export function GuideModal({ guide, onClose }: GuideModalProps) {
     return () => {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
+      previouslyFocused?.focus();
     };
   }, [guide, onClose]);
 
@@ -47,7 +73,7 @@ export function GuideModal({ guide, onClose }: GuideModalProps) {
 
   return (
     <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div ref={modalRef} className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <header className={styles.header}>
           <div className={styles.headerMeta}>
             <Badge variant="accent" size="sm">
@@ -61,7 +87,7 @@ export function GuideModal({ guide, onClose }: GuideModalProps) {
           </h2>
           <p className={styles.desc}>{guide.description}</p>
 
-          <button onClick={onClose} className={styles.closeBtn} aria-label="Close guide modal">
+          <button ref={closeBtnRef} onClick={onClose} className={styles.closeBtn} aria-label="Close guide modal">
             <X size={18} />
           </button>
         </header>

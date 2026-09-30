@@ -35,7 +35,7 @@ export function Footer() {
               <a
                 href="https://github.com/Vijay07012006/LOGIFORGE"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className={styles.githubBadge}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

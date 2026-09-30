@@ -309,6 +309,7 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
       ref={studioRef}
       className={`${styles.studio} ${presentationMode ? styles.presentationActive : ''}`}
     >
+      <h1 className="sr-only">{template.name} — Interactive Demo Studio</h1>
       {/* 1. Client Presentation Mode Floating Top HUD */}
       {presentationMode && (
         <div className={styles.presentationHud}>

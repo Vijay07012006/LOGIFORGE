@@ -23,8 +23,12 @@ export async function generateMetadata({ params }: EmbedPageProps): Promise<Meta
   }
 
   return {
-    title: `${template.name} — Live Sandbox Preview | LOGIFORGE`,
+    title: `${template.name} — Live Sandbox Preview`,
     description: template.shortDescription,
+    robots: {
+      index: false,
+      follow: true,
+    },
   };
 }
 

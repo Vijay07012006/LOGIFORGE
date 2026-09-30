@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
   return templates.map((t) => ({ slug: t.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const template = getTemplateBySlug(slug);
 
@@ -26,9 +27,35 @@ export async function generateMetadata({ params }: PageProps) {
     return { title: 'Template Not Found' };
   }
 
+  const canonicalPath = `/templates/${template.slug}`;
+  const fullTitle = `${template.name} — ${template.tagline}`;
+
   return {
     title: `${template.name} — Logistics Website Template`,
     description: template.shortDescription,
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      title: `${fullTitle} | LOGIFORGE`,
+      description: template.shortDescription,
+      url: `https://logiforge.dev${canonicalPath}`,
+      type: 'website',
+      images: [
+        {
+          url: template.previewImage,
+          width: 1200,
+          height: 630,
+          alt: `${template.name} Logistics Website Template Preview`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${fullTitle} | LOGIFORGE`,
+      description: template.shortDescription,
+      images: [template.previewImage],
+    },
   };
 }
 
@@ -40,8 +67,25 @@ export default async function TemplateDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const softwareJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: `${template.name} Logistics Website Template`,
+    description: template.shortDescription,
+    applicationCategory: 'WebApplication',
+    operatingSystem: 'Web Browser',
+    url: `https://logiforge.dev/templates/${template.slug}`,
+    image: `https://logiforge.dev${template.previewImage}`,
+    softwareVersion: template.version,
+    author: {
+      '@type': 'Organization',
+      name: 'LOGIFORGE',
+    },
+  };
+
   return (
     <div className={styles.page}>
+      <script type="application/ld+json">{JSON.stringify(softwareJsonLd)}</script>
       <div className="lf-container">
         {/* Back navigation */}
         <div className={styles.backNav}>
@@ -230,7 +274,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
               </div>
               <div className={styles.specRow}>
                 <span className={styles.specLabel}>Embed Route</span>
-                <Link href={`/demo/${template.slug}/embed`} target="_blank" className={styles.specValLink}>
+                <Link href={`/demo/${template.slug}/embed`} target="_blank" rel="noopener noreferrer" className={styles.specValLink}>
                   /demo/{template.slug}/embed
                 </Link>
               </div>

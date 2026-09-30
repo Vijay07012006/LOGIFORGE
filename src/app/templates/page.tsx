@@ -1,14 +1,40 @@
 import React, { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { getAllTemplates } from '@/lib/templates';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { CatalogBrowser } from '@/components/platform/CatalogBrowser';
 import styles from './templates.module.css';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Logistics Website Templates Catalog',
   description:
     'Discover and filter 10 specialized logistics website templates. Browse by category, style, license tier, or keywords with live device sandbox previews.',
+  alternates: {
+    canonical: '/templates',
+  },
+  openGraph: {
+    title: 'Logistics Website Templates Catalog | LOGIFORGE',
+    description:
+      'Discover and filter 10 specialized logistics website templates across freight forwarding, telematics, maritime, air cargo, 3PL, and last-mile delivery.',
+    url: 'https://logiforge.dev/templates',
+    type: 'website',
+    images: [
+      {
+        url: '/images/templates/cargo-nova/preview.webp',
+        width: 1200,
+        height: 630,
+        alt: 'LOGIFORGE Template Catalog',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Logistics Website Templates Catalog | LOGIFORGE',
+    description:
+      'Discover and filter 10 specialized logistics website templates with live device sandbox previews.',
+    images: ['/images/templates/cargo-nova/preview.webp'],
+  },
 };
 
 function CatalogLoadingFallback() {
@@ -27,8 +53,28 @@ function CatalogLoadingFallback() {
 export default function TemplatesCatalogPage() {
   const templates = getAllTemplates();
 
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Logistics Website Templates Catalog',
+    description:
+      'Complete directory of 10 production-grade logistics website templates engineered by LOGIFORGE.',
+    url: 'https://logiforge.dev/templates',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: templates.length,
+      itemListElement: templates.map((t, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: t.name,
+        url: `https://logiforge.dev/templates/${t.slug}`,
+      })),
+    },
+  };
+
   return (
     <div className={styles.page}>
+      <script type="application/ld+json">{JSON.stringify(collectionJsonLd)}</script>
       <Container size="lg">
         {/* Catalog Header */}
         <div className={styles.header}>
