@@ -1,10 +1,15 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { getTemplateBySlug } from '@/lib/templates';
+import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
 
 interface DemoLayoutProps {
   params: Promise<{ slug: string }>;
   children: React.ReactNode;
+}
+
+export async function generateStaticParams() {
+  const templates = getAllTemplates();
+  return templates.map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
