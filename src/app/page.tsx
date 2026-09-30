@@ -107,7 +107,7 @@ export default function HomePage() {
           </div>
 
           {/* Simulated Waybill Transit Ribbon */}
-          <div className={styles.telemetryTicker} role="region" aria-label="Simulated Logistics Telemetry Feed">
+          <div className={styles.telemetryTicker} role="region" aria-label="Simulated Logistics Telemetry Feed" aria-live="off">
             <div className={styles.tickerHeader}>
               <Terminal size={14} className={styles.tickerIcon} />
               <span>SIMULATED WAYBILL FEED:</span>

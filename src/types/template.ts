@@ -44,11 +44,18 @@ export interface TemplateMetric {
 
 export interface TemplatePageSpec {
   id: string;
-  title: string;
+
+
   slug: string;
   description: string;
   previewImageUrl?: string;
   sections: string[];
+}
+
+export interface TemplateBlueprintNavItem {
+  id: string;
+  label: string;
+  order?: number;
 }
 
 export interface TemplateFeatureSpec {
@@ -171,6 +178,7 @@ export interface Template {
   bundleSizeKb: number;
 
   pages: TemplatePageSpec[];
+  blueprintNav?: TemplateBlueprintNavItem[];
   features: TemplateFeatureSpec[];
   sections: TemplateSectionBlueprint;
 

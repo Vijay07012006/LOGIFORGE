@@ -33,19 +33,22 @@ Built as an ultra-premium dark luxury platform with incandescent tandoori orange
 
 ## 🚀 2. Core Capabilities & Architecture
 
-### 2.1 Editorial Logistics Marketplace (`/` & `/templates`)
+### 2.1 Editorial Logistics Marketplace (`/`, `/templates`, `/templates/compare`)
 - **Atmospheric Editorial Hero:** Features a live waybill transit ticker (`CN-8924-US`, `AC-9901-FRA`, `FO-4091-TX`), vector radar pulse, and primary discovery CTAs.
 - **Faceted Catalog Browser:** Multi-attribute filtering across 11 industry disciplines, 9 aesthetic styles, and 3 license tiers with instant fuzzy search and dismissible filter chips.
+- **Template Comparison Matrix (`/templates/compare`):** Side-by-side technical evaluation for up to 3 templates comparing bundle weights, design tokens, features, responsive breakpoints, and licensing with URL state sharing (`?templates=cargo-nova,fleet-one`).
 - **URL Parameter Synchronization:** Search, category, style, and sort states serialize directly into the browser URL (`/templates?category=ocean-freight&style=minimalist&sort=popular`), ensuring persistent, shareable views.
 
 ### 2.2 Interactive Demo Studio (`/demo/[slug]`)
 - **Multi-Device Hardware Simulation:**
   - **Desktop (100% / 1440px):** Unconstrained wide-screen presentation.
   - **Tablet (Max 768px):** Hardware bezel with camera notch and orientation rotation (768×1024 Portrait / 1024×768 Landscape).
-  - **Mobile (Max 375px):** Hardware bezel with speaker grill, camera notch, and bottom home indicator bar (375×812 Portrait / 812×375 Landscape). Scales down to 320px screens with zero horizontal overflow.
+  - **Mobile (Max 390px):** Hardware bezel with speaker grill, camera notch, and bottom home indicator bar (390×844 Portrait / 844×390 Landscape). Scales down to 320px screens with zero horizontal overflow.
+- **URL State Synchronization:** Preserves and deep-links `device`, `orientation`, and `zoom` parameters (`/demo/cargo-nova?device=mobile&orientation=portrait&zoom=75`) with browser back/forward and fallback defaults.
+- **Live Theme Accent Customizer:** Real-time preview of primary (`--tmpl-accent`) and secondary (`--tmpl-accent-secondary`) brand color overrides via native color pickers and preset palettes, communicating over validated `postMessage` protocols.
 - **Zoom Scaling Controls:** Instant 50%, 75%, and 100% zoom canvas scaling.
 - **Client Presentation Mode:** Fullscreen overlay (`fixed, z-index: 999999`) completely hiding background platform navigation with an ambient floating HUD. Toggleable with one click or keyboard shortcut `P` (press `Escape` to cleanly exit).
-- **Blueprint Views Navigation:** Synchronized tabs dynamically mapped to each template's real sections (e.g. Berth Board, Gate Turnaround, Rail Intermodal), triggering smooth section scrolling in the sandboxed preview.
+- **Centralized Blueprint Views:** Declarative navigation tabs mapped directly from template manifests (`blueprintNav`), triggering smooth section scrolling in the sandboxed preview.
 
 ### 2.3 Sandboxed Embed Mode (`/demo/[slug]/embed`)
 - Isolated, clean template render free of platform chrome.
@@ -78,14 +81,15 @@ Built as an ultra-premium dark luxury platform with incandescent tandoori orange
 
 ---
 
-## 🗺️ 4. Route Architecture (36 Endpoints, 40 Pre-Rendered Pages)
+## 🗺️ 4. Route Architecture (37 Endpoints, 41 Pre-Rendered Pages)
 
-LOGIFORGE compiles to **40 pre-rendered static outputs** at build time. This represents **36 public application routes and endpoints** (4 primary platform pages, 30 dynamic template pages across detail, studio, and embed modes, plus `/robots.txt` and `/sitemap.xml`), along with standard Next.js build outputs (`/_not-found` and `/icon.svg`):
+LOGIFORGE compiles to **41 pre-rendered static outputs** at build time. This represents **37 public application routes and endpoints** (5 primary platform pages including template comparison matrix, 30 dynamic template pages across detail, studio, and embed modes, plus `/robots.txt` and `/sitemap.xml`), along with standard Next.js build outputs (`/_not-found` and `/icon.svg`):
 
 ```
-Platform Core Routes (4 Pages):
+Platform Core Routes (5 Pages):
 ├── /                                       [Platform Homepage & Featured Spotlight]
 ├── /templates                              [Interactive Catalog Browser & Faceted Filter Bar]
+├── /templates/compare                      [Side-by-Side Template Specification Matrix]
 ├── /resources                              [Industry Benchmarks & Interactive GuideModal Reader]
 └── /about                                  [Platform Manifesto & Architecture Standards]
 

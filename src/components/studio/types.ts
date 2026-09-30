@@ -21,7 +21,9 @@ export type HostToTemplateMessage =
   | { type: 'SET_CLIENT_PRESENTATION_MODE'; enabled: boolean }
   | { type: 'INJECT_TRACKING_QUERY'; trackingNumber: string }
   | { type: 'NAVIGATE_TEMPLATE_PAGE'; pageSlug: string }
-  | { type: 'SET_SIMULATED_DELAY'; delayMs: number };
+  | { type: 'SET_SIMULATED_DELAY'; delayMs: number }
+  | { type: 'THEME_UPDATE'; primaryAccent?: string; secondaryAccent?: string }
+  | { type: 'THEME_RESET' };
 
 // Embedded Template -> Platform Studio Shell postMessage Protocol
 export type TemplateToHostMessage =

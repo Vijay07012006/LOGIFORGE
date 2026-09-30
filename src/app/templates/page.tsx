@@ -1,9 +1,11 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { getAllTemplates } from '@/lib/templates';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { CatalogBrowser } from '@/components/platform/CatalogBrowser';
+import { Scale } from 'lucide-react';
 import { SITE_URL } from '@/lib/utils';
 import styles from './templates.module.css';
 
@@ -79,10 +81,30 @@ export default function TemplatesCatalogPage() {
       <Container size="lg">
         {/* Catalog Header */}
         <div className={styles.header}>
-          <div className={styles.badgeWrapper}>
+          <div className={styles.badgeWrapper} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
             <Badge variant="primary" size="sm">
               DISCOVERY CATALOG • {templates.length} SPECIALIZED ARCHITECTURES
             </Badge>
+            <Link
+              href="/templates/compare"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                color: 'var(--lf-accent-amber)',
+                textDecoration: 'none',
+                padding: '0.35rem 0.85rem',
+                background: 'var(--lf-bg-surface)',
+                border: '1px solid var(--lf-border-subtle)',
+                borderRadius: 'var(--lf-radius-sm)',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              <Scale size={14} />
+              <span>Compare Templates Matrix</span>
+            </Link>
           </div>
           <h1 className={styles.title}>Logistics Website Template Catalog</h1>
           <p className={styles.subtitle}>

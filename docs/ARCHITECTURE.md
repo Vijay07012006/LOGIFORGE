@@ -23,6 +23,7 @@ The architecture is built upon four foundational design principles:
 ├─────────────────────────────────────────────────────────────┤
 │  • `/`                       → Platform Homepage            │
 │  • `/templates`              → Discovery Catalog & Filters  │
+│  • `/templates/compare`      → Side-by-Side Template Matrix │
 │  • `/templates/[slug]`       → Template Deep-Dive Specs     │
 │  • `/demo/[slug]`            → Demo Studio Parent Shell     │
 │  • `/demo/[slug]/embed`      → Sandboxed Template Embed     │
@@ -131,10 +132,12 @@ Communication between the Demo Studio host and the embedded template iframe occu
 #### Host to Template Messages
 ```typescript
 export type HostToTemplateMessage =
-  | { type: 'NAVIGATE_PAGE'; pageSlug: string }
-  | { type: 'NAVIGATE_TEMPLATE_PAGE'; pageSlug: string }
+  | { type: 'SET_CLIENT_PRESENTATION_MODE'; enabled: boolean }
   | { type: 'INJECT_TRACKING_QUERY'; trackingNumber: string }
-  | { type: 'SET_PRESENTATION_MODE'; enabled: boolean };
+  | { type: 'NAVIGATE_TEMPLATE_PAGE'; pageSlug: string }
+  | { type: 'SET_SIMULATED_DELAY'; delayMs: number }
+  | { type: 'THEME_UPDATE'; primaryAccent?: string; secondaryAccent?: string }
+  | { type: 'THEME_RESET' };
 ```
 
 #### Template to Host Messages

@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, use } from 'react';
+import React, { useState, useEffect, useRef, useCallback, use, Suspense } from 'react';
 import Link from 'next/link';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
 import { getSampleTrackingNumbers } from '@/lib/tracking';
 import { Badge } from '@/components/ui/Badge';
@@ -22,84 +22,19 @@ import {
   Maximize2,
   Presentation,
   RotateCw,
+  RotateCcw,
   Search,
   ExternalLink,
   X,
   Radio,
   Layers,
+  Palette,
 } from 'lucide-react';
 import styles from './demo-studio.module.css';
 
 interface DemoStudioProps {
   params: Promise<{ slug: string }>;
 }
-
-const BLUEPRINT_NAV_BY_SLUG: Record<string, { id: string; label: string }[]> = {
-  'cargo-nova': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'services', label: 'Services Matrix' },
-    { id: 'corridors', label: 'Trade Corridors' },
-    { id: 'tracking', label: 'Consignment Tracking' },
-  ],
-  'fleet-one': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'telematics', label: 'ECM Telematics' },
-    { id: 'vehicles', label: 'Fleet Assets' },
-    { id: 'dispatch', label: 'Highway Dispatch' },
-    { id: 'safety', label: 'Safety Specs' },
-  ],
-  'ship-flow': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'schedules', label: 'Vessel Schedules' },
-    { id: 'containers', label: 'Container Types' },
-    { id: 'status', label: 'Port Status' },
-    { id: 'sustainability', label: 'Decarbonization' },
-  ],
-  'swift-drop': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'rates', label: 'Parcel Calculator' },
-    { id: 'tracking', label: 'Courier Tracking' },
-    { id: 'features', label: 'Bento Features' },
-    { id: 'fleet', label: 'EV Fleet' },
-  ],
-  'aero-cargo': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'awb', label: 'AWB Radar' },
-    { id: 'uld', label: 'ULD Calculator' },
-    { id: 'pharma', label: 'Pharma Cold-Chain' },
-  ],
-  'port-axis': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'berths', label: 'Berth Board' },
-    { id: 'gate', label: 'Gate Turnaround' },
-    { id: 'capacities', label: 'Terminal Capacities' },
-    { id: 'intermodal', label: 'Rail Intermodal' },
-  ],
-  'warehouse-x': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'asn', label: 'Inbound ASN' },
-    { id: 'racks', label: 'Pallet Racking' },
-    { id: 'docks', label: 'Dock Scheduling' },
-  ],
-  'supply-core': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'audit', label: 'Audit Radar' },
-    { id: 'scope3', label: 'Scope-3 Carbon' },
-    { id: 'risk', label: 'Risk Heatmap' },
-  ],
-  'route-iq': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'sim', label: 'AI Simulation' },
-    { id: 'tsp', label: 'TSP Solver' },
-    { id: 'telemetry', label: 'Live Telemetry' },
-  ],
-  'move-sphere': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'smartpack', label: 'SmartPack CBM' },
-    { id: 'corridors', label: 'Corridor Maps' },
-    { id: 'tracking', label: 'Quantum Vaults' },
-  ],
-};
 
 const DEFAULT_TRACKING_BY_SLUG: Record<string, string> = {
   'cargo-nova': 'CN-8924-US',
@@ -114,39 +49,128 @@ const DEFAULT_TRACKING_BY_SLUG: Record<string, string> = {
   'move-sphere': 'MS-9900-QUANTUM',
 };
 
-export default function DemoStudioPage({ params }: DemoStudioProps) {
+const parseDevice = (val: string | null): ViewportPreset => {
+  if (val === 'desktop' || val === 'tablet' || val === 'mobile' || val === 'fluid') {
+    return val;
+  }
+  return 'desktop';
+};
+
+const parseOrientation = (val: string | null): ViewportOrientation => {
+  if (val === 'portrait' || val === 'landscape') {
+    return val;
+  }
+  return 'portrait';
+};
+
+const parseZoom = (val: string | null): ZoomLevel => {
+  if (val === '50' || val === '0.5') return 0.5;
+  if (val === '75' || val === '0.75') return 0.75;
+  if (val === '100' || val === '1') return 1;
+  return 1;
+};
+
+function DemoStudioInner({ params }: DemoStudioProps) {
   const { slug } = use(params);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const template = getTemplateBySlug(slug);
   const allTemplates = getAllTemplates();
   const sampleTrackingNumbers = getSampleTrackingNumbers();
 
   const defaultTracking = DEFAULT_TRACKING_BY_SLUG[slug] || 'CN-8924-US';
 
-  const [device, setDevice] = useState<ViewportPreset>('desktop');
-  const [orientation, setOrientation] = useState<ViewportOrientation>('portrait');
-  const [zoom, setZoom] = useState<ZoomLevel>(1);
+  // Initialize viewport states with validated URL query params
+  const [device, setDevice] = useState<ViewportPreset>(() => parseDevice(searchParams.get('device')));
+  const [orientation, setOrientation] = useState<ViewportOrientation>(() => parseOrientation(searchParams.get('orientation')));
+  const [zoom, setZoom] = useState<ZoomLevel>(() => parseZoom(searchParams.get('zoom')));
   const [presentationMode, setPresentationMode] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [activeTrackingNumber, setActiveTrackingNumber] = useState<string>(defaultTracking);
+  const [activeTrackingNumber, setActiveTrackingNumber] = useState<string>(
+    searchParams.get('tracking') || defaultTracking
+  );
   const [trackingSearchInput, setTrackingSearchInput] = useState<string>('');
-  const [activePageSlug, setActivePageSlug] = useState<string>('home');
-  const [iframeLoaded, setIframeLoaded] = useState<boolean>(false);
+  const [activePageSlug, setActivePageSlug] = useState<string>(
+    searchParams.get('page') || 'home'
+  );
+
+  // Live Theme Accent Customizer states
+  const [themeCustomizerOpen, setThemeCustomizerOpen] = useState<boolean>(false);
+  const [customPrimaryColor, setCustomPrimaryColor] = useState<string>(
+    template?.theme.primaryAccent || '#d4af37'
+  );
+  const [customSecondaryColor, setCustomSecondaryColor] = useState<string>(
+    template?.theme.secondaryAccent || '#1b2a4a'
+  );
+  const [isThemeOverridden, setIsThemeOverridden] = useState<boolean>(false);
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const studioRef = useRef<HTMLDivElement>(null);
+
+  // Synchronize state changes to URL query string without page reloads
+  const syncStudioUrl = useCallback(
+    (newDevice: ViewportPreset, newOrientation: ViewportOrientation, newZoom: ZoomLevel) => {
+      if (typeof window === 'undefined') return;
+      const url = new URL(window.location.href);
+
+      const zoomStr = newZoom === 0.5 ? '50' : newZoom === 0.75 ? '75' : '100';
+
+      url.searchParams.set('device', newDevice);
+      url.searchParams.set('orientation', newOrientation);
+      url.searchParams.set('zoom', zoomStr);
+
+      window.history.replaceState(
+        null,
+        '',
+        url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : '')
+      );
+    },
+    []
+  );
+
+  const handleDeviceChange = (nextDevice: ViewportPreset) => {
+    setDevice(nextDevice);
+    syncStudioUrl(nextDevice, orientation, zoom);
+  };
+
+  const handleOrientationToggle = () => {
+    const next = orientation === 'portrait' ? 'landscape' : 'portrait';
+    setOrientation(next);
+    syncStudioUrl(device, next, zoom);
+  };
+
+  const handleZoomChange = (nextZoom: ZoomLevel) => {
+    setZoom(nextZoom);
+    syncStudioUrl(device, orientation, nextZoom);
+  };
+
+  // Popstate listener for browser back/forward history navigation
+  useEffect(() => {
+    function handlePopState() {
+      const url = new URL(window.location.href);
+      setDevice(parseDevice(url.searchParams.get('device')));
+      setOrientation(parseOrientation(url.searchParams.get('orientation')));
+      setZoom(parseZoom(url.searchParams.get('zoom')));
+    }
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Sync active tracking default and active tab when slug changes
   useEffect(() => {
     const nextDefault = DEFAULT_TRACKING_BY_SLUG[slug] || 'CN-8924-US';
     setActiveTrackingNumber(nextDefault);
     setActivePageSlug('home');
-  }, [slug]);
-
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const studioRef = useRef<HTMLDivElement>(null);
+    if (template) {
+      setCustomPrimaryColor(template.theme.primaryAccent);
+      setCustomSecondaryColor(template.theme.secondaryAccent);
+      setIsThemeOverridden(false);
+    }
+  }, [slug, template]);
 
   if (!template) {
     notFound();
   }
-
 
   // Frame protection: prevent Demo Studio shell from ever being loaded inside an iframe (breaks recursive nesting)
   useEffect(() => {
@@ -162,6 +186,36 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
       iframeRef.current.contentWindow.postMessage(message, targetOrigin);
     }
   }, []);
+
+  // Theme Customizer actions
+  const handlePrimaryColorChange = (color: string) => {
+    setCustomPrimaryColor(color);
+    setIsThemeOverridden(true);
+    sendToIframe({
+      type: 'THEME_UPDATE',
+      primaryAccent: color,
+      secondaryAccent: customSecondaryColor,
+    });
+  };
+
+  const handleSecondaryColorChange = (color: string) => {
+    setCustomSecondaryColor(color);
+    setIsThemeOverridden(true);
+    sendToIframe({
+      type: 'THEME_UPDATE',
+      primaryAccent: customPrimaryColor,
+      secondaryAccent: color,
+    });
+  };
+
+  const handleResetTheme = () => {
+    setCustomPrimaryColor(template.theme.primaryAccent);
+    setCustomSecondaryColor(template.theme.secondaryAccent);
+    setIsThemeOverridden(false);
+    sendToIframe({
+      type: 'THEME_RESET',
+    });
+  };
 
   // Synchronize tracking query change
   const handleTrackingSelect = (trackingNo: string) => {
@@ -243,6 +297,12 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
       }
 
       if (e.key === 'Escape') {
+        if (themeCustomizerOpen) {
+          e.preventDefault();
+          setThemeCustomizerOpen(false);
+          return;
+        }
+
         if (presentationMode) {
           e.preventDefault();
           setPresentationMode(false);
@@ -256,9 +316,9 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [presentationMode, togglePresentationMode, sendToIframe]);
+  }, [presentationMode, themeCustomizerOpen, sendToIframe, togglePresentationMode]);
 
-  // Listen for postMessage from embedded template with origin validation
+  // Bidirectional postMessage listener from embedded template
   useEffect(() => {
     function handleTemplateMessage(event: MessageEvent) {
       if (typeof window !== 'undefined' && event.origin !== window.location.origin) return;
@@ -266,158 +326,146 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
       if (!data || typeof data !== 'object') return;
 
       if (data.type === 'TEMPLATE_MOUNTED') {
-        setIframeLoaded(true);
-      }
-
-      if (data.type === 'TEMPLATE_PAGE_CHANGED' && typeof data.pageSlug === 'string') {
-        setActivePageSlug(data.pageSlug);
+        // If theme is currently overridden, synchronize with newly mounted iframe
+        if (isThemeOverridden) {
+          sendToIframe({
+            type: 'THEME_UPDATE',
+            primaryAccent: customPrimaryColor,
+            secondaryAccent: customSecondaryColor,
+          });
+        }
       }
 
       if (data.type === 'TRACKING_SEARCH_PERFORMED' && typeof data.trackingNumber === 'string') {
         setActiveTrackingNumber(data.trackingNumber);
       }
+
+      if (data.type === 'TEMPLATE_PAGE_CHANGED' && typeof data.pageSlug === 'string') {
+        setActivePageSlug(data.pageSlug);
+      }
     }
 
     window.addEventListener('message', handleTemplateMessage);
     return () => window.removeEventListener('message', handleTemplateMessage);
-  }, []);
+  }, [isThemeOverridden, customPrimaryColor, customSecondaryColor, sendToIframe]);
 
-  // Compute Viewport Dimensions based on Preset and Orientation
-  const getDimensions = () => {
-    switch (device) {
-      case 'desktop':
-        return { width: '100%', height: '100%', maxWidth: '1440px', isDevice: false };
-      case 'tablet':
-        return orientation === 'portrait'
-          ? { width: '100%', height: '1024px', maxWidth: '768px', isDevice: true }
-          : { width: '100%', height: '768px', maxWidth: '1024px', isDevice: true };
-      case 'mobile':
-        return orientation === 'portrait'
-          ? { width: '100%', height: '812px', maxWidth: '375px', isDevice: true }
-          : { width: '100%', height: '375px', maxWidth: '812px', isDevice: true };
-      case 'fluid':
-      default:
-        return { width: '100%', height: '100%', maxWidth: '100%', isDevice: false };
-    }
-  };
+  // Dimension calculations for viewport simulation
+  const isLandscape = orientation === 'landscape';
+  const isDevice = device === 'tablet' || device === 'mobile';
 
-  const { width, height, maxWidth, isDevice } = getDimensions();
+  let width = '100%';
+  let maxWidth = '100%';
+  let height = '100%';
+
+  if (device === 'desktop') {
+    width = '100%';
+    maxWidth = '100%';
+    height = '100%';
+  } else if (device === 'tablet') {
+    width = isLandscape ? '1024px' : '768px';
+    maxWidth = '100%';
+    height = isLandscape ? '768px' : '1024px';
+  } else if (device === 'mobile') {
+    width = isLandscape ? '844px' : '390px';
+    maxWidth = '100%';
+    height = isLandscape ? '390px' : '844px';
+  } else if (device === 'fluid') {
+    width = '100%';
+    maxWidth = '100%';
+    height = '100%';
+  }
+
   const embedUrl = `/demo/${template.slug}/embed?tracking=${encodeURIComponent(activeTrackingNumber)}&page=${encodeURIComponent(activePageSlug)}`;
+
+  // Centralized blueprint navigation from template manifest
+  const blueprintNavItems = template.blueprintNav && template.blueprintNav.length > 0
+    ? template.blueprintNav
+    : [
+        { id: 'home', label: 'Home Overview' },
+        { id: 'services', label: 'Services Matrix' },
+        { id: 'tracking', label: 'Consignment Tracking' },
+      ];
 
   return (
     <div
       ref={studioRef}
       className={`${styles.studio} ${presentationMode ? styles.presentationActive : ''}`}
     >
-      <h1 className="sr-only">{template.name} — Interactive Demo Studio</h1>
       {/* 1. Client Presentation Mode Floating Top HUD */}
       {presentationMode && (
         <div className={styles.presentationHud}>
           <div className={styles.hudLeft}>
             <span className={styles.hudBeacon} />
             <div className={styles.hudTitleGroup}>
-              <span className={styles.hudLabel}>CLIENT PREVIEW • LOGIFORGE STUDIO</span>
-              <span className={styles.hudTemplateName}>{template.name} ({template.industry})</span>
+              <span className={styles.hudLabel}>LIVE CLIENT SANDBOX</span>
+              <span className={styles.hudTemplateName}>{template.name}</span>
             </div>
+            <Badge variant="outline" size="sm" className={styles.hudBadge}>
+              {device.toUpperCase()} {isDevice ? `• ${orientation.toUpperCase()}` : ''}
+            </Badge>
           </div>
 
           <div className={styles.hudCenter}>
-            {/* Viewport Toggles in Presentation HUD */}
-            <div className={styles.hudDeviceGroup}>
-              <button
-                onClick={() => setDevice('desktop')}
-                className={`${styles.hudDeviceBtn} ${device === 'desktop' ? styles.hudDeviceActive : ''}`}
-                title="Desktop (1440px)"
-              >
-                <Monitor size={14} />
-                <span>Desktop</span>
-              </button>
-              <button
-                onClick={() => setDevice('tablet')}
-                className={`${styles.hudDeviceBtn} ${device === 'tablet' ? styles.hudDeviceActive : ''}`}
-                title="Tablet (768px)"
-              >
-                <Tablet size={14} />
-                <span>Tablet</span>
-              </button>
-              <button
-                onClick={() => setDevice('mobile')}
-                className={`${styles.hudDeviceBtn} ${device === 'mobile' ? styles.hudDeviceActive : ''}`}
-                title="Mobile (375px)"
-              >
-                <Smartphone size={14} />
-                <span>Mobile</span>
-              </button>
-            </div>
+            <span className={styles.hudHint}>
+              Press <kbd className={styles.hudKbd}>P</kbd> or <kbd className={styles.hudKbd}>ESC</kbd> to exit presentation view
+            </span>
           </div>
 
           <div className={styles.hudRight}>
             <button
               onClick={toggleFullscreen}
               className={styles.hudActionBtn}
-              title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+              title={isFullscreen ? 'Exit Fullscreen' : 'Enter Browser Fullscreen'}
+              aria-label={isFullscreen ? 'Exit Fullscreen' : 'Enter Browser Fullscreen'}
             >
               <Maximize2 size={14} />
-              <span>{isFullscreen ? 'Window' : 'Fullscreen'}</span>
+              <span>{isFullscreen ? 'Windowed' : 'Fullscreen'}</span>
             </button>
-
             <button
               onClick={togglePresentationMode}
               className={styles.hudExitBtn}
-              title="Exit Presentation Mode (Esc)"
+              title="Exit Client Presentation Mode (Escape)"
+              aria-label="Exit Client Presentation Mode"
             >
               <X size={14} />
-              <span>Exit Mode</span>
-              <Badge variant="outline" size="sm" className={styles.hudBadge}>
-                ESC
-              </Badge>
+              <span>Exit HUD</span>
             </button>
           </div>
         </div>
       )}
 
-      {/* 2. Standard Studio Header Toolbar */}
+      {/* 2. Platform Studio Shell Standard Header Controls */}
       {!presentationMode && (
         <header className={styles.toolbar}>
+          {/* Brand & Template Selector */}
           <div className={styles.toolLeft}>
-            <Link href={`/templates/${template.slug}`} className={styles.backLink}>
+            <Link href="/templates" className={styles.backBtn} title="Return to Templates Catalog">
               <ArrowLeft size={16} />
-              <span>Back to Specs</span>
+              <span className={styles.backBtnText}>Catalog</span>
             </Link>
 
-            <div className={styles.divider} />
-
-            <div className={styles.templateSelector}>
-              <span className={styles.templateLabel}>Template:</span>
+            <div className={styles.templateSwitcher}>
+              <span className={styles.switcherLabel}>Active Sandbox:</span>
               <select
                 value={template.slug}
-                onChange={(e) => {
-                  router.push(`/demo/${e.target.value}`);
-                }}
-                className={styles.select}
-                aria-label="Switch Template Demo"
+                onChange={(e) => router.push(`/demo/${e.target.value}`)}
+                className={styles.templateSelect}
+                aria-label="Switch active logistics template sandbox"
               >
                 {allTemplates.map((t) => (
-                  <option key={t.id} value={t.slug}>
-                    {t.name} — {t.industry}
+                  <option key={t.slug} value={t.slug}>
+                    {t.name} ({t.industry})
                   </option>
                 ))}
               </select>
-              <span
-                className={`${styles.runtimeBadge} ${iframeLoaded ? styles.runtimeOnline : styles.runtimeSync}`}
-                title={iframeLoaded ? 'Connected to isolated sandbox frame' : 'Connecting to sandbox runtime...'}
-              >
-                <span className={styles.runtimeDot} />
-                <span>{iframeLoaded ? 'Live' : 'Syncing'}</span>
-              </span>
             </div>
           </div>
 
-          {/* Device & Viewport Switcher Controls */}
+          {/* Device & Viewport Switchers */}
           <div className={styles.toolCenter}>
-            <div className={styles.deviceGroup} role="group" aria-label="Device Viewport Switcher">
+            <div className={styles.deviceGroup}>
               <button
-                onClick={() => setDevice('desktop')}
+                onClick={() => handleDeviceChange('desktop')}
                 className={`${styles.deviceBtn} ${device === 'desktop' ? styles.deviceActive : ''}`}
                 title="Desktop 1440px"
                 aria-label="Desktop View"
@@ -426,7 +474,7 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
                 <span>Desktop</span>
               </button>
               <button
-                onClick={() => setDevice('tablet')}
+                onClick={() => handleDeviceChange('tablet')}
                 className={`${styles.deviceBtn} ${device === 'tablet' ? styles.deviceActive : ''}`}
                 title="Tablet 768px"
                 aria-label="Tablet View"
@@ -435,16 +483,16 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
                 <span>Tablet</span>
               </button>
               <button
-                onClick={() => setDevice('mobile')}
+                onClick={() => handleDeviceChange('mobile')}
                 className={`${styles.deviceBtn} ${device === 'mobile' ? styles.deviceActive : ''}`}
-                title="Mobile 375px"
+                title="Mobile 390px"
                 aria-label="Mobile View"
               >
                 <Smartphone size={15} />
                 <span>Mobile</span>
               </button>
               <button
-                onClick={() => setDevice('fluid')}
+                onClick={() => handleDeviceChange('fluid')}
                 className={`${styles.deviceBtn} ${device === 'fluid' ? styles.deviceActive : ''}`}
                 title="Fluid Responsive 100%"
                 aria-label="Fluid Responsive"
@@ -454,15 +502,14 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
               </button>
             </div>
 
-            {/* Orientation Switcher (Tablet & Mobile only) */}
+            {/* Orientation Switcher (Tablet & Mobile only) with Workstream 5 accessible label */}
             {isDevice && (
               <button
-                onClick={() =>
-                  setOrientation((prev) => (prev === 'portrait' ? 'landscape' : 'portrait'))
-                }
+                onClick={handleOrientationToggle}
                 className={styles.controlIconBtn}
                 title={`Orientation: ${orientation} (Click to rotate)`}
-                aria-label="Toggle Orientation"
+                aria-label={`Rotate viewport orientation to ${orientation === 'portrait' ? 'landscape' : 'portrait'}`}
+                aria-pressed={orientation === 'landscape'}
               >
                 <RotateCw size={15} />
                 <span className={styles.controlLabel}>{orientation}</span>
@@ -472,21 +519,21 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
             {/* Zoom Controls */}
             <div className={styles.zoomGroup}>
               <button
-                onClick={() => setZoom(0.5)}
+                onClick={() => handleZoomChange(0.5)}
                 className={`${styles.zoomBtn} ${zoom === 0.5 ? styles.zoomActive : ''}`}
                 title="Zoom 50%"
               >
                 50%
               </button>
               <button
-                onClick={() => setZoom(0.75)}
+                onClick={() => handleZoomChange(0.75)}
                 className={`${styles.zoomBtn} ${zoom === 0.75 ? styles.zoomActive : ''}`}
                 title="Zoom 75%"
               >
                 75%
               </button>
               <button
-                onClick={() => setZoom(1)}
+                onClick={() => handleZoomChange(1)}
                 className={`${styles.zoomBtn} ${zoom === 1 ? styles.zoomActive : ''}`}
                 title="Zoom 100%"
               >
@@ -497,6 +544,29 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
 
           {/* Action Controls */}
           <div className={styles.toolRight}>
+            {/* Live Theme Accent Customizer Trigger (Workstream 4) */}
+            <button
+              onClick={() => setThemeCustomizerOpen((prev) => !prev)}
+              className={`${styles.themeBtn} ${themeCustomizerOpen || isThemeOverridden ? styles.themeBtnActive : ''}`}
+              title="Customize Template Accent Colors"
+              aria-label="Customize Template Accent Colors"
+              aria-expanded={themeCustomizerOpen}
+            >
+              <Palette size={14} />
+              <span>Theme</span>
+              {isThemeOverridden && (
+                <span
+                  style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    background: 'var(--lf-accent-amber)',
+                    display: 'inline-block',
+                  }}
+                />
+              )}
+            </button>
+
             <LocalShareButton slug={template.slug} name={template.name} mode="demo" size="sm" variant="ghost" />
 
             <a
@@ -524,10 +594,154 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
 
             <StarterDownloadButton template={template} size="sm" variant="primary" />
           </div>
+
+          {/* Theme Accent Customizer Popover (Workstream 4) */}
+          {themeCustomizerOpen && (
+            <div
+              className={styles.customizerPopover}
+              role="dialog"
+              aria-label="Brand Theme Accent Customizer"
+            >
+              <div className={styles.customizerHeader}>
+                <div className={styles.customizerTitle}>
+                  <Palette size={15} color="var(--lf-accent-amber)" />
+                  <span>Live Brand Customizer</span>
+                </div>
+                <button
+                  onClick={() => setThemeCustomizerOpen(false)}
+                  className={styles.customizerCloseBtn}
+                  aria-label="Close brand customizer"
+                >
+                  <X size={15} />
+                </button>
+              </div>
+
+              <p className={styles.customizerDescription}>
+                Preview how {template.name} adapts to your agency or corporate brand palette in real time.
+              </p>
+
+              <div className={styles.colorPickerGroup}>
+                <div className={styles.colorPickerRow}>
+                  <div className={styles.colorPickerLabel}>
+                    <label htmlFor="theme-primary-accent">Primary Accent</label>
+                    <span className={styles.tokenTag}>--tmpl-accent</span>
+                  </div>
+                  <div className={styles.colorInputWrapper}>
+                    <input
+                      type="color"
+                      id="theme-primary-accent"
+                      value={customPrimaryColor}
+                      onChange={(e) => handlePrimaryColorChange(e.target.value)}
+                      className={styles.nativeColorInput}
+                      aria-label="Primary accent color picker"
+                    />
+                    <input
+                      type="text"
+                      value={customPrimaryColor.toUpperCase()}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (/^#[0-9A-Fa-f]{0,6}$/.test(val)) {
+                          setCustomPrimaryColor(val);
+                          if (val.length === 7) {
+                            handlePrimaryColorChange(val);
+                          }
+                        }
+                      }}
+                      className={styles.colorHexInput}
+                      maxLength={7}
+                      aria-label="Primary accent hex code"
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.colorPickerRow}>
+                  <div className={styles.colorPickerLabel}>
+                    <label htmlFor="theme-secondary-accent">Secondary Accent</label>
+                    <span className={styles.tokenTag}>--tmpl-accent-secondary</span>
+                  </div>
+                  <div className={styles.colorInputWrapper}>
+                    <input
+                      type="color"
+                      id="theme-secondary-accent"
+                      value={customSecondaryColor}
+                      onChange={(e) => handleSecondaryColorChange(e.target.value)}
+                      className={styles.nativeColorInput}
+                      aria-label="Secondary accent color picker"
+                    />
+                    <input
+                      type="text"
+                      value={customSecondaryColor.toUpperCase()}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (/^#[0-9A-Fa-f]{0,6}$/.test(val)) {
+                          setCustomSecondaryColor(val);
+                          if (val.length === 7) {
+                            handleSecondaryColorChange(val);
+                          }
+                        }
+                      }}
+                      className={styles.colorHexInput}
+                      maxLength={7}
+                      aria-label="Secondary accent hex code"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Brand Presets */}
+              <div className={styles.presetsSection}>
+                <span className={styles.presetsLabel}>Palette Presets</span>
+                <div className={styles.presetChipsRow}>
+                  {[
+                    { name: 'Imperial Gold', primary: '#D4AF37', secondary: '#1B2A4A' },
+                    { name: 'Hazard Amber', primary: '#EAB308', secondary: '#18181B' },
+                    { name: 'Nordic Ocean', primary: '#0284C7', secondary: '#0E1726' },
+                    { name: 'Urban Pulse', primary: '#F97316', secondary: '#0F172A' },
+                    { name: 'Emerald Hub', primary: '#10B981', secondary: '#064E3B' },
+                    { name: 'Neural Violet', primary: '#A855F7', secondary: '#3B0764' },
+                  ].map((p) => (
+                    <button
+                      key={p.name}
+                      onClick={() => {
+                        setCustomPrimaryColor(p.primary);
+                        setCustomSecondaryColor(p.secondary);
+                        setIsThemeOverridden(true);
+                        sendToIframe({
+                          type: 'THEME_UPDATE',
+                          primaryAccent: p.primary,
+                          secondaryAccent: p.secondary,
+                        });
+                      }}
+                      className={styles.presetChip}
+                      type="button"
+                    >
+                      <span className={styles.presetSwatch} style={{ backgroundColor: p.primary }} />
+                      <span>{p.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.customizerFooter}>
+                <button
+                  onClick={handleResetTheme}
+                  className={styles.resetBtn}
+                  type="button"
+                  aria-label="Reset theme to template default"
+                >
+                  <RotateCcw size={12} />
+                  <span>Reset Defaults</span>
+                </button>
+                {isThemeOverridden && (
+                  <span className={styles.statusIndicator}>● Active Override</span>
+                )}
+              </div>
+            </div>
+          )}
         </header>
       )}
 
-      {/* 3. Template Included Pages Navigation Bar */}
+      {/* 3. Template Included Pages Navigation Bar (Workstream 2 Centralized) */}
       {!presentationMode && (
         <div className={styles.pageNavBar}>
           <div className={styles.pageNavInner}>
@@ -536,11 +750,7 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
               <span>Included Blueprint Views:</span>
             </div>
             <div className={styles.pageNavTabs}>
-              {(BLUEPRINT_NAV_BY_SLUG[slug] || [
-                { id: 'home', label: 'Home Overview' },
-                { id: 'services', label: 'Services Matrix' },
-                { id: 'tracking', label: 'Shipment Tracking' },
-              ]).map((tab) => (
+              {blueprintNavItems.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => handlePageChange(tab.id)}
@@ -554,48 +764,44 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
         </div>
       )}
 
-      {/* 4. Simulated Logistics Waybill Engine Bar */}
+      {/* 4. Live Shipment Telematics Simulator Toolbar */}
       {!presentationMode && (
         <div className={styles.simulationBar}>
-          <div className={styles.simLabelGroup}>
-            <Radio size={14} className={styles.simIcon} />
-            <span className={styles.simTitle}>Simulate Waybill Milestone Lookup:</span>
+          <div className={styles.simLeft}>
+            <div className={styles.simTitle}>
+              <Radio size={14} className={styles.simIconPulse} />
+              <span>Live Telematics Injection:</span>
+            </div>
+
+            <div className={styles.sampleQueries}>
+              <span className={styles.sampleLabel}>Suggested Injections:</span>
+              {(template.sections.tracking.sampleTrackingNumbers || sampleTrackingNumbers.slice(0, 3)).map((num) => (
+                <button
+                  key={num}
+                  onClick={() => handleTrackingSelect(num)}
+                  className={`${styles.queryPill} ${activeTrackingNumber === num ? styles.queryPillActive : ''}`}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className={styles.simPills}>
-            {(template?.sections?.tracking?.sampleTrackingNumbers &&
-            template.sections.tracking.sampleTrackingNumbers.length > 0
-              ? template.sections.tracking.sampleTrackingNumbers
-              : sampleTrackingNumbers
-            ).map((no) => (
-              <button
-                key={no}
-                onClick={() => handleTrackingSelect(no)}
-                className={`${styles.simPill} ${activeTrackingNumber === no ? styles.simPillActive : ''}`}
-              >
-                {no}
-              </button>
-            ))}
-          </div>
-
-          {/* Quick Custom Tracking Search */}
-          <form onSubmit={handleCustomTrackingSubmit} className={styles.simCustomForm}>
-            <Search size={13} className={styles.simSearchIcon} />
-            <input
-              type="text"
-              value={trackingSearchInput}
-              onChange={(e) => setTrackingSearchInput(e.target.value)}
-              placeholder="Test Waybill..."
-              className={styles.simCustomInput}
-              aria-label="Custom Waybill Number to test"
-            />
+          <form onSubmit={handleCustomTrackingSubmit} className={styles.simRight}>
+            <div className={styles.searchInputWrapper}>
+              <Search size={14} className={styles.searchIcon} />
+              <input
+                type="text"
+                value={trackingSearchInput}
+                onChange={(e) => setTrackingSearchInput(e.target.value)}
+                placeholder="Simulate Waybill / Asset..."
+                className={styles.simInput}
+              />
+            </div>
+            <button type="submit" className={styles.injectBtn}>
+              Inject Telematics
+            </button>
           </form>
-
-          <div className={styles.simNotice}>
-            <Badge variant="warning" size="sm">
-              Simulated Demo Engine
-            </Badge>
-          </div>
         </div>
       )}
 
@@ -641,5 +847,13 @@ export default function DemoStudioPage({ params }: DemoStudioProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DemoStudioPage(props: DemoStudioProps) {
+  return (
+    <Suspense fallback={<div className={styles.studio} style={{ minHeight: '100vh', background: '#080605' }} />}>
+      <DemoStudioInner {...props} />
+    </Suspense>
   );
 }

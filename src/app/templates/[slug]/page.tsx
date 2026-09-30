@@ -6,7 +6,7 @@ import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { StarterDownloadButton } from '@/components/platform/StarterDownloadButton';
-import { Play, ArrowLeft, CheckCircle2, ShieldCheck, ExternalLink } from 'lucide-react';
+import { Play, ArrowLeft, CheckCircle2, ShieldCheck, ExternalLink, Scale } from 'lucide-react';
 import { LocalShareButton } from '@/components/platform/LocalShareButton';
 import { SITE_URL } from '@/lib/utils';
 import styles from './template-detail.module.css';
@@ -84,6 +84,31 @@ export default async function TemplateDetailPage({ params }: PageProps) {
     },
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Templates',
+        item: `${SITE_URL}/templates`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: template.name,
+        item: `${SITE_URL}/templates/${template.slug}`,
+      },
+    ],
+  };
+
   const secondaryGallery = Array.from(
     new Set((template.galleryImages ?? []).filter((img) => img !== template.previewImage))
   );
@@ -91,6 +116,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
   return (
     <div className={styles.page}>
       <script type="application/ld+json">{JSON.stringify(softwareJsonLd)}</script>
+      <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       <div className="lf-container">
         {/* Back navigation */}
         <div className={styles.backNav}>
@@ -123,6 +149,12 @@ export default async function TemplateDetailPage({ params }: PageProps) {
               <Button variant="primary" size="lg">
                 <Play size={18} />
                 <span>Launch Live Demo Studio</span>
+              </Button>
+            </Link>
+            <Link href={`/templates/compare?templates=${template.slug}`}>
+              <Button variant="outline" size="lg">
+                <Scale size={18} />
+                <span>Compare Specs</span>
               </Button>
             </Link>
             <Link href={`/demo/${template.slug}/embed`} target="_blank" rel="noopener noreferrer">

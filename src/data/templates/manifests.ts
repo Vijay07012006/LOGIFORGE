@@ -66,6 +66,12 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         sections: ['services-header', 'service-grid', 'quote-calculator', 'cta', 'footer'],
       },
     ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'services', label: 'Services Matrix' },
+      { id: 'corridors', label: 'Trade Corridors' },
+      { id: 'tracking', label: 'Consignment Tracking' },
+    ],
     features: [
       {
         id: 'cn-feat-tracking',
@@ -219,6 +225,13 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
     ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'telematics', label: 'ECM Telematics' },
+      { id: 'vehicles', label: 'Fleet Assets' },
+      { id: 'dispatch', label: 'Highway Dispatch' },
+      { id: 'safety', label: 'Safety Specs' },
+    ],
     features: [
       {
         id: 'fo-feat-telematics',
@@ -349,6 +362,13 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         description: 'Vessel schedule finder with live berth status and container lookup.',
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
+    ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'schedules', label: 'Vessel Schedules' },
+      { id: 'containers', label: 'Container Types' },
+      { id: 'status', label: 'Port Status' },
+      { id: 'sustainability', label: 'Decarbonization' },
     ],
     features: [
       {
@@ -481,6 +501,13 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
     ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'rates', label: 'Parcel Calculator' },
+      { id: 'tracking', label: 'Courier Tracking' },
+      { id: 'features', label: 'Bento Features' },
+      { id: 'fleet', label: 'EV Fleet' },
+    ],
     features: [
       {
         id: 'sd-feat-rates',
@@ -612,6 +639,13 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
     ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'berths', label: 'Berth Board' },
+      { id: 'gate', label: 'Gate Turnaround' },
+      { id: 'capacities', label: 'Terminal Capacities' },
+      { id: 'intermodal', label: 'Rail Intermodal' },
+    ],
     features: [
       {
         id: 'pa-feat-berth',
@@ -735,6 +769,12 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         description: 'AWB flight tracker with airport ramp transit indicators.',
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
+    ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'awb', label: 'AWB Radar' },
+      { id: 'uld', label: 'ULD Calculator' },
+      { id: 'pharma', label: 'Pharma Cold-Chain' },
     ],
     features: [
       {
@@ -860,6 +900,12 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
     ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'asn', label: 'Inbound ASN' },
+      { id: 'racks', label: 'Pallet Racking' },
+      { id: 'docks', label: 'Dock Scheduling' },
+    ],
     features: [
       {
         id: 'wx-feat-pallet-lookup',
@@ -983,6 +1029,12 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         description: 'Supplier risk index, multi-tier procurement visibility, and carbon accounting.',
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
+    ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'audit', label: 'Audit Radar' },
+      { id: 'scope3', label: 'Scope-3 Carbon' },
+      { id: 'risk', label: 'Risk Heatmap' },
     ],
     features: [
       {
@@ -1108,6 +1160,12 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
     ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'sim', label: 'AI Simulation' },
+      { id: 'tsp', label: 'TSP Solver' },
+      { id: 'telemetry', label: 'Live Telemetry' },
+    ],
     features: [
       {
         id: 'riq-feat-algorithm',
@@ -1231,6 +1289,12 @@ export const TEMPLATE_MANIFESTS: Template[] = [
         description: 'Holographic network globe and smart container telemetry explorer.',
         sections: ['hero', 'tracking', 'services', 'statistics', 'cta', 'footer'],
       },
+    ],
+    blueprintNav: [
+      { id: 'home', label: 'Home Overview' },
+      { id: 'smartpack', label: 'SmartPack CBM' },
+      { id: 'corridors', label: 'Corridor Maps' },
+      { id: 'tracking', label: 'Quantum Vaults' },
     ],
     features: [
       {

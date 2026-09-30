@@ -110,7 +110,8 @@ export function TemplateCard({ template, priority = false }: TemplateCardProps) 
           <Link
             href={`/templates/${template.slug}`}
             className={styles.cornerLink}
-            aria-label={`View ${template.name} specifications`}
+            tabIndex={-1}
+            aria-hidden="true"
           >
             <ArrowUpRight size={18} />
           </Link>
