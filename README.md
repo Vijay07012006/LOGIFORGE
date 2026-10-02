@@ -164,7 +164,7 @@ npm run typecheck
 # Run ESLint standards check (0 warnings/errors required)
 npm run lint
 
-# Build production bundle with static route pre-generation (40 pages)
+# Build production bundle with static route pre-generation (41 routes)
 npm run build
 
 # Start production server locally
@@ -182,7 +182,7 @@ To add a new template predictably and repeatably, follow the detailed instructio
 3. Implement website orchestrator with `postMessage` communication in `[Slug]Website.tsx`.
 4. Register metadata manifest in `src/data/templates/manifests.ts`.
 5. Wire the Template Dispatcher in `src/components/templates/dispatcher/TemplateRenderer.tsx`.
-6. Map Blueprint Views in `BLUEPRINT_NAV_BY_SLUG` in `src/app/demo/[slug]/page.tsx`.
+6. Configure Blueprint Views declaratively in template manifest (`blueprintNav` in `manifests.ts`).
 7. Add simulated tracking milestones in `src/data/tracking/fixtures.ts`.
 8. Run `npm run typecheck && npm run build` to certify.
 

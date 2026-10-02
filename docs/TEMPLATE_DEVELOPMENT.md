@@ -249,7 +249,7 @@ export function SkyDropTracking({ initialTracking, onSearchPerformed }: SkyDropT
 ```
 
 ### Step 5: Register in `src/data/templates/manifests.ts`
-Add the complete template metadata object to `MANIFEST_TEMPLATES`:
+Add the complete template metadata object to `TEMPLATE_MANIFESTS`:
 
 ```typescript
 {
@@ -318,20 +318,32 @@ export function TemplateRenderer({ template, initialTracking, initialPage = 'hom
 }
 ```
 
-### Step 7: Map Demo Studio Blueprint Navigation
-In `src/app/demo/[slug]/page.tsx`, add the template's Blueprint Views tabs and default tracking query:
+### Step 7: Declarative Blueprint Navigation & Studio Mapping
+Define the template's Blueprint Navigation tabs declaratively directly within its manifest in `src/data/templates/manifests.ts`:
 
 ```typescript
-const BLUEPRINT_NAV_BY_SLUG: Record<string, { id: string; label: string }[]> = {
-  // ...
-  'skydrop': [
-    { id: 'home', label: 'Home Overview' },
-    { id: 'tracking', label: 'Drone Radar' },
-    { id: 'zones', label: 'Flight Corridors' },
-    { id: 'payload', label: 'Payload Estimator' },
-  ],
-};
+blueprintNav: [
+  { id: 'home', label: 'Home Overview' },
+  { id: 'tracking', label: 'Drone Radar' },
+  { id: 'zones', label: 'Flight Corridors' },
+  { id: 'payload', label: 'Payload Estimator' },
+],
+packageConfig: {
+  packageName: 'skydrop-starter',
+  packageSlug: 'skydrop',
+  version: '1.0.0',
+  frameworkVersion: '^15.5.0',
+  minNodeVersion: '>=20.0.0',
+  entryComponent: 'SkyDropWebsite',
+  componentDir: 'skydrop',
+  heroAssetPath: '/images/skydrop/skydrop-hero.webp',
+  sampleFixtures: ['SD-9900-AIR'],
+},
+```
 
+Then map the default tracking waybill in `src/app/demo/[slug]/page.tsx`:
+
+```typescript
 const DEFAULT_TRACKING_BY_SLUG: Record<string, string> = {
   // ...
   'skydrop': 'SD-9900-AIR',

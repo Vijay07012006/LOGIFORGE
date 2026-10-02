@@ -239,6 +239,8 @@ async function verifyPackage(zipFileName, port, options = {}) {
       '.eslintrc.json',
       'next-env.d.ts',
       'README.md',
+      'GETTING_STARTED.md',
+      'CHANGELOG.md',
       'LICENSE',
       'LOGIFORGE_TEMPLATE.json',
       'src/app/layout.tsx',

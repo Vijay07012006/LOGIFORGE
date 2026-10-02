@@ -35,6 +35,11 @@ This directory contains the historical engineering, implementation, audit, and q
 | [PHASE 18 Final Release Commit Report](./PHASE_18_FINAL_RELEASE_COMMIT_REPORT.md) | Official release commit and `v1.0.0` production tag documentation. |
 | [Audit and Fix Report](./AUDIT_AND_FIX_REPORT.md) | Root-cause analysis and remediation log for cross-platform iframe communication and styling issues. |
 | [Final Local Release Audit](./FINAL_LOCAL_RELEASE_AUDIT.md) | Final local pre-flight build, bundle composition, and static generation confirmation. |
+| [PHASE 20A Audit](./PHASE_20A_COMMERCIAL_DELIVERY_AUDIT.md) | Commercial delivery, static package distribution, and packaging architecture audit. |
+| [PHASE 20B-01 Engine](./PHASE_20B_01_PACKAGING_ENGINE_REPORT.md) | Metadata-driven standalone template packaging compiler (10/10 ZIPs). |
+| [PHASE 20B-02 Validator](./PHASE_20B_02_PACKAGE_VERIFICATION_REPORT.md) | Autonomous package verification, isolated extraction, compile, lint, build, runtime HTTP QA. |
+| [PHASE 20C Delivery Gate](./PHASE_20C_MARKETPLACE_DELIVERY_REPORT.md) | Static build-time ZIP delivery, prebuild automation, real browser download validation, and release gate. |
+| [PHASE 20D-01A Metadata](./PHASE_20D_01A_IMPLEMENTATION_REPORT.md) | Commercial product metadata, typed release model, per-template license scope, and documentation hardening. |
 
 ---
 

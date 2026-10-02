@@ -57,6 +57,52 @@ export interface TemplateBlueprintNavItem {
   order?: number;
 }
 
+export type TemplateProductStatus = 'stable' | 'preview' | 'deprecated';
+export type TemplateReleaseChannel = 'stable' | 'beta' | 'canary';
+
+export interface TemplateReleaseMetadata {
+  version: string;
+  releaseChannel: TemplateReleaseChannel;
+  releasedAt: string;
+  changes: string[];
+  frameworkCompatibility: string;
+  nodeCompatibility: string;
+  packageFilename: string;
+  checksumAlgorithm: 'SHA-256';
+}
+
+export interface TemplateProductMetadata {
+  productType: 'commercial-starter-template';
+  productStatus: TemplateProductStatus;
+  version: string;
+  releaseChannel: TemplateReleaseChannel;
+  licenseType: 'LOGIFORGE Commercial Developer License' | string;
+  framework: 'Next.js' | string;
+  frameworkVersion: string;
+  runtimeRequirement: string;
+  packageName: string;
+  packageSlug: string;
+  packageUrl: string;
+  checksumUrl: string;
+  packageSize?: number;
+  includedFeatures: string[];
+  excludedFeatures: string[];
+  requirements: {
+    node: string;
+    npm: string;
+  };
+  documentation: {
+    readme: string;
+    gettingStarted: string;
+    changelog: string;
+    license: string;
+  };
+  support: {
+    documentationUrl?: string;
+    issuesUrl?: string;
+  };
+}
+
 export interface TemplatePackageConfig {
   packageName: string;
   packageSlug: string;
@@ -193,6 +239,8 @@ export interface Template {
   features: TemplateFeatureSpec[];
   sections: TemplateSectionBlueprint;
   packageConfig?: TemplatePackageConfig;
+  productMetadata?: TemplateProductMetadata;
+  releaseMetadata?: TemplateReleaseMetadata;
 
   demoUrl: string;
   embedDemoUrl: string;

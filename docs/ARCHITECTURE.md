@@ -251,7 +251,7 @@ LOGIFORGE/
 │   │   ├── not-found.tsx               # Global 404 Entity Handler
 │   │   ├── error.tsx                   # Global Client Error Boundary
 │   │   ├── loading.tsx                 # Route Loading Spinner
-│   │   ├── templates/                  # /templates (Catalog) and /templates/[slug] (Showcase)
+│   │   ├── templates/                  # /templates (Catalog), /templates/[slug] (Showcase), /templates/compare (Comparison Matrix)
 │   │   ├── demo/                       # /demo/[slug] (Studio) and /demo/[slug]/embed (Embed)
 │   │   ├── resources/                  # /resources (Technical Guides & Modal Reader)
 │   │   └── about/                      # /about (Platform Manifesto)

@@ -11,7 +11,7 @@ LOGIFORGE is built on **Next.js 15 App Router** and engineered for static delive
 ┌────────────────────────────────────────────────────────┐
 │ Cloud Build & Static Optimization                      │
 ├────────────────────────────────────────────────────────┤
-│  • next build: Pre-renders 40 Static Outputs           │
+│  • next build: Pre-renders 41 Static Outputs           │
 │  • Compiles 10 flagship template dynamic chunks        │
 │  • Compresses assets with Brotli / Gzip                │
 │  • Configures HTTP security response headers           │
@@ -31,12 +31,13 @@ LOGIFORGE is built on **Next.js 15 App Router** and engineered for static delive
 
 ## 2. Route Breakdown & Static Pre-Generation
 
-During `npm run build`, Next.js compiles the project into **40 pre-rendered static outputs**, categorized as follows:
+During `npm run build`, Next.js compiles the project into **41 pre-rendered static outputs**, categorized as follows:
 
-### Primary Application Routes (34 Pages)
-- **4 Platform Pages (`○` Static):**
+### Primary Application Routes (35 Pages)
+- **5 Platform Pages (`○` Static):**
   - `/` — Homepage & Featured Template Spotlight
   - `/templates` — Interactive Catalog Browser & Faceted Filter Bar
+  - `/templates/compare` — Interactive Side-by-Side Template Comparison Matrix
   - `/resources` — Industry Technical Guides & Interactive Modal Reader
   - `/about` — Platform Manifesto & Engineering Standards
 - **10 Template Detail Pages (`●` SSG):**

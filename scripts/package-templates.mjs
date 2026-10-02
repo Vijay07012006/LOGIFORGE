@@ -604,6 +604,38 @@ function generateTypes() {
 }
 
 /**
+ * Generate per-template LICENSE with explicit commercial product attribution
+ */
+function generateLicense(template, pkgConfig) {
+  const rootLicensePath = path.join(ROOT_DIR, 'LICENSE');
+  const baseLicense = fs.existsSync(rootLicensePath)
+    ? fs.readFileSync(rootLicensePath, 'utf8')
+    : 'LOGIFORGE Commercial Developer License\nCopyright (c) 2026 LOGIFORGE Platforms. All rights reserved.';
+
+  return `# LOGIFORGE Commercial Developer License
+
+Product: ${template.name}
+Package: ${pkgConfig.packageName}
+Version: ${pkgConfig.version}
+License: LOGIFORGE Commercial Developer License
+Licensor: LOGIFORGE Platforms & LogiForge Studio (Copyright (c) 2026)
+
+================================================================================
+COMMERCIAL LICENSE SCOPE & ATTRIBUTION
+================================================================================
+
+This license applies specifically to the commercial template package:
+- Product Name: ${template.name}
+- Product Tagline: ${template.tagline}
+- Package Name: ${pkgConfig.packageName}
+- Package Version: ${pkgConfig.version}
+- Release Channel: stable
+
+${baseLicense}
+`;
+}
+
+/**
  * Generate customer README.md
  */
 function generateReadme(template, pkgConfig) {
@@ -614,86 +646,99 @@ function generateReadme(template, pkgConfig) {
 
 > ${template.tagline}
 
-Welcome to your standalone **${template.name}** website project. This codebase was compiled by the **LOGIFORGE Packaging Engine** and delivers a complete, production-ready Next.js 15 application engineered specifically for the **${template.industry}** sector.
+Welcome to your commercial **${template.name}** website starter package. This package was compiled by the **LOGIFORGE Packaging Engine** as an autonomous, production-ready starter codebase built on Next.js 15+ App Router, strictly typed TypeScript, and modular scoped styling engineered for the **${template.industry}** sector.
+
+> **Important Note:** This template delivers a **production-ready starter codebase**. Tracking data is deterministic demo/sample data and must be replaced with a real logistics provider integration (e.g. Project44, Samsara, Shippo, or proprietary TMS/WMS APIs) for live production tracking.
 
 ---
 
-## 1. Quickstart
+## 1. What You Received
 
-### Prerequisites
-- **Node.js:** \`${pkgConfig.minNodeVersion}\`
-- **Package Manager:** \`npm >= 10.0.0\` (or pnpm / yarn)
+Your commercial package contains:
+- **Autonomous Next.js 15 App Router Project:** Complete source code with zero external platform dependencies.
+- **Strict TypeScript Architecture:** 100% typechecked interfaces with canonical domain models.
+- **Modular Scoped Styling:** CSS Modules with dedicated design tokens (\`--tmpl-*\`) ensuring zero style collisions.
+- **Deterministic Logistics Fixtures:** Ready-to-demo waybill tracking, status milestones, and metrics.
+- **Local Static Assets:** Self-contained high-resolution hero image and brand icons in \`public/\`.
+- **Complete Commercial Tooling:** Configured linting, strict TypeScript checks, and production build pipelines.
 
-### Installation
+---
+
+## 2. Requirements
+
+- **Runtime:** Node.js \`${pkgConfig.minNodeVersion}\`
+- **Package Manager:** \`npm >= 10.0.0\` (or compatible pnpm / yarn)
+- **Supported Platforms:** macOS, Linux, Windows 10/11
+
+---
+
+## 3. Installation
+
+Extract the ZIP archive and install dependencies within the project directory:
+
 \`\`\`bash
-# Install dependencies
+# Install self-contained dependencies
 npm install
+\`\`\`
 
-# Start local development server
+---
+
+## 4. Development
+
+Launch the local development server with Hot Module Replacement (HMR):
+
+\`\`\`bash
 npm run dev
 \`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view your live website.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view your live template.
 
-### Production Build
+---
+
+## 5. Verification & Quality Gates
+
+Run strict verification commands before deploying:
+
 \`\`\`bash
-# Typecheck
+# 1. Strict TypeScript typechecking (0 errors required)
 npm run typecheck
 
-# Lint
+# 2. ESLint code standards inspection (0 warnings required)
 npm run lint
+\`\`\`
 
-# Compile optimized static output
+---
+
+## 6. Build
+
+Compile an optimized, standalone production bundle:
+
+\`\`\`bash
 npm run build
-
-# Run production server
-npm run start
 \`\`\`
 
 ---
 
-## 2. Project Architecture
+## 7. Production Start
 
+Run the production server locally to test optimized outputs:
+
+\`\`\`bash
+npm start
 \`\`\`
-├── public/
-│   ├── icon.svg                     # Site favicon icon
-│   └── images/
-│       └── ${pkgConfig.componentDir}/
-│           └── ${pkgConfig.componentDir}-hero.webp    # High-resolution hero image
-├── src/
-│   ├── app/
-│   │   ├── globals.css              # Global layout reset & scroll styles
-│   │   ├── layout.tsx               # Root HTML shell & SEO meta configuration
-│   │   └── page.tsx                 # Root entry page rendering ${pkgConfig.entryComponent}
-│   ├── components/
-│   │   ├── common/                  # Shared modular components (Header, Footer, Metrics)
-│   │   └── template/                # Domain-specific section components
-│   ├── data/
-│   │   ├── manifest.ts              # Strongly typed template theme & content manifest
-│   │   └── tracking.ts              # Local simulated waybill fixtures
-│   ├── lib/
-│   │   └── tracking.ts              # Waybill query & lookup utilities
-│   └── types/
-│       └── template.ts              # Canonical domain TypeScript interfaces
-├── LOGIFORGE_TEMPLATE.json          # Package provenance & build fingerprint
-├── LICENSE                          # LOGIFORGE Commercial Developer License
-├── next.config.ts                   # Next.js configuration
-├── package.json                     # Minimal dependency manifest
-└── tsconfig.json                    # Strict TypeScript configuration
-\`\`\`
+
+Open [http://localhost:3000](http://localhost:3000) to confirm production readiness.
 
 ---
 
-## 3. Brand & Theme Customization
+## 8. Customization
 
-This template utilizes **CSS Modules** with locally scoped design tokens to guarantee zero style bleed.
-
-To customize your branding palette, open:
+### 8.1 Branding & Color Tokens
+Brand styles are defined via CSS variables in:
 \`src/components/template/${pkgConfig.entryComponent.replace('Website', '')}.module.css\`
 
-Edit the root theme variables:
 \`\`\`css
-/* Primary Theme Accents */
+/* Primary Theme Tokens */
 --tmpl-accent: ${accentPrimary};            /* Primary brand accent */
 --tmpl-accent-secondary: ${accentSecondary};  /* Secondary brand accent */
 --tmpl-bg: ${template.theme.backgroundColor || '#090d16'};                /* Root background color */
@@ -702,18 +747,16 @@ Edit the root theme variables:
 --tmpl-radius: ${template.theme.borderRadius || '4px'};                 /* Element border radius */
 \`\`\`
 
----
+### 8.2 Content & Structure
+Update company information, navigation links, and service headlines in:
+\`src/data/manifest.ts\`
 
-## 4. Connecting Real Logistics APIs
-
-Your template ships with realistic simulated fixtures for instant demonstration.
-
-### Replacing Simulated Tracking with a Real Carrier API
-Open \`src/lib/tracking.ts\` and update \`lookupSimulatedShipment\`:
+### 8.3 Connecting Live Carrier APIs
+The template ships with simulated demo fixtures. To connect real logistics carrier tracking (e.g., FedEx, Maersk, DHL, Project44), update \`src/lib/tracking.ts\`:
 
 \`\`\`typescript
 export async function lookupShipment(trackingNumber: string) {
-  // Example: Query your live TMS, WMS, or carrier API (e.g. Project44, Samsara, Shippo)
+  // Query your real TMS, WMS, or carrier API:
   const res = await fetch(\`https://api.yourlogistics.com/v1/shipments/\${trackingNumber}\`, {
     headers: { Authorization: \`Bearer \${process.env.LOGISTICS_API_KEY}\` }
   });
@@ -724,26 +767,129 @@ export async function lookupShipment(trackingNumber: string) {
 
 ---
 
-## 5. Deployment
+## 9. Deployment
 
-This project is 100% standard **Next.js 15 App Router** and can be deployed anywhere with zero configuration:
+This project follows standard **Next.js 15 App Router** conventions and can be deployed instantly:
 
-- **Vercel:** Import your repository into Vercel. Framework preset is automatically detected as Next.js.
-- **Netlify:** Connect your Git repository and set the publish directory to \`.next\`.
-- **AWS / Docker:** Build a standard standalone container via \`npm run build\`.
+- **Vercel:** Import your repository into Vercel. Framework preset is automatically detected.
+- **Docker:** Build a standalone container via the standard Node.js Next.js standalone output.
+- **AWS / Cloudflare:** Deploy using standard Node.js serverless or edge runtime adapters.
 
 ---
 
-## 6. Commercial License & Terms
+## 10. Commercial License & Terms
 
-This template is licensed under the **LOGIFORGE Commercial Developer License** (see \`LICENSE\` file).
-- ✅ You **may** customize, adapt, and build commercial websites and client applications.
-- ✅ You **may** deliver finished customized end-products to your clients.
-- ❌ You **may not** redistribute or resell this codebase as a raw template, boilerplate, or competing theme on any marketplace.
+Licensed under the **LOGIFORGE Commercial Developer License** (see \`LICENSE\` file).
+- ✅ **Permitted:** Build and deploy commercial websites and client applications.
+- ✅ **Permitted:** Deliver customized, finished client end-products.
+- ❌ **Prohibited:** Reselling or redistributing this raw starter kit or boilerplate on template marketplaces.
 
 ---
 
 *Compiled by LOGIFORGE Packaging Engine • Version ${pkgConfig.version} • Source Commit: ${getSourceCommit()}*
+`;
+}
+
+/**
+ * Generate customer GETTING_STARTED.md (10-Step Guide)
+ */
+function generateGettingStarted(template, pkgConfig) {
+  return `# Getting Started with ${template.name}
+
+Welcome to your **${template.name}** commercial starter package (\`${pkgConfig.packageName}\`). This guide walks you through setup, verification, customization, and deployment in 10 simple steps.
+
+> **Starter Codebase Notice:** This is a **production-ready starter codebase**. Tracking data is deterministic demo/sample data and must be replaced with a real logistics provider integration for live production tracking.
+
+---
+
+## 10-Step Getting Started Guide
+
+### Step 1: Extract ZIP Archive
+Extract the downloaded \`${template.slug}-v${pkgConfig.version}.zip\` archive to your workspace directory:
+\`\`\`bash
+# macOS / Linux
+unzip ${template.slug}-v${pkgConfig.version}.zip -d ${template.slug}
+
+# Windows PowerShell
+Expand-Archive -LiteralPath "${template.slug}-v${pkgConfig.version}.zip" -DestinationPath "${template.slug}"
+\`\`\`
+
+### Step 2: Enter Project Directory
+\`\`\`bash
+cd ${template.slug}
+\`\`\`
+
+### Step 3: Install Dependencies
+Install the required dependencies using Node.js \`${pkgConfig.minNodeVersion}\`:
+\`\`\`bash
+npm install
+\`\`\`
+
+### Step 4: Start Local Development Server
+\`\`\`bash
+npm run dev
+\`\`\`
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Step 5: Run Strict Typecheck
+Verify TypeScript integrity with zero type errors:
+\`\`\`bash
+npm run typecheck
+\`\`\`
+
+### Step 6: Run Code Linter
+Ensure clean code formatting and Next.js standards:
+\`\`\`bash
+npm run lint
+\`\`\`
+
+### Step 7: Compile Production Build
+Create an optimized static output:
+\`\`\`bash
+npm run build
+\`\`\`
+
+### Step 8: Start Production Server
+Verify the production build locally:
+\`\`\`bash
+npm start
+\`\`\`
+
+### Step 9: Customize Branding & Content
+- **Theme Tokens:** Edit \`src/components/template/${pkgConfig.entryComponent.replace('Website', '')}.module.css\` to customize colors, fonts, and radii.
+- **Content Manifest:** Edit \`src/data/manifest.ts\` to update company details, services, statistics, and headlines.
+
+### Step 10: Replace Simulated Tracking with Real API
+- **Sample Fixtures:** Located in \`src/data/tracking.ts\`.
+- **Tracking Logic:** Located in \`src/lib/tracking.ts\`.
+Replace \`lookupSimulatedShipment\` with your carrier API or telematics endpoint when going to live production.
+
+---
+
+## Support & Documentation
+- Read [README.md](./README.md) for full architecture details.
+- Read [LICENSE](./LICENSE) for commercial usage permissions.
+`;
+}
+
+/**
+ * Generate customer CHANGELOG.md
+ */
+function generateChangelog(template, pkgConfig) {
+  return `# Changelog
+
+All notable changes to the **${template.name}** commercial template package will be documented in this file.
+
+## [${pkgConfig.version}] - 2026-08-15
+
+### Added
+- Initial LOGIFORGE commercial template release.
+- Standalone Next.js 15+ App Router starter package.
+- Full TypeScript source code with strict typechecking.
+- Modular CSS Modules design system with scoped \`--tmpl-*\` design tokens.
+- Self-contained high-resolution local assets and brand icons.
+- Local simulated waybill fixtures and multi-modal tracking engine.
+- Production build verification completed with zero external platform dependencies.
 `;
 }
 
@@ -754,7 +900,15 @@ function generateTemplateDescriptor(template, pkgConfig, sourceCommit) {
   return JSON.stringify(
     {
       $schema: 'https://logiforge.com/schemas/template-package-v1.json',
-      product: 'LOGIFORGE Standalone Template Starter',
+      product: {
+        type: 'commercial-starter-template',
+        status: 'stable',
+        name: template.name,
+        tagline: template.tagline,
+        category: template.category,
+        style: template.style,
+        version: pkgConfig.version,
+      },
       template: {
         id: template.id,
         slug: template.slug,
@@ -766,7 +920,9 @@ function generateTemplateDescriptor(template, pkgConfig, sourceCommit) {
       },
       package: {
         name: pkgConfig.packageName,
+        slug: pkgConfig.packageSlug,
         version: pkgConfig.version,
+        releaseChannel: 'stable',
         framework: 'Next.js 15+ App Router',
         language: 'TypeScript Strict',
         nodeRequirement: pkgConfig.minNodeVersion,
@@ -774,14 +930,24 @@ function generateTemplateDescriptor(template, pkgConfig, sourceCommit) {
         entryComponent: pkgConfig.entryComponent,
         componentDir: pkgConfig.componentDir,
       },
+      release: {
+        version: pkgConfig.version,
+        releaseChannel: 'stable',
+        releasedAt: template.releaseDate || '2026-08-15',
+        frameworkCompatibility: 'Next.js >=14.0.0 <16.0.0',
+        nodeCompatibility: pkgConfig.minNodeVersion,
+        packageFilename: `${template.slug}-v${pkgConfig.version}.zip`,
+        checksumAlgorithm: 'SHA-256',
+      },
       generator: {
         engine: 'LOGIFORGE Packaging Engine v1.0.0',
         generatedAt: new Date().toISOString(),
         sourceCommit,
       },
       license: {
-        type: 'LogiForge Commercial Developer License',
+        type: 'LOGIFORGE Commercial Developer License',
         file: 'LICENSE',
+        scope: 'Standalone Single-Template Commercial Developer License',
       },
     },
     null,
@@ -804,6 +970,8 @@ function validateStagingDirectory(stagingDir, template, pkgConfig) {
     '.eslintrc.json',
     'next-env.d.ts',
     'README.md',
+    'GETTING_STARTED.md',
+    'CHANGELOG.md',
     'LICENSE',
     'LOGIFORGE_TEMPLATE.json',
     'src/app/layout.tsx',
@@ -971,11 +1139,10 @@ async function packageSingleTemplate(template, allFixtures, sourceCommit, output
     fs.copyFileSync(iconSrc, path.join(stagingDir, 'src', 'app', 'icon.svg'));
   }
 
-  // 6. Copy root LICENSE
-  const licenseSrc = path.join(ROOT_DIR, 'LICENSE');
-  if (fs.existsSync(licenseSrc)) {
-    fs.copyFileSync(licenseSrc, path.join(stagingDir, 'LICENSE'));
-  }
+  // 6. Write per-template LICENSE
+  fs.writeFileSync(path.join(stagingDir, 'LICENSE'), generateLicense(template, pkgConfig));
+  fs.writeFileSync(path.join(stagingDir, 'GETTING_STARTED.md'), generateGettingStarted(template, pkgConfig));
+  fs.writeFileSync(path.join(stagingDir, 'CHANGELOG.md'), generateChangelog(template, pkgConfig));
 
   // 7. Write generated files
   fs.mkdirSync(path.join(stagingDir, 'src', 'app'), { recursive: true });
