@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "next dev",
+    "package:templates": "node scripts/package-templates.mjs --clean --all --output public/downloads",
+    "prebuild": "node scripts/package-templates.mjs --clean --all --output public/downloads",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

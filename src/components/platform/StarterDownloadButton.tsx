@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 import type { Template } from '@/types/template';
-import { Button } from '@/components/ui/Button';
+import { getTemplateDownloadUrl, getTemplatePackageFilename } from '@/lib/templates';
+import { cn } from '@/lib/utils';
+import buttonStyles from '@/components/ui/Button.module.css';
 import { Download, CheckCircle2 } from 'lucide-react';
 
 export interface StarterDownloadButtonProps {
@@ -18,69 +20,40 @@ export function StarterDownloadButton({
   variant = 'secondary',
   className,
 }: StarterDownloadButtonProps) {
-  const [downloaded, setDownloaded] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+  const downloadUrl = template.downloadUrl || getTemplateDownloadUrl(template);
+  const filename = getTemplatePackageFilename(template);
 
-  const handleDownload = () => {
-    const starterPackage = {
-      name: template.name,
-      slug: template.slug,
-      version: template.version,
-      category: template.category,
-      style: template.style,
-      industry: template.industry,
-      theme: template.theme,
-      pages: template.pages,
-      features: template.features,
-      starterConfig: {
-        framework: 'Next.js 15+ App Router',
-        language: 'TypeScript Strict',
-        styling: 'CSS Modules + Scoped Tokens',
-        license: `${template.tier.toUpperCase()} Commercial Developer License`,
-        instructions: [
-          'Unpack template files into your project src directory.',
-          'Import theme tokens from src/styles/tokens.css.',
-          'Customize sections and simulated logistics tracking in src/data/tracking.',
-        ],
-      },
-      exportedAt: new Date().toISOString(),
-      architecture: 'LOGIFORGE v1.0.0 Platform Foundation',
-    };
-
-    const blob = new Blob([JSON.stringify(starterPackage, null, 2)], {
-      type: 'application/json',
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${template.slug}-starter-manifest.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-
-    setDownloaded(true);
-    setTimeout(() => setDownloaded(false), 3500);
+  const handleClick = () => {
+    setDownloading(true);
+    setTimeout(() => setDownloading(false), 3500);
   };
 
   return (
-    <Button
-      variant={downloaded ? 'outline' : variant}
-      size={size}
-      onClick={handleDownload}
-      className={className}
-      aria-label={`Download starter package for ${template.name}`}
+    <a
+      href={downloadUrl}
+      download={filename}
+      onClick={handleClick}
+      className={cn(
+        buttonStyles.button,
+        buttonStyles[downloading ? 'outline' : variant],
+        buttonStyles[size],
+        className
+      )}
+      aria-label={`Download ${template.name} Starter Package (${filename})`}
+      title={`Download ${filename}`}
     >
-      {downloaded ? (
+      {downloading ? (
         <>
-          <CheckCircle2 size={size === 'sm' ? 14 : 18} style={{ color: '#10b981' }} />
-          <span>Starter Package Saved</span>
+          <CheckCircle2 size={size === 'sm' ? 14 : 18} style={{ color: '#10b981' }} aria-hidden="true" />
+          <span>Starter Package Ready</span>
         </>
       ) : (
         <>
-          <Download size={size === 'sm' ? 14 : 18} />
+          <Download size={size === 'sm' ? 14 : 18} aria-hidden="true" />
           <span>Download Starter Package</span>
         </>
       )}
-    </Button>
+    </a>
   );
 }

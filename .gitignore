@@ -43,5 +43,7 @@ next-env.d.ts
 *.swp
 *.swo
 
-# scratch
+# scratch & build artifacts
 scratch/
+/dist/
+/public/downloads/

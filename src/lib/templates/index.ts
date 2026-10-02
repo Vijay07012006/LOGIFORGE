@@ -38,3 +38,22 @@ export function getRelatedTemplates(currentSlug: string, limit = 3): Template[] 
     )
     .slice(0, limit);
 }
+
+/**
+ * Authoritative template package filename (e.g. "cargo-nova-v1.0.0.zip")
+ */
+export function getTemplatePackageFilename(
+  template: Pick<Template, 'slug'> & { packageConfig?: { version?: string }; version?: string }
+): string {
+  const version = template.packageConfig?.version || template.version || '1.0.0';
+  return `${template.slug}-v${version}.zip`;
+}
+
+/**
+ * Authoritative marketplace static download URL (e.g. "/downloads/cargo-nova-v1.0.0.zip")
+ */
+export function getTemplateDownloadUrl(
+  template: Pick<Template, 'slug'> & { packageConfig?: { version?: string }; version?: string }
+): string {
+  return `/downloads/${getTemplatePackageFilename(template)}`;
+}

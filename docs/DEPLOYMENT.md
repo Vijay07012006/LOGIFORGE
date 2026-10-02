@@ -93,3 +93,64 @@ export const SITE_URL = (
   1. Add your domain under **Project Settings → Domains** in Vercel.
   2. Set `NEXT_PUBLIC_SITE_URL=https://logiforge.dev` in the Vercel Environment Variables settings.
   3. Trigger a redeploy. Canonical link tags, OpenGraph metadata, `robots.txt`, `sitemap.xml`, and JSON-LD schemas will automatically reflect the custom domain.
+
+---
+
+## 5. Marketplace Package Delivery & Build Pipeline
+
+LOGIFORGE delivers autonomous, production-ready Next.js starter ZIP archives for each flagship template via a zero-cost static build-time pipeline.
+
+### Build Lifecycle Flow
+```
+npm run build
+     │
+     ├─► prebuild: node scripts/package-templates.mjs --clean --all --output public/downloads
+     │     • Compiles 10 standalone starter projects
+     │     • Generates public/downloads/<slug>-v<version>.zip
+     │     • Writes public/downloads/checksums.txt
+     │
+     └─► next build:
+           • Pre-renders all 41 static pages
+           • Next.js bundles public/ assets directly for edge CDN static delivery
+```
+
+### Static Asset Delivery Paths
+- **Route Pattern:** `/downloads/[slug]-v[version].zip`
+- **Example:** `https://logiforge-hazel.vercel.app/downloads/cargo-nova-v1.0.0.zip`
+- **Integrity Manifest:** `https://logiforge-hazel.vercel.app/downloads/checksums.txt`
+- **Zero Storage Cost:** Uses no S3, Vercel Blob, or database. Packaged archives are served as static files directly from edge CDN cache.
+
+### Package Naming & Versioning Source of Truth
+- Authoritative version and configuration are defined in `src/data/templates/manifests.ts` under each template's `packageConfig`:
+  ```typescript
+  packageConfig: {
+    packageName: 'cargo-nova-starter',
+    version: '1.0.0',
+    frameworkVersion: '^15.5.0',
+    minNodeVersion: '>=20.0.0',
+    ...
+  }
+  ```
+- URL derivation is centralized in `src/lib/templates/index.ts`:
+  - `getTemplatePackageFilename(template)` ➔ `${slug}-v${version}.zip`
+  - `getTemplateDownloadUrl(template)` ➔ `/downloads/${slug}-v${version}.zip`
+
+### Adding a Future Template (#11+)
+To add a new template to the packaging and download pipeline:
+1. Implement template components under `src/components/templates/<dir>/`.
+2. Register the template in `src/data/templates/manifests.ts` with its `packageConfig`.
+3. Running `npm run build` will automatically stage, compile, checksum, and expose the new template ZIP to `/downloads/<new-slug>-v1.0.0.zip` with zero manual packaging scripts needed.
+
+### Release Validation Suite
+Before publishing releases:
+```bash
+# Verify standalone package autonomous health (install, build, start, boundary, security)
+node scripts/verify-template-packages.mjs --all
+
+# Verify marketplace download HTTP endpoints, ZIP magic, and checksum parity
+node scripts/verify-marketplace-downloads.mjs
+
+# Verify real Chrome browser download triggers across viewports
+node scripts/test-real-browser-downloads.mjs
+```
+

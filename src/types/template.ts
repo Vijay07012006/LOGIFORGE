@@ -57,6 +57,18 @@ export interface TemplateBlueprintNavItem {
   order?: number;
 }
 
+export interface TemplatePackageConfig {
+  packageName: string;
+  packageSlug: string;
+  version: string;
+  frameworkVersion: string;
+  minNodeVersion: string;
+  entryComponent: string;
+  componentDir: string;
+  heroAssetPath: string;
+  sampleFixtures?: string[];
+}
+
 export interface TemplateFeatureSpec {
   id: string;
   title: string;
@@ -180,6 +192,7 @@ export interface Template {
   blueprintNav?: TemplateBlueprintNavItem[];
   features: TemplateFeatureSpec[];
   sections: TemplateSectionBlueprint;
+  packageConfig?: TemplatePackageConfig;
 
   demoUrl: string;
   embedDemoUrl: string;
