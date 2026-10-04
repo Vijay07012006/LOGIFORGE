@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamicParams = false;
+
 import React, { useState, useEffect, useRef, useCallback, use, Suspense } from 'react';
 import Link from 'next/link';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';

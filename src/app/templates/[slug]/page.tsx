@@ -27,6 +27,8 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const templates = getAllTemplates();
   return templates.map((t) => ({ slug: t.slug }));

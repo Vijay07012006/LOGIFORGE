@@ -8,6 +8,8 @@ interface DemoLayoutProps {
   children: React.ReactNode;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const templates = getAllTemplates();
   return templates.map((t) => ({ slug: t.slug }));
