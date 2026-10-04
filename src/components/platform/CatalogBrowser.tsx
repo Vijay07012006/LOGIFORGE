@@ -19,6 +19,7 @@ import {
   serializeCatalogUrl,
   tagToSlug,
   findCanonicalTag,
+  MAX_SEARCH_QUERY_LENGTH,
 } from '@/lib/filters';
 import { TemplateCard } from './TemplateCard';
 import { Select } from '@/components/ui/Select';
@@ -481,10 +482,11 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
               id="catalog-search"
               type="search"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value.slice(0, MAX_SEARCH_QUERY_LENGTH))}
               placeholder="Search by name, industry, trade route, or keyword..."
               className={styles.searchInput}
               autoComplete="off"
+              maxLength={MAX_SEARCH_QUERY_LENGTH}
             />
             {searchQuery && (
               <button
