@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useTransition } from 'react';
+import React, { useState, useEffect, useMemo, useTransition, useRef } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import type {
   Template,
@@ -25,6 +25,7 @@ import {
   Compass,
   Layers,
 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import styles from './CatalogBrowser.module.css';
 
 export interface CatalogBrowserProps {
@@ -83,8 +84,85 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
   const [tag, setTag] = useState<string | undefined>(initialTag);
   const [sortBy, setSortBy] = useState<CatalogSortOption>(initialSort);
   const [collection, setCollection] = useState<string>(initialCollection);
-  const [showFiltersMobile, setShowFiltersMobile] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [showAllTags, setShowAllTags] = useState<boolean>(false);
+
+  // Refs for drawer accessibility & focus restoration
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
+  // Draft filter state for mobile drawer
+  const [draftCategory, setDraftCategory] = useState<LogisticsCategorySlug | 'all'>(category);
+  const [draftStyle, setDraftStyle] = useState<TemplateStyle | 'all'>(style);
+  const [draftTier, setDraftTier] = useState<TemplateTier | 'all'>(tier);
+  const [draftTag, setDraftTag] = useState<string | undefined>(tag);
+  const [draftSortBy, setDraftSortBy] = useState<CatalogSortOption>(sortBy);
+
+  // Focus trap & Escape listener for mobile drawer
+  useEffect(() => {
+    if (!isDrawerOpen) return;
+
+    // Focus the close button on mount
+    const timer = setTimeout(() => {
+      closeBtnRef.current?.focus();
+    }, 40);
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setIsDrawerOpen(false);
+        triggerRef.current?.focus();
+        return;
+      }
+
+      if (e.key === 'Tab' && drawerRef.current) {
+        const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDrawerOpen]);
+
+  // Body scroll lock while drawer is open
+  useEffect(() => {
+    if (isDrawerOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isDrawerOpen]);
+
+  // Auto-close drawer if window is resized to desktop width
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth >= 1024 && isDrawerOpen) {
+        setIsDrawerOpen(false);
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isDrawerOpen]);
 
   // Sync state with URL params when state changes
   useEffect(() => {
@@ -159,11 +237,10 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     return getCollectionBySlug(collection) || null;
   }, [collection]);
 
-  // Compute filtered templates
+  // Compute filtered templates for main view
   const filteredTemplates = useMemo(() => {
     let base = initialTemplates;
 
-    // Filter by curated collection slugs first if active
     if (activeCollection) {
       base = base.filter((t) => activeCollection.featuredTemplateSlugs.includes(t.slug));
     }
@@ -178,6 +255,37 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     };
     return filterTemplates(base, filterState);
   }, [initialTemplates, activeCollection, searchQuery, category, style, tier, tag, sortBy]);
+
+  // Compute draft filtered templates count for mobile drawer CTA
+  const draftFilteredCount = useMemo(() => {
+    let base = initialTemplates;
+
+    if (activeCollection) {
+      base = base.filter((t) => activeCollection.featuredTemplateSlugs.includes(t.slug));
+    }
+
+    const draftState: CatalogFilterState = {
+      searchQuery,
+      category: draftCategory,
+      style: draftStyle,
+      tier: draftTier,
+      tag: draftTag,
+      sortBy: draftSortBy,
+    };
+    return filterTemplates(base, draftState).length;
+  }, [initialTemplates, activeCollection, searchQuery, draftCategory, draftStyle, draftTier, draftTag, draftSortBy]);
+
+  // Count active non-default filtering dimensions
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (category !== 'all') count++;
+    if (style !== 'all') count++;
+    if (tier !== 'all') count++;
+    if (tag) count++;
+    if (searchQuery.trim() !== '') count++;
+    if (sortBy !== 'featured') count++;
+    return count;
+  }, [category, style, tier, tag, searchQuery, sortBy]);
 
   // Active filter counters & helpers
   const hasActiveFilters =
@@ -197,6 +305,39 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     setTag(undefined);
     setSortBy('featured');
     setCollection('all');
+  };
+
+  const handleOpenDrawer = () => {
+    setDraftCategory(category);
+    setDraftStyle(style);
+    setDraftTier(tier);
+    setDraftTag(tag);
+    setDraftSortBy(sortBy);
+    setIsDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+    triggerRef.current?.focus();
+  };
+
+  const handleApplyDrawerFilters = () => {
+    setCategory(draftCategory);
+    setStyle(draftStyle);
+    setTier(draftTier);
+    setTag(draftTag);
+    setSortBy(draftSortBy);
+    setIsDrawerOpen(false);
+    triggerRef.current?.focus();
+  };
+
+  const handleDrawerResetAll = () => {
+    setDraftCategory('all');
+    setDraftStyle('all');
+    setDraftTier('all');
+    setDraftTag(undefined);
+    setDraftSortBy('featured');
+    resetAllFilters();
   };
 
   const handleTagClick = (selectedTag: string) => {
@@ -246,7 +387,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
         </div>
 
         <div className={styles.controlsRow}>
-          {/* Style Selector */}
+          {/* Desktop Style Selector */}
           <div className={styles.filterControl}>
             <Select
               options={STYLE_OPTIONS}
@@ -256,7 +397,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             />
           </div>
 
-          {/* Tier Selector */}
+          {/* Desktop Tier Selector */}
           <div className={styles.filterControl}>
             <Select
               options={TIER_OPTIONS}
@@ -266,7 +407,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             />
           </div>
 
-          {/* Sort Selector */}
+          {/* Desktop Sort Selector */}
           <div className={styles.sortControl}>
             <Select
               options={SORT_OPTIONS}
@@ -276,23 +417,33 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             />
           </div>
 
-          {/* Mobile Filter Toggle */}
+          {/* Accessible Mobile Filter & Sort Drawer Trigger */}
           <button
+            ref={triggerRef}
             type="button"
-            className={styles.mobileFilterToggle}
-            onClick={() => setShowFiltersMobile((prev) => !prev)}
-            aria-expanded={showFiltersMobile}
-            aria-label="Toggle mobile filter categories"
+            className={styles.mobileFilterTrigger}
+            onClick={handleOpenDrawer}
+            aria-expanded={isDrawerOpen}
+            aria-controls="mobile-filter-drawer"
+            aria-label={
+              activeFilterCount > 0
+                ? `Filter and sort templates, ${activeFilterCount} active filter${activeFilterCount === 1 ? '' : 's'}`
+                : 'Filter and sort templates'
+            }
           >
-            <SlidersHorizontal size={16} />
-            <span>Categories</span>
-            {category !== 'all' && <span className={styles.filterDot} />}
+            <SlidersHorizontal size={16} aria-hidden="true" />
+            <span>Filter &amp; Sort</span>
+            {activeFilterCount > 0 && (
+              <span className={styles.triggerBadge} aria-hidden="true">
+                {activeFilterCount}
+              </span>
+            )}
           </button>
         </div>
       </div>
 
-      {/* Category Tabs Pill Bar (Desktop & Mobile Dropdown) */}
-      <div className={`${styles.categoryPillsBar} ${showFiltersMobile ? styles.categoryPillsMobileVisible : ''}`}>
+      {/* Category Tabs Pill Bar (Desktop & Horizontally Scrollable Mobile) */}
+      <div className={styles.categoryPillsBar}>
         <button
           type="button"
           onClick={() => setCategory('all')}
@@ -315,7 +466,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
         ))}
       </div>
 
-      {/* Tag Discovery / Tag Filter Cloud */}
+      {/* Tag Discovery / Tag Filter Cloud (Desktop Only) */}
       <div className={styles.tagCloudBar}>
         <span className={styles.tagCloudLabel}>Keywords:</span>
         <div className={styles.tagList}>
@@ -500,6 +651,195 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
                   {cat.shortName}
                 </button>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Accessible Mobile Filter Drawer */}
+      {isDrawerOpen && (
+        <div
+          className={styles.drawerOverlay}
+          onClick={handleCloseDrawer}
+          role="presentation"
+        >
+          <div
+            id="mobile-filter-drawer"
+            ref={drawerRef}
+            className={styles.drawerContainer}
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Filter and sort templates"
+          >
+            {/* Drawer Header */}
+            <div className={styles.drawerHeader}>
+              <div className={styles.drawerTitleGroup}>
+                <SlidersHorizontal size={18} className={styles.drawerTitleIcon} aria-hidden="true" />
+                <h2 className={styles.drawerTitle}>Filter &amp; Sort</h2>
+              </div>
+              <button
+                ref={closeBtnRef}
+                type="button"
+                onClick={handleCloseDrawer}
+                className={styles.drawerCloseBtn}
+                aria-label="Close filters"
+              >
+                <X size={20} aria-hidden="true" />
+              </button>
+            </div>
+
+            {/* Scrollable Drawer Body */}
+            <div className={styles.drawerBody}>
+              {/* Sort By Section */}
+              <div className={styles.drawerSection}>
+                <label htmlFor="drawer-sort-select" className={styles.drawerSectionLabel}>
+                  Sort By
+                </label>
+                <div className={styles.drawerSelectWrapper}>
+                  <Select
+                    id="drawer-sort-select"
+                    options={SORT_OPTIONS}
+                    value={draftSortBy}
+                    onChange={(e) => setDraftSortBy(e.target.value as CatalogSortOption)}
+                    aria-label="Sort Templates"
+                  />
+                </div>
+              </div>
+
+              {/* Logistics Discipline / Category Section */}
+              <div className={styles.drawerSection}>
+                <span className={styles.drawerSectionLabel}>Logistics Discipline</span>
+                <div className={styles.drawerCategoryGrid}>
+                  <button
+                    type="button"
+                    onClick={() => setDraftCategory('all')}
+                    className={cn(
+                      styles.drawerCategoryBtn,
+                      draftCategory === 'all' && styles.drawerCategoryBtnActive
+                    )}
+                    aria-pressed={draftCategory === 'all'}
+                  >
+                    <span>All Disciplines</span>
+                    <span className={styles.drawerCountBadge}>{initialTemplates.length}</span>
+                  </button>
+                  {LOGISTICS_CATEGORIES.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setDraftCategory(cat.slug)}
+                      className={cn(
+                        styles.drawerCategoryBtn,
+                        draftCategory === cat.slug && styles.drawerCategoryBtnActive
+                      )}
+                      aria-pressed={draftCategory === cat.slug}
+                    >
+                      <span>{cat.shortName}</span>
+                      <span className={styles.drawerCountBadge}>{cat.templateCount}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Aesthetic Style Section */}
+              <div className={styles.drawerSection}>
+                <label htmlFor="drawer-style-select" className={styles.drawerSectionLabel}>
+                  Aesthetic Style
+                </label>
+                <div className={styles.drawerSelectWrapper}>
+                  <Select
+                    id="drawer-style-select"
+                    options={STYLE_OPTIONS}
+                    value={draftStyle}
+                    onChange={(e) => setDraftStyle(e.target.value as TemplateStyle | 'all')}
+                    aria-label="Filter by Aesthetic Style"
+                  />
+                </div>
+              </div>
+
+              {/* Commercial Tier Section */}
+              <div className={styles.drawerSection}>
+                <label htmlFor="drawer-tier-select" className={styles.drawerSectionLabel}>
+                  License Tier
+                </label>
+                <div className={styles.drawerSelectWrapper}>
+                  <Select
+                    id="drawer-tier-select"
+                    options={TIER_OPTIONS}
+                    value={draftTier}
+                    onChange={(e) => setDraftTier(e.target.value as TemplateTier | 'all')}
+                    aria-label="Filter by License Tier"
+                  />
+                </div>
+              </div>
+
+              {/* Keywords & Tags Section */}
+              <div className={styles.drawerSection}>
+                <div className={styles.drawerTagHeader}>
+                  <span className={styles.drawerSectionLabel}>Keywords &amp; Capabilities</span>
+                  {draftTag && (
+                    <button
+                      type="button"
+                      onClick={() => setDraftTag(undefined)}
+                      className={styles.drawerTagClearBtn}
+                      aria-label="Clear selected keyword filter"
+                    >
+                      Clear Tag
+                    </button>
+                  )}
+                </div>
+                <div className={styles.drawerTagCloud}>
+                  {tagStats.map((item) => {
+                    const isTagActive = draftTag ? normalizeTag(draftTag) === normalizeTag(item.name) : false;
+                    return (
+                      <button
+                        key={item.name}
+                        type="button"
+                        onClick={() => {
+                          setDraftTag((prev) => {
+                            if (prev && normalizeTag(prev) === normalizeTag(item.name)) {
+                              return undefined;
+                            }
+                            return item.name;
+                          });
+                        }}
+                        className={cn(
+                          styles.drawerTagBtn,
+                          isTagActive && styles.drawerTagBtnActive
+                        )}
+                        aria-pressed={isTagActive}
+                        aria-label={`Filter by keyword: ${item.name}`}
+                      >
+                        <Tag size={11} className={styles.drawerTagIcon} aria-hidden="true" />
+                        <span>{item.name}</span>
+                        <span className={styles.drawerTagCount}>{item.count}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Fixed Drawer Footer */}
+            <div className={styles.drawerFooter}>
+              <button
+                type="button"
+                onClick={handleDrawerResetAll}
+                className={styles.drawerResetBtn}
+                aria-label="Reset all filters"
+              >
+                <RotateCcw size={14} aria-hidden="true" />
+                <span>Reset All</span>
+              </button>
+
+              <Button
+                variant="primary"
+                size="md"
+                onClick={handleApplyDrawerFilters}
+                className={styles.drawerApplyBtn}
+              >
+                <span>Apply Filters (Showing {draftFilteredCount})</span>
+              </Button>
             </div>
           </div>
         </div>
