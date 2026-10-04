@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useTransition, useRef } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useSearchParams, usePathname } from 'next/navigation';
 import type {
   Template,
   CatalogFilterState,
@@ -12,7 +12,14 @@ import type {
 } from '@/types/template';
 import { LOGISTICS_CATEGORIES } from '@/data/categories';
 import { getCollectionBySlug } from '@/lib/collections';
-import { filterTemplates, normalizeTag } from '@/lib/filters';
+import {
+  filterTemplates,
+  normalizeTag,
+  parseCatalogUrl,
+  serializeCatalogUrl,
+  tagToSlug,
+  findCanonicalTag,
+} from '@/lib/filters';
 import { TemplateCard } from './TemplateCard';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
@@ -62,27 +69,23 @@ const SORT_OPTIONS: { value: CatalogSortOption; label: string }[] = [
 ];
 
 export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
-  const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname() || '/templates';
   const searchParams = useSearchParams();
-  const [, startTransition] = useTransition();
 
-  // Read initial filter values from URL params
-  const initialCategory = (searchParams.get('category') as LogisticsCategorySlug) || 'all';
-  const initialStyle = (searchParams.get('style') as TemplateStyle) || 'all';
-  const initialTier = (searchParams.get('tier') as TemplateTier) || 'all';
-  const initialTag = searchParams.get('tag') || undefined;
-  const initialSort = (searchParams.get('sort') as CatalogSortOption) || 'featured';
-  const initialSearch = searchParams.get('q') || '';
+  // Parse initial filter values from URL params
+  const initialFilters = useMemo(() => {
+    return parseCatalogUrl(searchParams, initialTemplates);
+  }, [searchParams, initialTemplates]);
+
   const initialCollection = searchParams.get('collection') || 'all';
 
   // Local state for filters
-  const [searchQuery, setSearchQuery] = useState<string>(initialSearch);
-  const [category, setCategory] = useState<LogisticsCategorySlug | 'all'>(initialCategory);
-  const [style, setStyle] = useState<TemplateStyle | 'all'>(initialStyle);
-  const [tier, setTier] = useState<TemplateTier | 'all'>(initialTier);
-  const [tag, setTag] = useState<string | undefined>(initialTag);
-  const [sortBy, setSortBy] = useState<CatalogSortOption>(initialSort);
+  const [searchQuery, setSearchQuery] = useState<string>(initialFilters.searchQuery);
+  const [category, setCategory] = useState<LogisticsCategorySlug | 'all'>(initialFilters.category);
+  const [style, setStyle] = useState<TemplateStyle | 'all'>(initialFilters.style);
+  const [tier, setTier] = useState<TemplateTier | 'all'>(initialFilters.tier);
+  const [tag, setTag] = useState<string | undefined>(initialFilters.tag);
+  const [sortBy, setSortBy] = useState<CatalogSortOption>(initialFilters.sortBy);
   const [collection, setCollection] = useState<string>(initialCollection);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [showAllTags, setShowAllTags] = useState<boolean>(false);
@@ -91,6 +94,13 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+
+  // Synchronization refs to prevent popstate loops and track history
+  const isPopStateRef = useRef<boolean>(false);
+  const hasMountedRef = useRef<boolean>(false);
+  const lastSyncedUrlRef = useRef<string>('');
+  const searchQueryRef = useRef<string>(searchQuery);
+  searchQueryRef.current = searchQuery;
 
   // Draft filter state for mobile drawer
   const [draftCategory, setDraftCategory] = useState<LogisticsCategorySlug | 'all'>(category);
@@ -164,44 +174,112 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, [isDrawerOpen]);
 
-  // Sync state with URL params when state changes
+  // Canonical cleanup on initial client mount
   useEffect(() => {
-    const params = new URLSearchParams();
+    if (typeof window === 'undefined') return;
 
-    if (searchQuery.trim()) params.set('q', searchQuery.trim());
-    if (category !== 'all') params.set('category', category);
-    if (style !== 'all') params.set('style', style);
-    if (tier !== 'all') params.set('tier', tier);
-    if (tag && tag.trim()) params.set('tag', tag.trim());
-    if (sortBy !== 'featured') params.set('sort', sortBy);
-    if (collection !== 'all') params.set('collection', collection);
-
-    const queryString = params.toString();
-    const targetUrl = queryString ? `${pathname}?${queryString}` : pathname;
-
-    startTransition(() => {
-      router.replace(targetUrl, { scroll: false });
+    const parsed = parseCatalogUrl(window.location.search, initialTemplates);
+    const canonicalUrl = serializeCatalogUrl(parsed, pathname, {
+      collection: searchParams.get('collection') || undefined,
     });
-  }, [searchQuery, category, style, tier, tag, sortBy, collection, pathname, router]);
+    const currentUrl = window.location.pathname + window.location.search;
 
-  // Synchronize state when browser navigation or external link changes searchParams
+    if (currentUrl !== canonicalUrl) {
+      window.history.replaceState(null, '', canonicalUrl);
+    }
+    lastSyncedUrlRef.current = canonicalUrl;
+    hasMountedRef.current = true;
+  }, [initialTemplates, pathname, searchParams]);
+
+  // Listen for browser Back/Forward (popstate)
   useEffect(() => {
-    const urlCategory = (searchParams.get('category') as LogisticsCategorySlug) || 'all';
-    const urlStyle = (searchParams.get('style') as TemplateStyle) || 'all';
-    const urlTier = (searchParams.get('tier') as TemplateTier) || 'all';
-    const urlTag = searchParams.get('tag') || undefined;
-    const urlSort = (searchParams.get('sort') as CatalogSortOption) || 'featured';
-    const urlSearch = searchParams.get('q') || '';
-    const urlCollection = searchParams.get('collection') || 'all';
+    function handlePopState() {
+      if (typeof window === 'undefined') return;
 
-    setCategory((prev) => (prev !== urlCategory ? urlCategory : prev));
-    setStyle((prev) => (prev !== urlStyle ? urlStyle : prev));
-    setTier((prev) => (prev !== urlTier ? urlTier : prev));
-    setTag((prev) => (prev !== urlTag ? urlTag : prev));
-    setSortBy((prev) => (prev !== urlSort ? urlSort : prev));
-    setSearchQuery((prev) => (prev !== urlSearch ? urlSearch : prev));
-    setCollection((prev) => (prev !== urlCollection ? urlCollection : prev));
-  }, [searchParams]);
+      isPopStateRef.current = true;
+      const newState = parseCatalogUrl(window.location.search, initialTemplates);
+      const newCollection = new URLSearchParams(window.location.search).get('collection') || 'all';
+
+      setSearchQuery(newState.searchQuery);
+      setCategory(newState.category);
+      setStyle(newState.style);
+      setTier(newState.tier);
+      setTag(newState.tag);
+      setSortBy(newState.sortBy);
+      setCollection(newCollection);
+
+      // Reconstruct mobile drawer state
+      setDraftCategory(newState.category);
+      setDraftStyle(newState.style);
+      setDraftTier(newState.tier);
+      setDraftTag(newState.tag);
+      setDraftSortBy(newState.sortBy);
+
+      lastSyncedUrlRef.current = window.location.pathname + window.location.search;
+
+      // Reset popstate flag after render cycle completes
+      setTimeout(() => {
+        isPopStateRef.current = false;
+      }, 50);
+    }
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [initialTemplates]);
+
+  // Synchronize discrete non-search filter changes immediately via replaceState
+  useEffect(() => {
+    if (!hasMountedRef.current || isPopStateRef.current) return;
+
+    const targetUrl = serializeCatalogUrl(
+      {
+        searchQuery: searchQueryRef.current,
+        category,
+        style,
+        tier,
+        tag,
+        sortBy,
+      },
+      pathname,
+      { collection }
+    );
+
+    const currentUrl = window.location.pathname + window.location.search;
+    if (currentUrl !== targetUrl && lastSyncedUrlRef.current !== targetUrl) {
+      window.history.replaceState(null, '', targetUrl);
+      lastSyncedUrlRef.current = targetUrl;
+    }
+  }, [category, style, tier, tag, sortBy, collection, pathname]);
+
+  // Synchronize search query URL changes debounced by 150ms
+  useEffect(() => {
+    if (!hasMountedRef.current || isPopStateRef.current) return;
+
+    const timer = setTimeout(() => {
+      if (typeof window === 'undefined' || isPopStateRef.current) return;
+
+      const targetUrl = serializeCatalogUrl(
+        {
+          searchQuery,
+          category,
+          style,
+          tier,
+          tag,
+          sortBy,
+        },
+        pathname,
+        { collection }
+      );
+
+      const currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== targetUrl && lastSyncedUrlRef.current !== targetUrl) {
+        window.history.replaceState(null, '', targetUrl);
+        lastSyncedUrlRef.current = targetUrl;
+      }
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, category, style, tier, tag, sortBy, collection, pathname]);
 
   // Derive unique tags and counts from canonical template metadata
   const tagStats = useMemo(() => {
@@ -305,6 +383,40 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     setTag(undefined);
     setSortBy('featured');
     setCollection('all');
+
+    setDraftCategory('all');
+    setDraftStyle('all');
+    setDraftTier('all');
+    setDraftTag(undefined);
+    setDraftSortBy('featured');
+
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', pathname);
+      lastSyncedUrlRef.current = pathname;
+    }
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    if (typeof window !== 'undefined') {
+      const targetUrl = serializeCatalogUrl(
+        {
+          searchQuery: '',
+          category,
+          style,
+          tier,
+          tag,
+          sortBy,
+        },
+        pathname,
+        { collection }
+      );
+      const currentUrl = window.location.pathname + window.location.search;
+      if (currentUrl !== targetUrl) {
+        window.history.replaceState(null, '', targetUrl);
+        lastSyncedUrlRef.current = targetUrl;
+      }
+    }
   };
 
   const handleOpenDrawer = () => {
@@ -341,11 +453,12 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
   };
 
   const handleTagClick = (selectedTag: string) => {
+    const slug = tagToSlug(selectedTag);
     setTag((prev) => {
       if (prev && normalizeTag(prev) === normalizeTag(selectedTag)) {
         return undefined;
       }
-      return selectedTag;
+      return slug;
     });
   };
 
@@ -376,7 +489,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             {searchQuery && (
               <button
                 type="button"
-                onClick={() => setSearchQuery('')}
+                onClick={handleClearSearch}
                 className={styles.searchClearBtn}
                 aria-label="Clear search term"
               >
@@ -535,7 +648,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
                 Search: &ldquo;{searchQuery}&rdquo;
                 <button
                   type="button"
-                  onClick={() => setSearchQuery('')}
+                  onClick={handleClearSearch}
                   aria-label={`Remove search filter: ${searchQuery}`}
                 >
                   <X size={12} />
@@ -584,11 +697,11 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
 
             {tag && (
               <span className={styles.filterChip}>
-                Tag: {tag}
+                Tag: {findCanonicalTag(tag, initialTemplates) || tag}
                 <button
                   type="button"
                   onClick={() => setTag(undefined)}
-                  aria-label={`Remove tag filter: ${tag}`}
+                  aria-label={`Remove tag filter: ${findCanonicalTag(tag, initialTemplates) || tag}`}
                 >
                   <X size={12} />
                 </button>
@@ -796,11 +909,12 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
                         key={item.name}
                         type="button"
                         onClick={() => {
+                          const slug = tagToSlug(item.name);
                           setDraftTag((prev) => {
                             if (prev && normalizeTag(prev) === normalizeTag(item.name)) {
                               return undefined;
                             }
-                            return item.name;
+                            return slug;
                           });
                         }}
                         className={cn(
