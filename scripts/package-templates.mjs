@@ -1199,12 +1199,19 @@ async function packageSingleTemplate(template, allFixtures, sourceCommit, output
   return {
     slug: template.slug,
     name: template.name,
+    packageName: pkgConfig.packageName,
     version: pkgConfig.version,
+    packageFilename: zipFileName,
+    downloadUrl: `/downloads/${zipFileName}`,
+    sizeBytes: zipBuffer.length,
+    sizeFormatted: `${sizeKb} KB`,
+    fileCount: entries.length,
+    sha256,
+    nodeRequirement: pkgConfig.minNodeVersion,
+    frameworkRequirement: 'Next.js >=14.0.0 <16.0.0',
     fileName: zipFileName,
     filePath: zipFilePath,
     sizeKb,
-    fileCount: entries.length,
-    sha256,
   };
 }
 
@@ -1302,9 +1309,64 @@ Options:
   const checksumLines = results.map((r) => `${r.sha256}  ${r.fileName}`);
   fs.writeFileSync(checksumsPath, checksumLines.join('\n') + '\n');
 
+  // Write deterministic packages-manifest.json in outputDir
+  const packagesManifestPath = path.join(outputDir, 'packages-manifest.json');
+  let existingManifest = null;
+  if (fs.existsSync(packagesManifestPath)) {
+    try {
+      existingManifest = JSON.parse(fs.readFileSync(packagesManifestPath, 'utf8'));
+    } catch {
+      existingManifest = null;
+    }
+  }
+
+  // Merge results with existing if partial packaging
+  const packageMap = new Map();
+  if (existingManifest && Array.isArray(existingManifest.packages)) {
+    for (const pkg of existingManifest.packages) {
+      packageMap.set(pkg.slug, pkg);
+    }
+  }
+  for (const r of results) {
+    packageMap.set(r.slug, {
+      slug: r.slug,
+      name: r.name,
+      packageName: r.packageName,
+      version: r.version,
+      packageFilename: r.packageFilename,
+      downloadUrl: r.downloadUrl,
+      sizeBytes: r.sizeBytes,
+      sizeFormatted: r.sizeFormatted,
+      fileCount: r.fileCount,
+      sha256: r.sha256,
+      nodeRequirement: r.nodeRequirement,
+      frameworkRequirement: r.frameworkRequirement,
+    });
+  }
+
+  const packagesManifestData = {
+    schemaVersion: '1.0.0',
+    generatedAt: new Date().toISOString(),
+    sourceCommit,
+    packages: Array.from(packageMap.values()),
+  };
+
+  const manifestJsonContent = JSON.stringify(packagesManifestData, null, 2) + '\n';
+  fs.writeFileSync(packagesManifestPath, manifestJsonContent);
+
+  // Sync to src/data/templates/packages-manifest.json for static compile-time import
+  const srcManifestDir = path.join(ROOT_DIR, 'src', 'data', 'templates');
+  const srcManifestPath = path.join(srcManifestDir, 'packages-manifest.json');
+  fs.mkdirSync(srcManifestDir, { recursive: true });
+  fs.writeFileSync(srcManifestPath, manifestJsonContent);
+
   // Clean up staging directory
   if (fs.existsSync(STAGING_BASE_DIR)) {
-    fs.rmSync(STAGING_BASE_DIR, { recursive: true, force: true });
+    try {
+      fs.rmSync(STAGING_BASE_DIR, { recursive: true, force: true, maxRetries: 5, retryDelay: 150 });
+    } catch {
+      // Best-effort cleanup on Windows if locked by virus scanner / file watcher
+    }
   }
 
   // Print final compilation summary

@@ -2,12 +2,24 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getTemplateBySlug, getAllTemplates } from '@/lib/templates';
+import {
+  getTemplateBySlug,
+  getAllTemplates,
+  getTemplateProductMetadata,
+  getTemplateReleaseMetadata,
+  getTemplatePackageManifestEntry,
+  getRelatedTemplates,
+} from '@/lib/templates';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { StarterDownloadButton } from '@/components/platform/StarterDownloadButton';
 import { Play, ArrowLeft, CheckCircle2, ShieldCheck, ExternalLink, Scale } from 'lucide-react';
 import { LocalShareButton } from '@/components/platform/LocalShareButton';
+import { PackageSpecsCard } from '@/components/platform/PackageSpecsCard';
+import { CommercialScopeCard } from '@/components/platform/CommercialScopeCard';
+import { DeveloperQuickstart } from '@/components/platform/DeveloperQuickstart';
+import { DocumentationOverview } from '@/components/platform/DocumentationOverview';
+import { TemplateCard } from '@/components/platform/TemplateCard';
 import { SITE_URL } from '@/lib/utils';
 import styles from './template-detail.module.css';
 
@@ -68,16 +80,29 @@ export default async function TemplateDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const product = getTemplateProductMetadata(template);
+  const release = getTemplateReleaseMetadata(template);
+  const manifestEntry = getTemplatePackageManifestEntry(template.slug);
+  const relatedTemplates = getRelatedTemplates(template.slug, 3);
+
   const softwareJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: `${template.name} Logistics Website Template`,
     description: template.shortDescription,
-    applicationCategory: 'WebApplication',
-    operatingSystem: 'Web Browser',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: `Cross-platform (${product.runtimeRequirement})`,
     url: `${SITE_URL}/templates/${template.slug}`,
     image: `${SITE_URL}${template.previewImage}`,
-    softwareVersion: template.version,
+    softwareVersion: release.version,
+    downloadUrl: `${SITE_URL}${product.packageUrl}`,
+    fileSize: manifestEntry?.sizeFormatted || undefined,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
     author: {
       '@type': 'Organization',
       name: 'LOGIFORGE',
@@ -136,7 +161,10 @@ export default async function TemplateDetailPage({ params }: PageProps) {
               {template.style} style
             </Badge>
             <Badge variant="secondary" size="sm">
-              v{template.version}
+              v{release.version}
+            </Badge>
+            <Badge variant="success" size="sm">
+              {release.releaseChannel} release
             </Badge>
           </div>
 
@@ -151,6 +179,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
                 <span>Launch Live Demo Studio</span>
               </Button>
             </Link>
+            <StarterDownloadButton template={template} size="lg" variant="secondary" />
             <Link href={`/templates/compare?templates=${template.slug}`}>
               <Button variant="outline" size="lg">
                 <Scale size={18} />
@@ -164,7 +193,6 @@ export default async function TemplateDetailPage({ params }: PageProps) {
               </Button>
             </Link>
             <LocalShareButton slug={template.slug} name={template.name} mode="template" size="lg" variant="secondary" />
-            <StarterDownloadButton template={template} size="lg" variant="outline" />
           </div>
         </div>
 
@@ -210,7 +238,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
 
         {/* Technical Specifications Grid */}
         <div className={styles.grid}>
-          {/* Main Column: Features & Pages */}
+          {/* Main Column: Features, Pages, Commercial Scope, Quickstart, Docs */}
           <div className={styles.mainCol}>
             <div className={styles.panel}>
               <h2 className={styles.panelTitle}>Signature Interactive Features</h2>
@@ -257,10 +285,27 @@ export default async function TemplateDetailPage({ params }: PageProps) {
                 ))}
               </div>
             </div>
+
+            {/* Commercial Scope */}
+            <CommercialScopeCard product={product} />
+
+            {/* Developer Quickstart */}
+            <DeveloperQuickstart template={template} product={product} />
+
+            {/* Documentation Overview */}
+            <DocumentationOverview template={template} product={product} release={release} />
           </div>
 
           {/* Sidebar Specs Panel */}
           <aside className={styles.sideCol}>
+            {/* Package Specifications Card */}
+            <PackageSpecsCard
+              template={template}
+              product={product}
+              release={release}
+              manifestEntry={manifestEntry}
+            />
+
             <div className={styles.specsCard}>
               <h3 className={styles.specsTitle}>Technical Overview</h3>
               <div className={styles.specRow}>
@@ -283,7 +328,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
               </div>
               <div className={styles.specRow}>
                 <span className={styles.specLabel}>License</span>
-                <span className={styles.specVal}>{template.license}</span>
+                <span className={styles.specVal}>{product.licenseType}</span>
               </div>
               <div className={styles.specRow}>
                 <span className={styles.specLabel}>Last Updated</span>
@@ -326,6 +371,32 @@ export default async function TemplateDetailPage({ params }: PageProps) {
             </div>
           </aside>
         </div>
+
+        {/* Related Templates Directory */}
+        {relatedTemplates.length > 0 && (
+          <section className={styles.relatedSection}>
+            <div className={styles.relatedHeader}>
+              <div>
+                <h2 className={styles.relatedTitle}>Explore Related Architectures</h2>
+                <p className={styles.relatedSubtitle}>
+                  Complementary logistics website templates matching industry category and aesthetic pairings.
+                </p>
+              </div>
+              <Link href={`/templates/compare?templates=${template.slug}`}>
+                <Button variant="outline" size="sm">
+                  <Scale size={14} />
+                  <span>Compare Across Catalog</span>
+                </Button>
+              </Link>
+            </div>
+
+            <div className={styles.relatedGrid}>
+              {relatedTemplates.map((relTmpl) => (
+                <TemplateCard key={relTmpl.slug} template={relTmpl} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

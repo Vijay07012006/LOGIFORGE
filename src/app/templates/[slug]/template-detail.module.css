@@ -399,3 +399,49 @@
     display: none;
   }
 }
+
+.relatedSection {
+  margin-top: var(--lf-space-16, 64px);
+  padding-top: var(--lf-space-12, 48px);
+  border-top: 1px solid var(--lf-border-subtle, #2e241b);
+}
+
+.relatedHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--lf-space-4, 16px);
+  margin-bottom: var(--lf-space-8, 32px);
+}
+
+.relatedTitle {
+  font-family: var(--lf-font-heading, sans-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--lf-text-primary, #f5efe6);
+  margin-bottom: 4px;
+}
+
+.relatedSubtitle {
+  font-size: 14px;
+  color: var(--lf-text-secondary, #b8a99a);
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--lf-space-6, 24px);
+}
+
+@media (min-width: 640px) {
+  .relatedGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .relatedGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

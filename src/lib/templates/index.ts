@@ -1,10 +1,15 @@
 import { TEMPLATE_MANIFESTS } from '@/data/templates';
+import packagesManifestRaw from '@/data/templates/packages-manifest.json';
 import type {
   Template,
   LogisticsCategorySlug,
   TemplateProductMetadata,
   TemplateReleaseMetadata,
+  TemplatePackageManifestEntry,
+  TemplatePackagesManifest,
 } from '@/types/template';
+
+const packagesManifest = packagesManifestRaw as TemplatePackagesManifest;
 
 export function getAllTemplates(): Template[] {
   return TEMPLATE_MANIFESTS;
@@ -104,6 +109,8 @@ export function getTemplateProductMetadata(template: Template): TemplateProductM
   const packageSlug = template.packageConfig?.packageSlug || template.slug;
   const packageName = template.packageConfig?.packageName || `${packageSlug}-starter`;
   const packageUrl = getTemplateDownloadUrl(template);
+  const manifestEntry = getTemplatePackageManifestEntry(template.slug);
+  const packageSize = manifestEntry?.sizeBytes;
 
   return {
     productType: 'commercial-starter-template',
@@ -118,6 +125,7 @@ export function getTemplateProductMetadata(template: Template): TemplateProductM
     packageSlug,
     packageUrl,
     checksumUrl: '/downloads/checksums.txt',
+    packageSize,
     includedFeatures: [
       'Full TypeScript source code with strict typechecking',
       'Tailwind CSS and scoped CSS Modules design tokens',
@@ -147,4 +155,20 @@ export function getTemplateProductMetadata(template: Template): TemplateProductM
       issuesUrl: 'https://github.com/Vijay07012006/LOGIFORGE/issues',
     },
   };
+}
+
+/**
+ * Retrieve all static package manifest entries generated at build time
+ */
+export function getAllTemplatePackageManifests(): TemplatePackageManifestEntry[] {
+  return packagesManifest?.packages || [];
+}
+
+/**
+ * Retrieve deterministic build-time package manifest entry for a single template
+ */
+export function getTemplatePackageManifestEntry(
+  slug: string
+): TemplatePackageManifestEntry | undefined {
+  return packagesManifest?.packages?.find((p) => p.slug === slug);
 }

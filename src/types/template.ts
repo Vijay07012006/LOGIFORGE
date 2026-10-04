@@ -103,6 +103,28 @@ export interface TemplateProductMetadata {
   };
 }
 
+export interface TemplatePackageManifestEntry {
+  slug: string;
+  name: string;
+  packageName: string;
+  version: string;
+  packageFilename: string;
+  downloadUrl: string;
+  sizeBytes: number;
+  sizeFormatted: string;
+  fileCount: number;
+  sha256: string;
+  nodeRequirement: string;
+  frameworkRequirement: string;
+}
+
+export interface TemplatePackagesManifest {
+  schemaVersion: string;
+  generatedAt: string;
+  sourceCommit: string;
+  packages: TemplatePackageManifestEntry[];
+}
+
 export interface TemplatePackageConfig {
   packageName: string;
   packageSlug: string;
