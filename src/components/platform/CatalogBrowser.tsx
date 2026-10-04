@@ -5,18 +5,20 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import type {
   Template,
   CatalogFilterState,
+  CatalogSortOption,
   LogisticsCategorySlug,
   TemplateStyle,
   TemplateTier,
 } from '@/types/template';
 import { LOGISTICS_CATEGORIES } from '@/data/categories';
 import { getCollectionBySlug } from '@/lib/collections';
-import { filterTemplates } from '@/lib/filters';
+import { filterTemplates, normalizeTag } from '@/lib/filters';
 import { TemplateCard } from './TemplateCard';
-import { SearchField } from '@/components/ui/SearchField';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
 import {
+  Search,
+  Tag,
   X,
   RotateCcw,
   SlidersHorizontal,
@@ -49,11 +51,13 @@ const TIER_OPTIONS: { value: TemplateTier | 'all'; label: string }[] = [
   { value: 'enterprise', label: 'Enterprise Suites' },
 ];
 
-const SORT_OPTIONS: { value: CatalogFilterState['sortBy']; label: string }[] = [
+const SORT_OPTIONS: { value: CatalogSortOption; label: string }[] = [
   { value: 'featured', label: 'Featured First' },
   { value: 'popular', label: 'Most Popular' },
   { value: 'rating', label: 'Highest Rated' },
-  { value: 'newest', label: 'Recently Updated' },
+  { value: 'newest', label: 'Newest Release' },
+  { value: 'name-asc', label: 'Name: A–Z' },
+  { value: 'name-desc', label: 'Name: Z–A' },
 ];
 
 export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
@@ -66,7 +70,8 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
   const initialCategory = (searchParams.get('category') as LogisticsCategorySlug) || 'all';
   const initialStyle = (searchParams.get('style') as TemplateStyle) || 'all';
   const initialTier = (searchParams.get('tier') as TemplateTier) || 'all';
-  const initialSort = (searchParams.get('sort') as CatalogFilterState['sortBy']) || 'featured';
+  const initialTag = searchParams.get('tag') || undefined;
+  const initialSort = (searchParams.get('sort') as CatalogSortOption) || 'featured';
   const initialSearch = searchParams.get('q') || '';
   const initialCollection = searchParams.get('collection') || 'all';
 
@@ -75,9 +80,11 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
   const [category, setCategory] = useState<LogisticsCategorySlug | 'all'>(initialCategory);
   const [style, setStyle] = useState<TemplateStyle | 'all'>(initialStyle);
   const [tier, setTier] = useState<TemplateTier | 'all'>(initialTier);
-  const [sortBy, setSortBy] = useState<CatalogFilterState['sortBy']>(initialSort);
+  const [tag, setTag] = useState<string | undefined>(initialTag);
+  const [sortBy, setSortBy] = useState<CatalogSortOption>(initialSort);
   const [collection, setCollection] = useState<string>(initialCollection);
   const [showFiltersMobile, setShowFiltersMobile] = useState<boolean>(false);
+  const [showAllTags, setShowAllTags] = useState<boolean>(false);
 
   // Sync state with URL params when state changes
   useEffect(() => {
@@ -87,6 +94,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     if (category !== 'all') params.set('category', category);
     if (style !== 'all') params.set('style', style);
     if (tier !== 'all') params.set('tier', tier);
+    if (tag && tag.trim()) params.set('tag', tag.trim());
     if (sortBy !== 'featured') params.set('sort', sortBy);
     if (collection !== 'all') params.set('collection', collection);
 
@@ -96,24 +104,54 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     startTransition(() => {
       router.replace(targetUrl, { scroll: false });
     });
-  }, [searchQuery, category, style, tier, sortBy, collection, pathname, router]);
+  }, [searchQuery, category, style, tier, tag, sortBy, collection, pathname, router]);
 
   // Synchronize state when browser navigation or external link changes searchParams
   useEffect(() => {
     const urlCategory = (searchParams.get('category') as LogisticsCategorySlug) || 'all';
     const urlStyle = (searchParams.get('style') as TemplateStyle) || 'all';
     const urlTier = (searchParams.get('tier') as TemplateTier) || 'all';
-    const urlSort = (searchParams.get('sort') as CatalogFilterState['sortBy']) || 'featured';
+    const urlTag = searchParams.get('tag') || undefined;
+    const urlSort = (searchParams.get('sort') as CatalogSortOption) || 'featured';
     const urlSearch = searchParams.get('q') || '';
     const urlCollection = searchParams.get('collection') || 'all';
 
     setCategory((prev) => (prev !== urlCategory ? urlCategory : prev));
     setStyle((prev) => (prev !== urlStyle ? urlStyle : prev));
     setTier((prev) => (prev !== urlTier ? urlTier : prev));
+    setTag((prev) => (prev !== urlTag ? urlTag : prev));
     setSortBy((prev) => (prev !== urlSort ? urlSort : prev));
     setSearchQuery((prev) => (prev !== urlSearch ? urlSearch : prev));
     setCollection((prev) => (prev !== urlCollection ? urlCollection : prev));
   }, [searchParams]);
+
+  // Derive unique tags and counts from canonical template metadata
+  const tagStats = useMemo(() => {
+    const counts = new Map<string, number>();
+    initialTemplates.forEach((t) => {
+      t.tags?.forEach((item) => {
+        counts.set(item, (counts.get(item) || 0) + 1);
+      });
+    });
+
+    return Array.from(counts.entries())
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+  }, [initialTemplates]);
+
+  // Slice visible tags for compact desktop display (default 10)
+  const visibleTags = useMemo(() => {
+    if (showAllTags) return tagStats;
+    const slice = tagStats.slice(0, 10);
+    // Ensure active tag is always visible even if not in top 10
+    if (tag && !slice.some((item) => normalizeTag(item.name) === normalizeTag(tag))) {
+      const activeItem = tagStats.find((item) => normalizeTag(item.name) === normalizeTag(tag));
+      if (activeItem) {
+        return [...slice, activeItem];
+      }
+    }
+    return slice;
+  }, [tagStats, showAllTags, tag]);
 
   // Find active collection data if present
   const activeCollection = useMemo(() => {
@@ -135,10 +173,11 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
       category,
       style,
       tier,
+      tag,
       sortBy,
     };
     return filterTemplates(base, filterState);
-  }, [initialTemplates, activeCollection, searchQuery, category, style, tier, sortBy]);
+  }, [initialTemplates, activeCollection, searchQuery, category, style, tier, tag, sortBy]);
 
   // Active filter counters & helpers
   const hasActiveFilters =
@@ -146,6 +185,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     category !== 'all' ||
     style !== 'all' ||
     tier !== 'all' ||
+    Boolean(tag) ||
     sortBy !== 'featured' ||
     collection !== 'all';
 
@@ -154,8 +194,18 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
     setCategory('all');
     setStyle('all');
     setTier('all');
+    setTag(undefined);
     setSortBy('featured');
     setCollection('all');
+  };
+
+  const handleTagClick = (selectedTag: string) => {
+    setTag((prev) => {
+      if (prev && normalizeTag(prev) === normalizeTag(selectedTag)) {
+        return undefined;
+      }
+      return selectedTag;
+    });
   };
 
   const getCategoryName = (slug: string) => {
@@ -168,12 +218,31 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
       {/* Search Bar & Primary Controls */}
       <div className={styles.topBar}>
         <div className={styles.searchContainer}>
-          <SearchField
-            value={searchQuery}
-            onChange={setSearchQuery}
-            onClear={() => setSearchQuery('')}
-            placeholder="Search by name, industry, trade route, or keyword..."
-          />
+          <div className={styles.searchInputWrapper}>
+            <label htmlFor="catalog-search" className={styles.srOnly}>
+              Search logistics templates
+            </label>
+            <Search size={18} className={styles.searchIcon} aria-hidden="true" />
+            <input
+              id="catalog-search"
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by name, industry, trade route, or keyword..."
+              className={styles.searchInput}
+              autoComplete="off"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className={styles.searchClearBtn}
+                aria-label="Clear search term"
+              >
+                <X size={16} />
+              </button>
+            )}
+          </div>
         </div>
 
         <div className={styles.controlsRow}>
@@ -202,7 +271,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             <Select
               options={SORT_OPTIONS}
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as CatalogFilterState['sortBy'])}
+              onChange={(e) => setSortBy(e.target.value as CatalogSortOption)}
               aria-label="Sort Templates"
             />
           </div>
@@ -222,7 +291,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
         </div>
       </div>
 
-      {/* Category Tabs Pill Bar (Desktop & Mobile Drawer) */}
+      {/* Category Tabs Pill Bar (Desktop & Mobile Dropdown) */}
       <div className={`${styles.categoryPillsBar} ${showFiltersMobile ? styles.categoryPillsMobileVisible : ''}`}>
         <button
           type="button"
@@ -246,9 +315,49 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
         ))}
       </div>
 
+      {/* Tag Discovery / Tag Filter Cloud */}
+      <div className={styles.tagCloudBar}>
+        <span className={styles.tagCloudLabel}>Keywords:</span>
+        <div className={styles.tagList}>
+          {visibleTags.map((item) => {
+            const isTagActive = tag ? normalizeTag(tag) === normalizeTag(item.name) : false;
+            return (
+              <button
+                key={item.name}
+                type="button"
+                onClick={() => handleTagClick(item.name)}
+                className={`${styles.tagButton} ${isTagActive ? styles.tagButtonActive : ''}`}
+                aria-pressed={isTagActive}
+                aria-label={`Filter catalog by tag: ${item.name}`}
+              >
+                <Tag size={11} className={styles.tagIcon} aria-hidden="true" />
+                <span>{item.name}</span>
+                <span className={styles.tagCount}>{item.count}</span>
+              </button>
+            );
+          })}
+
+          {tagStats.length > 10 && (
+            <button
+              type="button"
+              onClick={() => setShowAllTags((prev) => !prev)}
+              className={styles.tagExpandBtn}
+              aria-expanded={showAllTags}
+            >
+              {showAllTags ? 'Show fewer tags' : `+${tagStats.length - 10} more tags`}
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Active Filter Chips & Counter Bar */}
       <div className={styles.statusBar}>
-        <div className={styles.counterGroup}>
+        <div
+          className={styles.counterGroup}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
           <span className={styles.counterText}>
             Showing <strong>{filteredTemplates.length}</strong> of {initialTemplates.length} templates
           </span>
@@ -263,7 +372,7 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
                 <button
                   type="button"
                   onClick={() => setCollection('all')}
-                  aria-label="Clear collection filter"
+                  aria-label="Remove collection filter"
                 >
                   <X size={12} />
                 </button>
@@ -273,7 +382,11 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             {searchQuery.trim() && (
               <span className={styles.filterChip}>
                 Search: &ldquo;{searchQuery}&rdquo;
-                <button type="button" onClick={() => setSearchQuery('')} aria-label="Clear search term">
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  aria-label={`Remove search filter: ${searchQuery}`}
+                >
                   <X size={12} />
                 </button>
               </span>
@@ -282,7 +395,11 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             {category !== 'all' && (
               <span className={styles.filterChip}>
                 Category: {getCategoryName(category)}
-                <button type="button" onClick={() => setCategory('all')} aria-label="Clear category filter">
+                <button
+                  type="button"
+                  onClick={() => setCategory('all')}
+                  aria-label={`Remove category filter: ${getCategoryName(category)}`}
+                >
                   <X size={12} />
                 </button>
               </span>
@@ -291,7 +408,11 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             {style !== 'all' && (
               <span className={styles.filterChip}>
                 Style: {style}
-                <button type="button" onClick={() => setStyle('all')} aria-label="Clear style filter">
+                <button
+                  type="button"
+                  onClick={() => setStyle('all')}
+                  aria-label={`Remove style filter: ${style}`}
+                >
                   <X size={12} />
                 </button>
               </span>
@@ -300,13 +421,35 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
             {tier !== 'all' && (
               <span className={styles.filterChip}>
                 Tier: {tier}
-                <button type="button" onClick={() => setTier('all')} aria-label="Clear tier filter">
+                <button
+                  type="button"
+                  onClick={() => setTier('all')}
+                  aria-label={`Remove tier filter: ${tier}`}
+                >
                   <X size={12} />
                 </button>
               </span>
             )}
 
-            <button type="button" onClick={resetAllFilters} className={styles.resetBtn}>
+            {tag && (
+              <span className={styles.filterChip}>
+                Tag: {tag}
+                <button
+                  type="button"
+                  onClick={() => setTag(undefined)}
+                  aria-label={`Remove tag filter: ${tag}`}
+                >
+                  <X size={12} />
+                </button>
+              </span>
+            )}
+
+            <button
+              type="button"
+              onClick={resetAllFilters}
+              className={styles.resetBtn}
+              aria-label="Reset all filters"
+            >
               <RotateCcw size={12} />
               <span>Reset all</span>
             </button>
@@ -318,7 +461,12 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
       {filteredTemplates.length > 0 ? (
         <div className={styles.templateGrid}>
           {filteredTemplates.map((template) => (
-            <TemplateCard key={template.id} template={template} />
+            <TemplateCard
+              key={template.id}
+              template={template}
+              onTagClick={handleTagClick}
+              activeTag={tag}
+            />
           ))}
         </div>
       ) : (
@@ -330,10 +478,30 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
           <p className={styles.emptyDesc}>
             No logistics website templates matched your current combination of search terms and filters.
           </p>
-          <Button variant="primary" size="md" onClick={resetAllFilters}>
-            <RotateCcw size={16} />
-            <span>Reset All Filters</span>
-          </Button>
+          <div className={styles.emptyActions}>
+            <Button variant="primary" size="md" onClick={resetAllFilters}>
+              <RotateCcw size={16} />
+              <span>Reset All Filters</span>
+            </Button>
+          </div>
+          <div className={styles.emptySuggestions}>
+            <span className={styles.suggestionLabel}>Or browse popular disciplines:</span>
+            <div className={styles.suggestionPills}>
+              {LOGISTICS_CATEGORIES.slice(0, 4).map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => {
+                    resetAllFilters();
+                    setCategory(cat.slug);
+                  }}
+                  className={styles.suggestionPill}
+                >
+                  {cat.shortName}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

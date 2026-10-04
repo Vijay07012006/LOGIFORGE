@@ -281,6 +281,40 @@
   border: 1px solid var(--lf-border-subtle);
 }
 
+.tagPillBtn {
+  cursor: pointer;
+  background: var(--lf-bg-elevated);
+  color: #b8a99a;
+  transition: all var(--lf-transition-fast);
+}
+
+.tagPillBtn:hover {
+  background-color: rgba(255, 179, 71, 0.15);
+  border-color: rgba(255, 179, 71, 0.4);
+  color: #ffb347;
+  transform: translateY(-1px);
+}
+
+.tagPillBtn:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 1px;
+}
+
+.tagPillActive {
+  background-color: rgba(232, 89, 12, 0.22);
+  border-color: var(--lf-accent-primary, #e8590c);
+  color: #ffb347;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(232, 89, 12, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tagPillBtn {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
 .metaRow {
   display: flex;
   flex-wrap: wrap;

@@ -1,18 +1,26 @@
 import React from 'react';
 import Link from 'next/link';
 import type { Template } from '@/types/template';
+import { normalizeTag } from '@/lib/filters';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Play, Sparkles, Star, Download, ArrowUpRight, ShieldCheck } from 'lucide-react';
-import { formatNumber, formatRating } from '@/lib/utils';
+import { formatNumber, formatRating, cn } from '@/lib/utils';
 import styles from './TemplateCard.module.css';
 
 export interface TemplateCardProps {
   template: Template;
   priority?: boolean;
+  onTagClick?: (tag: string) => void;
+  activeTag?: string;
 }
 
-export function TemplateCard({ template, priority = false }: TemplateCardProps) {
+export function TemplateCard({
+  template,
+  priority = false,
+  onTagClick,
+  activeTag,
+}: TemplateCardProps) {
   return (
     <article
       className={styles.card}
@@ -121,11 +129,32 @@ export function TemplateCard({ template, priority = false }: TemplateCardProps) 
 
         {/* Key Logistics Signals / Tags */}
         <div className={styles.tagsRow}>
-          {template.tags.slice(0, 3).map((tag) => (
-            <span key={tag} className={styles.tagPill}>
-              {tag}
-            </span>
-          ))}
+          {template.tags.slice(0, 3).map((tag) => {
+            const isTagActive = activeTag ? normalizeTag(activeTag) === normalizeTag(tag) : false;
+            return onTagClick ? (
+              <button
+                key={tag}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onTagClick(tag);
+                }}
+                className={cn(
+                  styles.tagPill,
+                  styles.tagPillBtn,
+                  isTagActive && styles.tagPillActive
+                )}
+                aria-pressed={isTagActive}
+                aria-label={`Filter catalog by tag: ${tag}`}
+              >
+                {tag}
+              </button>
+            ) : (
+              <span key={tag} className={styles.tagPill}>
+                {tag}
+              </span>
+            );
+          })}
         </div>
 
         {/* Performance & Quality Signals */}

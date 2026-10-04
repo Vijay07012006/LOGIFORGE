@@ -20,8 +20,85 @@
 
 .searchContainer {
   flex: 1;
-  max-width: 600px;
+  max-width: 580px;
   width: 100%;
+}
+
+/* Accessible search input wrapper */
+.searchInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  color: var(--lf-text-muted);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  height: 48px;
+  padding: 0 44px 0 46px;
+  background-color: var(--lf-bg-surface);
+  border: 1px solid var(--lf-border-subtle);
+  border-radius: var(--lf-radius-pill);
+  color: var(--lf-text-primary);
+  font-family: var(--lf-font-sans);
+  font-size: var(--lf-text-sm);
+  transition: all var(--lf-transition-fast);
+}
+
+.searchInput::placeholder {
+  color: var(--lf-text-muted);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--lf-accent-primary, #e8590c);
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.25);
+  background-color: var(--lf-bg-elevated);
+}
+
+.searchClearBtn {
+  position: absolute;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--lf-radius-full);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: var(--lf-text-secondary);
+  cursor: pointer;
+  transition: all var(--lf-transition-fast);
+}
+
+.searchClearBtn:hover {
+  background-color: rgba(232, 89, 12, 0.2);
+  color: #ffb347;
+}
+
+.searchClearBtn:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 1px;
 }
 
 .controlsRow {
@@ -38,7 +115,7 @@
 }
 
 .sortControl {
-  min-width: 140px;
+  min-width: 150px;
   flex: 1 1 auto;
 }
 
@@ -65,6 +142,18 @@
   font-weight: 500;
   cursor: pointer;
   position: relative;
+  transition: all var(--lf-transition-fast);
+}
+
+.mobileFilterToggle:hover {
+  background-color: var(--lf-bg-elevated);
+  border-color: rgba(255, 179, 71, 0.35);
+  color: var(--lf-text-primary);
+}
+
+.mobileFilterToggle:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 2px;
 }
 
 @media (min-width: 1024px) {
@@ -87,7 +176,7 @@
   gap: var(--lf-space-2);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: var(--lf-space-3);
+  padding-bottom: var(--lf-space-2);
   border-bottom: 1px solid var(--lf-border-subtle);
   scrollbar-width: thin;
   scrollbar-color: rgba(232, 89, 12, 0.4) rgba(20, 16, 12, 0.6);
@@ -145,6 +234,11 @@
   transform: translateY(-1px);
 }
 
+.categoryPill:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 2px;
+}
+
 .categoryPillActive {
   background: linear-gradient(135deg, #e8590c, #ff7b2e);
   border-color: transparent;
@@ -168,7 +262,116 @@
   border-radius: var(--lf-radius-full);
 }
 
-/* Status Bar & Chips */
+/* Tag Discovery Cloud Bar */
+.tagCloudBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--lf-border-subtle);
+}
+
+@media (max-width: 768px) {
+  .tagCloudBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.tagCloudLabel {
+  font-family: var(--lf-font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--lf-text-muted);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.tagButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: var(--lf-radius-sm, 4px);
+  background-color: var(--lf-bg-surface);
+  border: 1px solid var(--lf-border-subtle);
+  color: var(--lf-text-secondary);
+  font-family: var(--lf-font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all var(--lf-transition-fast);
+  white-space: nowrap;
+}
+
+.tagButton:hover {
+  background-color: var(--lf-bg-elevated);
+  border-color: rgba(255, 179, 71, 0.35);
+  color: #ffb347;
+  transform: translateY(-1px);
+}
+
+.tagButton:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 1px;
+}
+
+.tagButtonActive {
+  background-color: rgba(232, 89, 12, 0.22);
+  border-color: var(--lf-accent-primary, #e8590c);
+  color: #ffb347;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(232, 89, 12, 0.2);
+}
+
+.tagIcon {
+  color: inherit;
+  opacity: 0.7;
+}
+
+.tagCount {
+  font-size: 9px;
+  opacity: 0.8;
+  padding: 0 4px;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.tagExpandBtn {
+  font-family: var(--lf-font-mono);
+  font-size: 11px;
+  color: #ffb347;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--lf-radius-sm, 4px);
+  transition: all var(--lf-transition-fast);
+}
+
+.tagExpandBtn:hover {
+  color: #ffa114;
+  background-color: rgba(255, 179, 71, 0.1);
+  text-decoration: underline;
+}
+
+.tagExpandBtn:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 1px;
+}
+
+/* Status Bar & Active Chips */
 .statusBar {
   display: flex;
   flex-direction: column;
@@ -229,12 +432,19 @@
   border: none;
   color: inherit;
   cursor: pointer;
-  padding: 0;
-  transition: opacity var(--lf-transition-fast);
+  padding: 2px;
+  border-radius: 50%;
+  transition: opacity var(--lf-transition-fast), background-color var(--lf-transition-fast);
 }
 
 .filterChip button:hover {
-  opacity: 0.7;
+  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.filterChip button:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 1px;
 }
 
 .resetBtn {
@@ -256,7 +466,12 @@
   background-color: rgba(232, 89, 12, 0.1);
 }
 
-/* Grid */
+.resetBtn:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 1px;
+}
+
+/* Template Grid */
 .templateGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -315,5 +530,69 @@
   color: var(--lf-text-secondary);
   max-width: 480px;
   line-height: 1.65;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+}
+
+.emptyActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.emptySuggestions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.suggestionLabel {
+  font-size: 12px;
+  color: var(--lf-text-muted);
+}
+
+.suggestionPills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.suggestionPill {
+  font-family: var(--lf-font-mono);
+  font-size: 11px;
+  color: #ffb347;
+  background: var(--lf-bg-elevated);
+  border: 1px solid var(--lf-border-subtle);
+  border-radius: var(--lf-radius-pill);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all var(--lf-transition-fast);
+}
+
+.suggestionPill:hover {
+  background-color: rgba(255, 179, 71, 0.15);
+  border-color: rgba(255, 179, 71, 0.4);
+}
+
+.suggestionPill:focus-visible {
+  outline: 2px solid #ffb347;
+  outline-offset: 1px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .categoryPill,
+  .tagButton,
+  .filterChip,
+  .resetBtn,
+  .suggestionPill,
+  .searchInput,
+  .searchClearBtn {
+    transition: none !important;
+    transform: none !important;
+  }
 }
