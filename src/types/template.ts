@@ -330,12 +330,21 @@ export interface SimulatedShipment {
   isSimulatedDemoData: true;
 }
 
+export type CatalogSortOption =
+  | 'featured'
+  | 'popular'
+  | 'rating'
+  | 'newest'
+  | 'name-asc'
+  | 'name-desc';
+
 export interface CatalogFilterState {
   searchQuery: string;
   category: LogisticsCategorySlug | 'all';
   style: TemplateStyle | 'all';
   tier: TemplateTier | 'all';
-  sortBy: 'featured' | 'newest' | 'popular' | 'rating';
+  sortBy: CatalogSortOption;
+  tag?: string;
   featureFilter?: string[];
 }
 
