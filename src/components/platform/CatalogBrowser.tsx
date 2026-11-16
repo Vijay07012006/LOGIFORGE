@@ -505,6 +505,8 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
           {/* Desktop Style Selector */}
           <div className={styles.filterControl}>
             <Select
+              id="catalog-style-select"
+              name="style"
               options={STYLE_OPTIONS}
               value={style}
               onChange={(e) => setStyle(e.target.value as TemplateStyle | 'all')}
@@ -515,6 +517,8 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
           {/* Desktop Tier Selector */}
           <div className={styles.filterControl}>
             <Select
+              id="catalog-tier-select"
+              name="tier"
               options={TIER_OPTIONS}
               value={tier}
               onChange={(e) => setTier(e.target.value as TemplateTier | 'all')}
@@ -525,6 +529,8 @@ export function CatalogBrowser({ initialTemplates }: CatalogBrowserProps) {
           {/* Desktop Sort Selector */}
           <div className={styles.sortControl}>
             <Select
+              id="catalog-sort-select"
+              name="sort"
               options={SORT_OPTIONS}
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as CatalogSortOption)}

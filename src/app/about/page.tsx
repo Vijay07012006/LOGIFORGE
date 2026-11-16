@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ShieldCheck, Compass, CheckCircle2 } from 'lucide-react';
@@ -119,12 +118,10 @@ export default function AboutPage() {
                   <strong>--lf-* &amp; --tmpl-*</strong>
                 </div>
               </div>
-              <Link href="/templates">
-                <Button variant="primary" size="sm" fullWidth>
-                  <Compass size={14} />
-                  <span>Browse Templates</span>
-                </Button>
-              </Link>
+              <Button href="/templates" variant="primary" size="sm" fullWidth>
+                <Compass size={14} />
+                <span>Browse Templates</span>
+              </Button>
             </div>
           </aside>
         </div>

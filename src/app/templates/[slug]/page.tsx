@@ -175,25 +175,19 @@ export default async function TemplateDetailPage({ params }: PageProps) {
           <p className={styles.description}>{template.description}</p>
 
           <div className={styles.actions}>
-            <Link href={`/demo/${template.slug}`}>
-              <Button variant="primary" size="lg">
-                <Play size={18} />
-                <span>Launch Live Demo Studio</span>
-              </Button>
-            </Link>
+            <Button href={`/demo/${template.slug}`} variant="primary" size="lg">
+              <Play size={18} />
+              <span>Launch Live Demo Studio</span>
+            </Button>
             <StarterDownloadButton template={template} size="lg" variant="secondary" />
-            <Link href={`/templates/compare?templates=${template.slug}`}>
-              <Button variant="outline" size="lg">
-                <Scale size={18} />
-                <span>Compare Specs</span>
-              </Button>
-            </Link>
-            <Link href={`/demo/${template.slug}/embed`} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="lg">
-                <ExternalLink size={18} />
-                <span>Isolated Embed</span>
-              </Button>
-            </Link>
+            <Button href={`/templates/compare?templates=${template.slug}`} variant="outline" size="lg">
+              <Scale size={18} />
+              <span>Compare Specs</span>
+            </Button>
+            <Button href={`/demo/${template.slug}/embed`} target="_blank" rel="noopener noreferrer" variant="outline" size="lg">
+              <ExternalLink size={18} />
+              <span>Isolated Embed</span>
+            </Button>
             <LocalShareButton slug={template.slug} name={template.name} mode="template" size="lg" variant="secondary" />
           </div>
         </div>
@@ -384,12 +378,10 @@ export default async function TemplateDetailPage({ params }: PageProps) {
                   Complementary logistics website templates matching industry category and aesthetic pairings.
                 </p>
               </div>
-              <Link href={`/templates/compare?templates=${template.slug}`}>
-                <Button variant="outline" size="sm">
-                  <Scale size={14} />
-                  <span>Compare Across Catalog</span>
-                </Button>
-              </Link>
+              <Button href={`/templates/compare?templates=${template.slug}`} variant="outline" size="sm">
+                <Scale size={14} />
+                <span>Compare Across Catalog</span>
+              </Button>
             </div>
 
             <div className={styles.relatedGrid}>

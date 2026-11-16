@@ -55,7 +55,7 @@ export function Header() {
             </Link>
             <Link
               href="/demo/cargo-nova"
-              className={`${styles.navLink} ${pathname.startsWith('/demo') ? styles.active : ''}`}
+              className={`${styles.navLink} ${pathname?.startsWith('/demo') ? styles.active : ''}`}
             >
               Live Demo
             </Link>
@@ -75,12 +75,10 @@ export function Header() {
 
           {/* Action CTAs & Mobile Hamburger */}
           <div className={styles.actions}>
-            <Link href="/templates" className={styles.desktopCta}>
-              <Button variant="primary" size="sm">
-                <Compass size={15} />
-                <span>Explore Catalog</span>
-              </Button>
-            </Link>
+            <Button href="/templates" variant="primary" size="sm" className={styles.desktopCta}>
+              <Compass size={15} />
+              <span>Explore Catalog</span>
+            </Button>
 
             {/* Mobile Menu Trigger Button */}
             <button

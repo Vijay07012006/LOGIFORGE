@@ -117,7 +117,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
           <Link
             href="/demo/cargo-nova"
-            className={`${styles.navItem} ${pathname.startsWith('/demo') ? styles.active : ''}`}
+            className={`${styles.navItem} ${pathname?.startsWith('/demo') ? styles.active : ''}`}
             onClick={onClose}
           >
             <Play size={18} />
@@ -168,12 +168,10 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
         {/* Drawer Footer CTA */}
         <div className={styles.footer}>
-          <Link href="/templates" onClick={onClose} style={{ width: '100%' }}>
-            <Button variant="primary" size="md" fullWidth>
-              <Compass size={16} />
-              <span>Explore All Templates</span>
-            </Button>
-          </Link>
+          <Button href="/templates" onClick={onClose} variant="primary" size="md" fullWidth>
+            <Compass size={16} />
+            <span>Explore All Templates</span>
+          </Button>
         </div>
       </div>
     </div>

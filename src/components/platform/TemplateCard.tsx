@@ -178,17 +178,25 @@ export function TemplateCard({
 
         {/* Action Buttons */}
         <div className={styles.actions}>
-          <Link href={`/templates/${template.slug}`} className={styles.actionBtn}>
-            <Button variant="outline" size="sm">
-              Inspect Specs
-            </Button>
-          </Link>
-          <Link href={`/demo/${template.slug}`} className={styles.actionBtn}>
-            <Button variant="primary" size="sm">
-              <Play size={14} />
-              <span>Live Demo</span>
-            </Button>
-          </Link>
+          <Button
+            href={`/templates/${template.slug}`}
+            variant="outline"
+            size="sm"
+            className={styles.actionBtn}
+            fullWidth
+          >
+            Inspect Specs
+          </Button>
+          <Button
+            href={`/demo/${template.slug}`}
+            variant="primary"
+            size="sm"
+            className={styles.actionBtn}
+            fullWidth
+          >
+            <Play size={14} />
+            <span>Live Demo</span>
+          </Button>
         </div>
       </div>
     </article>

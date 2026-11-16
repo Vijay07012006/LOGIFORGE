@@ -6,7 +6,7 @@ import { CompareMatrixClient } from './CompareMatrixClient';
 import styles from './compare.module.css';
 
 export const metadata: Metadata = {
-  title: 'Compare Logistics Website Templates | LOGIFORGE',
+  title: 'Compare Logistics Website Templates',
   description:
     'Side-by-side technical comparison of LOGIFORGE logistics website templates. Compare responsive architectures, bundle sizes, feature sets, and design tokens.',
   alternates: {

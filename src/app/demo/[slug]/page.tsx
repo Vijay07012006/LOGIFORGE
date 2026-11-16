@@ -450,7 +450,10 @@ function DemoStudioInner({ params }: DemoStudioProps) {
               <span className={styles.switcherLabel}>Active Sandbox:</span>
               <select
                 value={template.slug}
-                onChange={(e) => router.push(`/demo/${e.target.value}`)}
+                onChange={(e) => {
+                  const qs = searchParams.toString();
+                  router.push(`/demo/${e.target.value}${qs ? `?${qs}` : ''}`);
+                }}
                 className={styles.templateSelect}
                 aria-label="Switch active logistics template sandbox"
               >

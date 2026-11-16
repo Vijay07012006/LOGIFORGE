@@ -92,18 +92,14 @@ export default function HomePage() {
 
           {/* CTAs */}
           <div className={styles.heroActions}>
-            <Link href="/templates">
-              <Button variant="primary" size="lg" className={styles.mainCta}>
-                <Compass size={18} />
-                <span>Explore 10 Flagship Templates</span>
-              </Button>
-            </Link>
-            <Link href="/demo/cargo-nova">
-              <Button variant="secondary" size="lg">
-                <Play size={18} />
-                <span>Launch Live Demo Studio</span>
-              </Button>
-            </Link>
+            <Button href="/templates" variant="primary" size="lg" className={styles.mainCta}>
+              <Compass size={18} />
+              <span>Explore 10 Flagship Templates</span>
+            </Button>
+            <Button href="/demo/cargo-nova" variant="secondary" size="lg">
+              <Play size={18} />
+              <span>Launch Live Demo Studio</span>
+            </Button>
           </div>
 
           {/* Simulated Waybill Transit Ribbon */}
@@ -176,12 +172,10 @@ export default function HomePage() {
             title="Flagship Logistics Website Templates"
             subtitle="Explore our flagship website architectures. Each template includes responsive page layouts, interactive logistics widgets, and clean starter code."
             action={
-              <Link href="/templates">
-                <Button variant="outline" size="sm">
-                  <span>Browse All 10 Templates</span>
-                  <ArrowRight size={14} />
-                </Button>
-              </Link>
+              <Button href="/templates" variant="outline" size="sm">
+                <span>Browse All 10 Templates</span>
+                <ArrowRight size={14} />
+              </Button>
             }
           />
 
@@ -293,12 +287,10 @@ export default function HomePage() {
                     Seamless switching between desktop, tablet, and mobile presets with stateful waybill injection and zero-leakage token isolation.
                   </p>
                   <div className={styles.mediaCtaRow}>
-                    <Link href="/demo/cargo-nova">
-                      <Button variant="primary" size="sm">
-                        <Play size={14} />
-                        <span>Launch Demo Studio</span>
-                      </Button>
-                    </Link>
+                    <Button href="/demo/cargo-nova" variant="primary" size="sm">
+                      <Play size={14} />
+                      <span>Launch Demo Studio</span>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -510,17 +502,13 @@ export default function HomePage() {
               Explore all 10 flagship website templates, test interactive device sandboxes, and download production-grade starter code.
             </p>
             <div className={styles.ctaButtons}>
-              <Link href="/templates">
-                <Button variant="primary" size="lg">
-                  <Compass size={18} />
-                  <span>Browse Templates Catalog</span>
-                </Button>
-              </Link>
-              <Link href="/about">
-                <Button variant="secondary" size="lg">
-                  <span>Read Platform Architecture</span>
-                </Button>
-              </Link>
+              <Button href="/templates" variant="primary" size="lg">
+                <Compass size={18} />
+                <span>Browse Templates Catalog</span>
+              </Button>
+              <Button href="/about" variant="secondary" size="lg">
+                <span>Read Platform Architecture</span>
+              </Button>
             </div>
           </div>
         </Container>

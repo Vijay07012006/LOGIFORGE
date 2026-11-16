@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -45,6 +45,8 @@ export function CompareMatrixClient({ allTemplates }: CompareMatrixClientProps) 
   });
 
   const [isPickerOpen, setIsPickerOpen] = useState<boolean>(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
 
   // Sync state changes with URL query string
   const updateUrl = useCallback((slugs: string[]) => {
@@ -99,15 +101,50 @@ export function CompareMatrixClient({ allTemplates }: CompareMatrixClientProps) 
     return () => window.removeEventListener('popstate', handlePopState);
   }, [allTemplates]);
 
-  // Handle keyboard Escape for modal
+  // WAI-ARIA Focus Trap, Body Scroll Lock, Escape Listener & Focus Restoration for Modal
   useEffect(() => {
+    if (!isPickerOpen) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const focusTimer = setTimeout(() => {
+      closeBtnRef.current?.focus();
+    }, 30);
+
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape' && isPickerOpen) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
         setIsPickerOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
       }
     }
+
+    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+
+    return () => {
+      clearTimeout(focusTimer);
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+      previouslyFocused?.focus();
+    };
   }, [isPickerOpen]);
 
   // Resolved template models
@@ -568,10 +605,11 @@ export function CompareMatrixClient({ allTemplates }: CompareMatrixClientProps) 
           aria-modal="true"
           aria-label="Select template to compare"
         >
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div ref={modalRef} className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <h3 className={styles.modalTitle}>Select Template to Compare</h3>
               <button
+                ref={closeBtnRef}
                 onClick={() => setIsPickerOpen(false)}
                 className={styles.modalCloseBtn}
                 aria-label="Close dialog"

@@ -20,7 +20,8 @@
 
 .searchContainer {
   flex: 1;
-  max-width: 580px;
+  min-width: 280px;
+  max-width: 540px;
   width: 100%;
 }
 
@@ -131,11 +132,11 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 42px;
+  height: 48px;
   padding: 0 16px;
   background-color: var(--lf-bg-surface);
   border: 1px solid var(--lf-border-medium);
-  border-radius: var(--lf-radius-md);
+  border-radius: var(--lf-radius-pill);
   color: var(--lf-text-primary);
   font-family: var(--lf-font-sans);
   font-size: var(--lf-text-sm);
@@ -157,6 +158,22 @@
 }
 
 @media (min-width: 1024px) {
+  .controlsRow {
+    width: auto;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+  }
+
+  .filterControl {
+    flex: 0 0 auto;
+    width: 175px;
+  }
+
+  .sortControl {
+    flex: 0 0 auto;
+    width: 180px;
+  }
+
   .mobileFilterTrigger {
     display: none !important;
   }
@@ -188,20 +205,19 @@
   padding-bottom: var(--lf-space-2);
   border-bottom: 1px solid var(--lf-border-subtle);
   scrollbar-width: thin;
-  scrollbar-color: rgba(232, 89, 12, 0.4) rgba(20, 16, 12, 0.6);
+  scrollbar-color: rgba(140, 126, 112, 0.3) transparent;
 }
 
 .categoryPillsBar::-webkit-scrollbar {
-  height: 5px;
+  height: 4px;
 }
 
 .categoryPillsBar::-webkit-scrollbar-track {
-  background: rgba(13, 10, 8, 0.6);
-  border-radius: 4px;
+  background: transparent;
 }
 
 .categoryPillsBar::-webkit-scrollbar-thumb {
-  background: #3a2f26;
+  background: rgba(140, 126, 112, 0.25);
   border-radius: 4px;
 }
 

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { GuideModal, Guide } from '@/components/platform/GuideModal';
@@ -138,12 +137,10 @@ export default function ResourcesPage() {
               Every template includes a standalone React + Next.js + TypeScript starter bundle with clean component primitives and sample simulated logistics tracking.
             </p>
           </div>
-          <Link href="/templates">
-            <Button variant="primary" size="md">
-              <Compass size={16} />
-              <span>Explore Starters</span>
-            </Button>
-          </Link>
+          <Button href="/templates" variant="primary" size="md">
+            <Compass size={16} />
+            <span>Explore Starters</span>
+          </Button>
         </div>
       </div>
 

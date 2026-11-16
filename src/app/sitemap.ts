@@ -21,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${BASE_URL}/templates/compare`,
+      lastModified: new Date('2026-10-04'),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/resources`,
       lastModified: new Date('2026-09-29'),
       changeFrequency: 'monthly',

@@ -397,6 +397,7 @@
   display: flex;
 }
 
-.actionBtn button {
+.actionBtn button,
+.actionBtn a {
   width: 100%;
 }
