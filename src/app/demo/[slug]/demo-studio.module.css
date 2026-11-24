@@ -1,7 +1,7 @@
 .studio {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 64px);
+  height: calc(100dvh - var(--lf-header-height, 70px));
   background-color: #080605;
   overflow: hidden;
   position: relative;

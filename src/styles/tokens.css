@@ -75,6 +75,8 @@
   --lf-z-modal: 1000;
   --lf-z-toast: 2000;
 
+  --lf-header-height: 70px;
+
   /* Template-scoped defaults remain intentionally independent */
   --tmpl-bg: #090d16;
   --tmpl-surface: #0f172a;
@@ -86,4 +88,10 @@
   --tmpl-font-heading: Inter, sans-serif;
   --tmpl-font-body: Inter, sans-serif;
   --tmpl-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --lf-header-height: 64px;
+  }
 }

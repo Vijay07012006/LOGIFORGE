@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-11-24T11:09:32.876Z",
-  "sourceCommit": "86b711a",
+  "generatedAt": "2026-11-24T11:45:29.505Z",
+  "sourceCommit": "1872038",
   "packages": [
     {
       "slug": "cargo-nova",
@@ -10,10 +10,10 @@
       "version": "1.0.0",
       "packageFilename": "cargo-nova-v1.0.0.zip",
       "downloadUrl": "/downloads/cargo-nova-v1.0.0.zip",
-      "sizeBytes": 240445,
+      "sizeBytes": 240447,
       "sizeFormatted": "234.8 KB",
       "fileCount": 35,
-      "sha256": "d15c7312756caaa1f99a5663b53cf4111d203279fa0c7d0b8e1a7ce355ef5d49",
+      "sha256": "117a6f77b852b6c8cf3c9f37c074e984ba1de28eceb8c88a39d7c57c895ebb0b",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -24,10 +24,10 @@
       "version": "1.0.0",
       "packageFilename": "fleet-one-v1.0.0.zip",
       "downloadUrl": "/downloads/fleet-one-v1.0.0.zip",
-      "sizeBytes": 176035,
+      "sizeBytes": 176036,
       "sizeFormatted": "171.9 KB",
       "fileCount": 35,
-      "sha256": "03af73305fb2e9a91a11fda0e9e7a93049c8d3eadbc0fe986f196c8b767da78a",
+      "sha256": "b107fdaf3aa967ea19cf7fa4c930e84ae3aa39fe1459b6810db32d5506b6c414",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -38,10 +38,10 @@
       "version": "1.0.0",
       "packageFilename": "ship-flow-v1.0.0.zip",
       "downloadUrl": "/downloads/ship-flow-v1.0.0.zip",
-      "sizeBytes": 197735,
+      "sizeBytes": 197736,
       "sizeFormatted": "193.1 KB",
       "fileCount": 35,
-      "sha256": "4b66cecd965ba170d6a3495e6ea3998c04673c8f468f61ae77291f47c49f905b",
+      "sha256": "159cf74ffda1176e447e5683630d07da04194a5983e523a9ba1d930e23d8d0b0",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -52,10 +52,10 @@
       "version": "1.0.0",
       "packageFilename": "swift-drop-v1.0.0.zip",
       "downloadUrl": "/downloads/swift-drop-v1.0.0.zip",
-      "sizeBytes": 218870,
+      "sizeBytes": 218871,
       "sizeFormatted": "213.7 KB",
       "fileCount": 35,
-      "sha256": "b703ae359eba3793db2ec4e0926e5ab7311b109b211bd76ec1b3a8bebd523e12",
+      "sha256": "380174ae99c9fc462a9b23dadbb1147dc1f9a6d2141db2bea3c9975ceb2c4cb8",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -66,10 +66,10 @@
       "version": "1.0.0",
       "packageFilename": "port-axis-v1.0.0.zip",
       "downloadUrl": "/downloads/port-axis-v1.0.0.zip",
-      "sizeBytes": 281942,
+      "sizeBytes": 281943,
       "sizeFormatted": "275.3 KB",
       "fileCount": 35,
-      "sha256": "350b54b72f216dca91511b8719533c7639e15fa3339280dc1f9a7505585dd6b4",
+      "sha256": "a8f5063bc9465365caafe46732cf729f2a5d9f3bec37dfa2e1c38272743b7b05",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -83,7 +83,7 @@
       "sizeBytes": 210387,
       "sizeFormatted": "205.5 KB",
       "fileCount": 34,
-      "sha256": "f55edad4a58632a805973afc4b439321c404943935b9d86facb464f2134a963f",
+      "sha256": "a48f78724ef8bb6604ddc9b24886a785f7dfe8800f979fcf129474ba96e5a5ee",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -94,10 +94,10 @@
       "version": "1.0.0",
       "packageFilename": "warehouse-x-v1.0.0.zip",
       "downloadUrl": "/downloads/warehouse-x-v1.0.0.zip",
-      "sizeBytes": 347720,
+      "sizeBytes": 347721,
       "sizeFormatted": "339.6 KB",
       "fileCount": 34,
-      "sha256": "7d577e015f7f8d5bc5e4239880d44ce8c11f6dc26eeabad6b86b6e1db2a95944",
+      "sha256": "3eb110253e5de7db660544244bf1a2168eb764546802da40e739b470f4a7580f",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -111,7 +111,7 @@
       "sizeBytes": 244776,
       "sizeFormatted": "239.0 KB",
       "fileCount": 34,
-      "sha256": "66db99a34a56ab49adf6724ae503d8e5e72ef254f0d3e1f4575570afff784923",
+      "sha256": "d06bec36f3983992c2a58983fe1a80ae17172b5a8cfff749b964ac6e71c0030e",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -125,7 +125,7 @@
       "sizeBytes": 174486,
       "sizeFormatted": "170.4 KB",
       "fileCount": 34,
-      "sha256": "9d88bafe12f1d4901676a6ea36b52334ee23d90d4a5db43f6af42a745eca6041",
+      "sha256": "a4f7fe0befe90e42e5584316fa229e5ca2d45e39f2189908d53dff54afd3addd",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     },
@@ -139,7 +139,7 @@
       "sizeBytes": 178414,
       "sizeFormatted": "174.2 KB",
       "fileCount": 34,
-      "sha256": "5d8d92895db53ad3b1c2761b7fce7a534cd7f91736cec5f3d5f6105e21269cba",
+      "sha256": "89e5e990c8ef4469472cf710d8aa5528bf095fb1225fdbf8b847c185aa0f8815",
       "nodeRequirement": ">=20.0.0",
       "frameworkRequirement": "Next.js >=14.0.0 <16.0.0"
     }

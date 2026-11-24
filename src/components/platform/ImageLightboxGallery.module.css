@@ -343,6 +343,28 @@
   right: 20px;
 }
 
+@media (max-width: 640px) {
+  .navButton {
+    width: 38px;
+    height: 38px;
+  }
+  .navButtonPrev {
+    left: 8px;
+  }
+  .navButtonNext {
+    right: 8px;
+  }
+  .lightboxHeader {
+    padding: 10px 14px;
+  }
+  .lightboxTitle {
+    font-size: 13px;
+  }
+  .lightboxThumb {
+    flex: 0 0 76px;
+  }
+}
+
 .lightboxThumbBar {
   display: flex;
   gap: var(--lf-space-2);
@@ -350,6 +372,7 @@
   background: #14100c;
   border-top: 1px solid var(--lf-border-subtle);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lightboxThumb {

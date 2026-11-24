@@ -380,12 +380,13 @@
   padding-top: 4px;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 440px) {
   .content {
-    padding: 16px;
+    padding: 18px 16px;
   }
   .actions {
     flex-direction: column;
+    gap: 8px;
   }
   .actionBtn {
     width: 100%;
