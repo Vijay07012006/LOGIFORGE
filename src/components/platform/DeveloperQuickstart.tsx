@@ -1,7 +1,9 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import type { Template, TemplateProductMetadata } from '@/types/template';
 import { CopySnippetButton } from './CopySnippetButton';
-import { Terminal } from 'lucide-react';
+import { Terminal, Sparkles } from 'lucide-react';
 import styles from './DeveloperQuickstart.module.css';
 
 export interface DeveloperQuickstartProps {
@@ -9,22 +11,98 @@ export interface DeveloperQuickstartProps {
   product: TemplateProductMetadata;
 }
 
+type TabType = 'pnpm' | 'npm' | 'yarn' | 'bun' | 'cli';
+
+interface TabConfig {
+  id: TabType;
+  label: string;
+}
+
+const TABS: TabConfig[] = [
+  { id: 'cli', label: '⚡ npx CLI' },
+  { id: 'pnpm', label: 'pnpm' },
+  { id: 'npm', label: 'npm' },
+  { id: 'yarn', label: 'yarn' },
+  { id: 'bun', label: 'bun' },
+];
+
 export function DeveloperQuickstart({ template, product }: DeveloperQuickstartProps) {
+  const [activeTab, setActiveTab] = useState<TabType>('cli');
   const packageDir = `${template.slug}-starter`;
   const zipFile = product.packageUrl.split('/').pop() || `${template.slug}-v1.0.0.zip`;
 
-  const terminalCommands = `# 1. Extract the downloaded starter package
+  const getCommands = (tab: TabType): string => {
+    switch (tab) {
+      case 'cli':
+        return `# Scaffold ${template.name} immediately via the LogiForge interactive CLI
+npx logiforge init ${template.slug} --template-dir ./${packageDir}
+
+# Navigate to the newly scaffolded project
+cd ${packageDir}
+
+# Start local development server
+npm run dev`;
+
+      case 'pnpm':
+        return `# 1. Extract the downloaded starter package
 unzip ${zipFile} -d ${packageDir}
 cd ${packageDir}
 
-# 2. Install dependencies (Node.js ${product.requirements.node})
-npm install
+# 2. Install dependencies with pnpm
+pnpm install
 
 # 3. Start local development server
+pnpm dev
+
+# 4. Create optimized standalone production build
+pnpm build`;
+
+      case 'yarn':
+        return `# 1. Extract the downloaded starter package
+unzip ${zipFile} -d ${packageDir}
+cd ${packageDir}
+
+# 2. Install dependencies with Yarn Berry
+yarn install
+
+# 3. Start local development server
+yarn dev
+
+# 4. Create optimized standalone production build
+yarn build`;
+
+      case 'bun':
+        return `# 1. Extract the downloaded starter package
+unzip ${zipFile} -d ${packageDir}
+cd ${packageDir}
+
+# 2. Fast install with Bun
+bun install
+
+# 3. Start high-speed local dev server
+bun dev
+
+# 4. Create optimized standalone production build
+bun run build`;
+
+      case 'npm':
+      default:
+        return `# 1. Extract the downloaded starter package
+unzip ${zipFile} -d ${packageDir}
+cd ${packageDir}
+
+# 2. Install dependencies (Requires Node.js ${product.requirements.node})
+npm install
+
+# 3. Start local development server on port 3000
 npm run dev
 
-# 4. Create production build
+# 4. Create optimized standalone production build
 npm run build`;
+    }
+  };
+
+  const activeSnippet = getCommands(activeTab);
 
   return (
     <div className={styles.container}>
@@ -34,22 +112,44 @@ npm run build`;
             <Terminal size={18} />
           </div>
           <div>
-            <h2 className={styles.title}>Developer Quickstart</h2>
+            <div className={styles.titleRow}>
+              <h2 className={styles.title}>Developer Quickstart</h2>
+              <span className={styles.cliBadge}>
+                <Sparkles size={12} />
+                <span>One-Line Scaffold</span>
+              </span>
+            </div>
             <p className={styles.subtitle}>
-              Zero-to-development workflow for the standalone {template.name} starter package.
+              Instant zero-to-development setup for the standalone {template.name} starter architecture.
             </p>
           </div>
         </div>
 
         <div className={styles.headerRight}>
           <CopySnippetButton
-            text={terminalCommands}
-            label="Copy Terminal Commands"
+            text={activeSnippet}
+            label={`Copy ${activeTab === 'cli' ? 'CLI Command' : activeTab.toUpperCase() + ' Commands'}`}
             copiedLabel="Commands Copied!"
             variant="button"
             ariaLabel={`Copy quickstart shell commands for ${template.name}`}
           />
         </div>
+      </div>
+
+      {/* Package Manager / Tool Selector Tabs */}
+      <div className={styles.tabBar} role="tablist" aria-label="Package Manager Tabs">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            className={`${styles.tabButton} ${activeTab === tab.id ? styles.tabButtonActive : ''}`}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
       <div className={styles.terminalWindow}>
@@ -59,21 +159,11 @@ npm run build`;
             <span className={`${styles.dot} ${styles.dotYellow}`} />
             <span className={`${styles.dot} ${styles.dotGreen}`} />
           </div>
-          <span className={styles.terminalTitle}>bash — 80×24</span>
+          <span className={styles.terminalTitle}>bash — {activeTab} quickstart</span>
         </div>
 
         <pre className={styles.codeBlock}>
-          <code>
-            <span className={styles.comment}># 1. Extract the downloaded starter package</span>{'\n'}
-            <span className={styles.command}>unzip</span> {zipFile} <span className={styles.flag}>-d</span> {packageDir}{'\n'}
-            <span className={styles.command}>cd</span> {packageDir}{'\n\n'}
-            <span className={styles.comment}># 2. Install dependencies (Requires Node.js {product.requirements.node})</span>{'\n'}
-            <span className={styles.command}>npm</span> install{'\n\n'}
-            <span className={styles.comment}># 3. Start local development server on port 3000</span>{'\n'}
-            <span className={styles.command}>npm</span> run dev{'\n\n'}
-            <span className={styles.comment}># 4. Create optimized standalone production build</span>{'\n'}
-            <span className={styles.command}>npm</span> run build
-          </code>
+          <code>{activeSnippet}</code>
         </pre>
       </div>
 
@@ -81,7 +171,7 @@ npm run build`;
         <div className={styles.stepCard}>
           <div className={styles.stepNum}>01</div>
           <h3 className={styles.stepTitle}>Node.js Engine</h3>
-          <p className={styles.stepDesc}>Requires Node.js {product.requirements.node} and npm {product.requirements.npm}. Strictly pre-configured for modern ESM.</p>
+          <p className={styles.stepDesc}>Requires Node.js {product.requirements.node} and modern ESM tooling. Validated with npm, pnpm, yarn, and bun.</p>
         </div>
         <div className={styles.stepCard}>
           <div className={styles.stepNum}>02</div>
@@ -90,8 +180,8 @@ npm run build`;
         </div>
         <div className={styles.stepCard}>
           <div className={styles.stepNum}>03</div>
-          <h3 className={styles.stepTitle}>Next.js App Router</h3>
-          <p className={styles.stepDesc}>Pure React 19 / Next.js 15 architecture. Pre-configured with Tailwind CSS, TypeScript strict, and ESLint.</p>
+          <h3 className={styles.stepTitle}>Next.js 15 App Router</h3>
+          <p className={styles.stepDesc}>Pure React 19 architecture. Pre-configured with typed route contracts, Tailwind CSS, TypeScript strict, and ESLint.</p>
         </div>
       </div>
     </div>

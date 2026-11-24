@@ -24,9 +24,11 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/cargo-nova/preview.webp',
     thumbnailImage: '/images/templates/cargo-nova/thumbnail.webp',
     galleryImages: [
+      '/images/templates/cargo-nova/screen-operations.webp',
+      '/images/templates/cargo-nova/screen-analytics.webp',
+      '/images/templates/cargo-nova/screen-mobile.webp',
       '/images/templates/cargo-nova/screen-tracking.webp',
       '/images/templates/cargo-nova/screen-services.webp',
-      '/images/cargonova/cargonova-hero.webp',
     ],
     theme: {
       id: 'cargonova-theme',
@@ -202,8 +204,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/fleet-one/preview.webp',
     thumbnailImage: '/images/templates/fleet-one/thumbnail.webp',
     galleryImages: [
+      '/images/templates/fleet-one/screen-operations.webp',
+      '/images/templates/fleet-one/screen-analytics.webp',
+      '/images/templates/fleet-one/screen-mobile.webp',
       '/images/templates/fleet-one/screen-telematics.webp',
-      '/images/fleetone/fleetone-hero.webp',
     ],
     theme: {
       id: 'fleetone-theme',
@@ -351,8 +355,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/ship-flow/preview.webp',
     thumbnailImage: '/images/templates/ship-flow/thumbnail.webp',
     galleryImages: [
+      '/images/templates/ship-flow/screen-operations.webp',
+      '/images/templates/ship-flow/screen-analytics.webp',
+      '/images/templates/ship-flow/screen-mobile.webp',
       '/images/templates/ship-flow/screen-vessels.webp',
-      '/images/shipflow/shipflow-hero.webp',
     ],
     theme: {
       id: 'shipflow-theme',
@@ -500,8 +506,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/swift-drop/preview.webp',
     thumbnailImage: '/images/templates/swift-drop/thumbnail.webp',
     galleryImages: [
+      '/images/templates/swift-drop/screen-operations.webp',
+      '/images/templates/swift-drop/screen-analytics.webp',
+      '/images/templates/swift-drop/screen-mobile.webp',
       '/images/templates/swift-drop/screen-calculator.webp',
-      '/images/swiftdrop/swiftdrop-hero.webp',
     ],
     theme: {
       id: 'swiftdrop-theme',
@@ -649,8 +657,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/port-axis/preview.webp',
     thumbnailImage: '/images/templates/port-axis/thumbnail.webp',
     galleryImages: [
+      '/images/templates/port-axis/screen-operations.webp',
+      '/images/templates/port-axis/screen-analytics.webp',
+      '/images/templates/port-axis/screen-mobile.webp',
       '/images/templates/port-axis/screen-tracking.webp',
-      '/images/portaxis/portaxis-hero.webp',
     ],
     theme: {
       id: 'portaxis-theme',
@@ -791,8 +801,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/aero-cargo/preview.webp',
     thumbnailImage: '/images/templates/aero-cargo/thumbnail.webp',
     galleryImages: [
+      '/images/templates/aero-cargo/screen-operations.webp',
+      '/images/templates/aero-cargo/screen-analytics.webp',
+      '/images/templates/aero-cargo/screen-mobile.webp',
       '/images/templates/aero-cargo/screen-tracking.webp',
-      '/images/aerocargo/aerocargo-hero.webp',
     ],
     theme: {
       id: 'aerocargo-theme',
@@ -932,8 +944,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/warehouse-x/preview.webp',
     thumbnailImage: '/images/templates/warehouse-x/thumbnail.webp',
     galleryImages: [
+      '/images/templates/warehouse-x/screen-operations.webp',
+      '/images/templates/warehouse-x/screen-analytics.webp',
+      '/images/templates/warehouse-x/screen-mobile.webp',
       '/images/templates/warehouse-x/screen-tracking.webp',
-      '/images/warehousex/warehousex-hero.webp',
     ],
     theme: {
       id: 'warehousex-theme',
@@ -1073,8 +1087,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/supply-core/preview.webp',
     thumbnailImage: '/images/templates/supply-core/thumbnail.webp',
     galleryImages: [
+      '/images/templates/supply-core/screen-operations.webp',
+      '/images/templates/supply-core/screen-analytics.webp',
+      '/images/templates/supply-core/screen-mobile.webp',
       '/images/templates/supply-core/screen-tracking.webp',
-      '/images/supplycore/supplycore-hero.webp',
     ],
     theme: {
       id: 'supplycore-theme',
@@ -1214,8 +1230,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/route-iq/preview.webp',
     thumbnailImage: '/images/templates/route-iq/thumbnail.webp',
     galleryImages: [
+      '/images/templates/route-iq/screen-operations.webp',
+      '/images/templates/route-iq/screen-analytics.webp',
+      '/images/templates/route-iq/screen-mobile.webp',
       '/images/templates/route-iq/screen-tracking.webp',
-      '/images/routeiq/routeiq-hero.webp',
     ],
     theme: {
       id: 'routeiq-theme',
@@ -1355,8 +1373,10 @@ export const TEMPLATE_MANIFESTS: Template[] = [
     previewImage: '/images/templates/move-sphere/preview.webp',
     thumbnailImage: '/images/templates/move-sphere/thumbnail.webp',
     galleryImages: [
+      '/images/templates/move-sphere/screen-operations.webp',
+      '/images/templates/move-sphere/screen-analytics.webp',
+      '/images/templates/move-sphere/screen-mobile.webp',
       '/images/templates/move-sphere/screen-tracking.webp',
-      '/images/movesphere/movesphere-hero.webp',
     ],
     theme: {
       id: 'movesphere-theme',

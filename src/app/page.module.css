@@ -602,6 +602,12 @@
   margin-top: 2px;
 }
 
+.roiSection {
+  padding: clamp(64px, 8vw, 96px) 0;
+  background: #090705;
+  border-top: 1px solid var(--lf-border-subtle);
+}
+
 /* =========================================================================
  * 5. CURATED COLLECTIONS
  * ========================================================================= */
@@ -613,7 +619,7 @@
 .collectionsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 22px;
+  gap: 24px;
 }
 
 @media (min-width: 640px) {
@@ -626,10 +632,10 @@
   background: var(--lf-card-gradient);
   border: 1px solid var(--lf-border-subtle);
   border-radius: var(--lf-radius-card);
-  padding: 28px;
+  padding: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   box-shadow: var(--lf-shadow-sm);
   transition: transform var(--lf-transition-fast), box-shadow var(--lf-transition-fast), border-color var(--lf-transition-fast);
 }
@@ -638,6 +644,48 @@
   transform: translateY(-5px);
   border-color: rgba(232, 89, 12, 0.4);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+}
+
+.colCoverWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #14100c;
+  overflow: hidden;
+}
+
+.colCoverImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--lf-transition-normal);
+}
+
+.collectionCard:hover .colCoverImg {
+  transform: scale(1.05);
+}
+
+.colCoverGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 10, 8, 0.1) 0%, rgba(13, 10, 8, 0.8) 100%);
+  pointer-events: none;
+}
+
+.colCoverBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+}
+
+.colContent {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
 }
 
 .colHeader {

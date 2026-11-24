@@ -19,6 +19,7 @@ import { PackageSpecsCard } from '@/components/platform/PackageSpecsCard';
 import { CommercialScopeCard } from '@/components/platform/CommercialScopeCard';
 import { DeveloperQuickstart } from '@/components/platform/DeveloperQuickstart';
 import { DocumentationOverview } from '@/components/platform/DocumentationOverview';
+import { ImageLightboxGallery } from '@/components/platform/ImageLightboxGallery';
 import { TemplateCard } from '@/components/platform/TemplateCard';
 import { SITE_URL } from '@/lib/utils';
 import styles from './template-detail.module.css';
@@ -136,10 +137,6 @@ export default async function TemplateDetailPage({ params }: PageProps) {
     ],
   };
 
-  const secondaryGallery = Array.from(
-    new Set((template.galleryImages ?? []).filter((img) => img !== template.previewImage))
-  );
-
   return (
     <div className={styles.page}>
       <script type="application/ld+json">{JSON.stringify(softwareJsonLd)}</script>
@@ -192,45 +189,12 @@ export default async function TemplateDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Template Media Architecture Preview */}
-        <div className={styles.mediaPreviewPanel}>
-          <div className={styles.mediaFrame}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={template.previewImage}
-              alt={`${template.name} Architecture Preview`}
-              width={1600}
-              height={900}
-              fetchPriority="high"
-              decoding="async"
-              className={styles.mediaMainImg}
-            />
-            <div className={styles.mediaBadgeOverlay}>
-              <Badge variant="primary" size="sm">
-                Production Preview
-              </Badge>
-              <span className={styles.mediaDimBadge}>1600 × 900 High-DPI</span>
-            </div>
-          </div>
-          {secondaryGallery.length > 0 && (
-            <div className={styles.galleryStrip}>
-              {secondaryGallery.slice(0, 3).map((imgUrl, idx) => (
-                <div key={imgUrl} className={styles.galleryItem}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={imgUrl}
-                    alt={`${template.name} Supplementary Architecture View ${idx + 1}`}
-                    width={600}
-                    height={338}
-                    className={styles.galleryImg}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Template Media Architecture Preview with Interactive Lightbox */}
+        <ImageLightboxGallery
+          templateName={template.name}
+          previewImage={template.previewImage}
+          galleryImages={template.galleryImages ?? []}
+        />
 
         {/* Technical Specifications Grid */}
         <div className={styles.grid}>

@@ -8,6 +8,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { TemplateCard } from '@/components/platform/TemplateCard';
+import { RoiCalculator } from '@/components/platform/RoiCalculator';
 import {
   Compass,
   Play,
@@ -456,6 +457,15 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
+       * 5B. INTERACTIVE ROI & VELOCITY CALCULATOR
+       * ========================================================================= */}
+      <section className={styles.roiSection}>
+        <Container size="lg">
+          <RoiCalculator />
+        </Container>
+      </section>
+
+      {/* =========================================================================
        * 6. CURATED COLLECTIONS SHOWCASE
        * ========================================================================= */}
       <section className={styles.collectionsSection}>
@@ -469,20 +479,38 @@ export default function HomePage() {
           <div className={styles.collectionsGrid}>
             {collections.map((col) => (
               <div key={col.id} className={styles.collectionCard}>
-                <div className={styles.colHeader}>
-                  <Badge variant="primary" size="sm">
-                    {col.curator}
-                  </Badge>
-                  <span className={styles.colCount}>{col.featuredTemplateSlugs.length} Templates</span>
+                <div className={styles.colCoverWrapper}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={col.coverImage}
+                    alt={col.title}
+                    width={800}
+                    height={450}
+                    className={styles.colCoverImg}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className={styles.colCoverGradient} />
+                  <div className={styles.colCoverBadge}>
+                    <Badge variant="primary" size="sm">
+                      {col.curator}
+                    </Badge>
+                  </div>
                 </div>
-                <h3 className={styles.colTitle}>{col.title}</h3>
-                <p className={styles.colSubtitle}>{col.subtitle}</p>
-                <p className={styles.colDesc}>{col.description}</p>
-                <div className={styles.colFooter}>
-                  <Link href={`/templates?collection=${col.slug}`} className={styles.colLink}>
-                    <span>View Collection Templates</span>
-                    <ArrowRight size={14} />
-                  </Link>
+
+                <div className={styles.colContent}>
+                  <div className={styles.colHeader}>
+                    <span className={styles.colCount}>{col.featuredTemplateSlugs.length} Templates Included</span>
+                  </div>
+                  <h3 className={styles.colTitle}>{col.title}</h3>
+                  <p className={styles.colSubtitle}>{col.subtitle}</p>
+                  <p className={styles.colDesc}>{col.description}</p>
+                  <div className={styles.colFooter}>
+                    <Link href={`/templates?collection=${col.slug}`} className={styles.colLink}>
+                      <span>View Collection Suite</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
